@@ -1,4 +1,4 @@
 package com.neuedu.controller;
 
-public class AdminClassHandler {
+public class AdminCourseHandler {
 }
