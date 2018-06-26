@@ -32,7 +32,15 @@
         <!--</mvc:interceptor>-->
     <!--</mvc:interceptors>-->
 
+    <!--配置静态资源（除了控制器和jsp以外的）为了能够在spring下找到html和css文件-->
+    <mvc:default-servlet-handler/>
 
+    <!--配置文件上传(二进制文件)-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize">
+            <value>5242880</value>
+        </property>
+    </bean>
 
 </beans>
 

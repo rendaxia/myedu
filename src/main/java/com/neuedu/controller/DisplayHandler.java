@@ -42,6 +42,7 @@ public class DisplayHandler {
     @RequestMapping(value="DisplayHandler_getAllTeacher")
     @ResponseBody
     public ArrayList<Teacher> getAllTeacher(HttpServletRequest request){
+        System.out.println("******************DisplayHandler_getAllTeacher*********************");
         ArrayList<Teacher> list=null;
         list=displayService.getAllTeacher();
         return list;

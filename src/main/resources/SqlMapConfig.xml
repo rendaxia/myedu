@@ -16,5 +16,9 @@
 	</environments>
 	<mappers>
 		<mapper resource="com/neuedu/mapper/SorderMapper.xml" />
+		<!--<mapper resource="com/neuedu/mapper/ClassMapper.xml" />-->
+		<mapper resource="com/neuedu/mapper/CompanyMapper.xml" />
+		<mapper resource="com/neuedu/mapper/FreelistenbookMapper.xml" />
+		<mapper resource="com/neuedu/mapper/MessageMapper.xml" />
 	</mappers>
 </configuration>

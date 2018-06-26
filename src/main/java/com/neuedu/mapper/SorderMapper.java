@@ -18,9 +18,9 @@ public interface SorderMapper {
     //将课程添加至购物车（待付款）
     public boolean addToCart(Sorder s)throws Exception;
 
-    public boolean paySorder(int lid, int openid,int actual)throws Exception;//付款
+    public boolean paySorder(int lid, String openid,double actual)throws Exception;//付款
 
-    public boolean refundSorder(int lid, int openid) throws Exception;//申请退款
+    public boolean refundSorder(int lid, String openid) throws Exception;//申请退款
 
     ArrayList<Sorder> getAllSorderByCondition(String openid, String status);
 

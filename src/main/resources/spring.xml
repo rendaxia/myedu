@@ -62,7 +62,7 @@
     <!-- 通过aop切面来控制事务 -->
     <!-- pointcut:织入点语法 -->
     <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neuedu.service.impl.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.neuedu.service.*.*(..))"/>
     </aop:config>
 
 </beans>
