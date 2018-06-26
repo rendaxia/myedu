@@ -1,10 +1,30 @@
 package com.neuedu.po;
 
+import java.util.ArrayList;
+
 public class Message {
     private int mid;
     private String mtitle;
     private String mtime;
     private int qid;
+    private ArrayList<Messageimg> img;
+    private ArrayList<Messagelike> like;
+
+    public void setImg(ArrayList<Messageimg> img) {
+        this.img = img;
+    }
+
+    public void setLike(ArrayList<Messagelike> like) {
+        this.like = like;
+    }
+
+    public ArrayList<Messageimg> getImg() {
+        return img;
+    }
+
+    public ArrayList<Messagelike> getLike() {
+        return like;
+    }
 
     public int getMid() {
         return mid;
