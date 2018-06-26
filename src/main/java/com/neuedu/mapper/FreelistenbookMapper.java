@@ -8,5 +8,5 @@ public interface FreelistenbookMapper {
     public ArrayList<Freelistenbook> getFreelistenbook() throws Exception;
 
     //////////////////////////////////////////////////////////
-    
+
 }
