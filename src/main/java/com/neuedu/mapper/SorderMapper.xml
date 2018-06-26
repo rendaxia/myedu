@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.mapper.SorderMapper">
+
+    <select id="getSorder" resultType="com.neuedu.po.Sorder">
+        select * from sorder where openid = #{openid}
+    </select>
+
+    <select id="getRefundingSorder" resultType="com.neuedu.po.Sorder">
+        select * from sorder where openid = #{openid} and status = '退款中'
+    </select>
+
+    <select id="getRefundedSorder" resultType="com.neuedu.po.Sorder">
+        select * from sorder where status = '已退款' and openid = #{openid}
+    </select>
+
+    <select id="getUsedSorder" resultType="com.neuedu.po.Sorder">
+        select * from sorder where status = '已使用' and openid = #{openid}
+    </select>
+
+    <insert id="addToCart" parameterType="com.neuedu.po.Sorder">
+        insert into sorder values (NULL,#{lid},#{openid},#{total},0,0,'已付款',NOW(),1,0,#{nickname},#{tel})
+    </insert>
+
+    <update id="paySorder" parameterType="com.neuedu.po.Sorder">
+        update sorder set actual = #{s.actual} where lid = #{s.lid} and openid = #{s.openid}
+    </update>
+
+    <update id="refundSorder" parameterType="com.neuedu.po.Sorder">
+        update sorder set status = '退款中' where lid = #{s.lid} and openid = #{s.openid}
+    </update>
+
+</mapper>
