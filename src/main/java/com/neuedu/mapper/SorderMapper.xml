@@ -4,9 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.mapper.SorderMapper">
 
+    <!--rty-->
     <select id="getSorder" resultType="com.neuedu.po.Sorder">
         select * from sorder where openid = #{openid}
     </select>
+
 
     <select id="getRefundingSorder" resultType="com.neuedu.po.Sorder">
         select * from sorder where openid = #{openid} and status = '退款中'
@@ -33,5 +35,8 @@
     </update>
     <!--///////////////////////////////////////////////////////////// -->
     <!--///////////////////////////////////////////////////////////// -->
+
+    <!-- ////////////////////////////////////////////////////////////////////// -->
+    <!-- ////////////////////////////////////////////////////////////////////// -->
 
 </mapper>
