@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.mapper.FreelistenbookMapper">
+    <select id="getFreelistenbook" parameterType="java.lang.String" resultType="com.neuedu.po.Freelistenbook">
+        select * from freelistenbook where openid = #{openid}
+    </select>
+
+    <insert id="addFreelistenbook" parameterType="com.neuedu.po.Freelistenbook">
+        insert into freelistenbook values (NULL,#{fid},#{username},#{tel},NOW(),0,'已付款',NOW(),'待处理',#{comment},#{openid})
+    </insert>
+
+    <delete id="cancelFreelistenbook" parameterType="java.lang.String">
+        delete from freelistenbook where openid = #{openid}
+    </delete>
+    <!--///////////////////////////////////////////////////////////// -->
+    <!--///////////////////////////////////////////////////////////// -->
+
+</mapper>

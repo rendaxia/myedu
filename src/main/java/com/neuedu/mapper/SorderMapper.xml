@@ -31,5 +31,7 @@
     <update id="refundSorder" parameterType="com.neuedu.po.Sorder">
         update sorder set status = '退款中' where lid = #{s.lid} and openid = #{s.openid}
     </update>
+    <!--///////////////////////////////////////////////////////////// -->
+    <!--///////////////////////////////////////////////////////////// -->
 
 </mapper>
