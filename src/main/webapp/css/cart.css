@@ -1,0 +1,28 @@
+#products{
+	background-color: rgba(244,245,247,0.8);
+}
+
+#products div{
+	width:90%;
+	height:130px;
+	/*border:1px solid;*/
+	margin-left:5%;
+	margin-bottom:15px;
+	border-radius:5px;
+	background-color: white;
+	box-shadow: 0px 0px 2px #999999;
+}
+
+#products div img{
+	border-radius:5px;
+	margin-top:10px;
+	margin-left:2%;
+	width:44%;
+	float:left;
+}
+
+#products div div{
+	box-shadow: none;;
+	float:right;
+	width:49%;
+}

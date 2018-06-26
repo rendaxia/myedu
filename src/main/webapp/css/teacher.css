@@ -1,0 +1,33 @@
+.teacher div{
+	width:94%;
+	margin-left:2.5%;
+	margin-top:10px;
+	/*border:1px solid;*/
+	height: 160px;
+	display:block;
+}
+
+.teacher img{
+	width:30%;
+	height: 55%;
+	border-radius: 50%;
+	
+}
+
+.teacher div div{
+	margin:0;
+	width:62%;
+	float:right;
+}
+
+.teacher div div h5{
+	line-height: 20px;
+	display: inline;
+	color:black;
+}
+
+.teacher div h4{
+	font-size: small;
+	font-weight: 400;
+	margin-left:17px;
+}

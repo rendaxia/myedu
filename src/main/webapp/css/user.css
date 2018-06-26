@@ -1,0 +1,42 @@
+hr{
+	margin-left:10px;
+	margin-right:10px;
+	margin-top:5px;
+	height:1px;
+	border:none;
+	border-top:1px solid #DDDDDD;
+}
+
+#profile{
+	margin-top: 10px;
+	/*border:1px solid;*/
+}
+
+#profile div{
+	margin-left: 35%;
+}
+
+#profile h5{
+	margin-left: 32%;
+}
+
+
+#photo img{
+	width:40%;
+	border-radius:50%;
+	/*border:1px solid;*/
+}
+
+#my_content{
+	margin-top:10px;
+}
+ 
+#my_content ul li{
+	margin-left: 10px;
+	display: block;
+	line-height: 80px;
+	height: 55px;
+	color:gray;
+	font-size: 90%;
+	/*border:1px solid;*/
+}

@@ -1,0 +1,70 @@
+#enterprise_model{
+	width:100%;
+	height:85px;
+	/*border:1px solid;*/
+}
+
+#enterprise_model ul li{
+	display: inline-block;
+	width:25%;
+	height:inherit;
+	/*border:1px solid;*/
+	margin-left:5%;
+	
+}
+
+#enterprise_model ul li i{
+	margin-top:10px;
+	margin-bottom:10px;
+	margin-left: 30px;
+	font-size: 170%;
+}
+
+#enterprise_model ul li h5{
+	margin-left: 17px;
+	color:black;
+}
+
+#introduction .description{
+	width:100%;
+	/*height:300px;
+	border: 1px solid;*/
+}
+
+
+#introduction h5{
+	font-size:110%;
+	margin: 15px;
+	color:black;
+	line-height: 25px;
+}
+
+
+
+#connector{
+	display: none;
+}
+
+#connector h5{
+	margin: 30px;
+}
+
+#address ul li{
+	/*border:1px solid;*/
+	display: block;
+	height:30px;
+	width:100%;
+}
+
+#address ul li h5{
+	margin-left:5%;
+	margin-top:30px;
+}
+
+#address ul hr{
+	margin-left:5%;
+	width:85%;
+	height:1px;
+	border:none;
+	border-top:1px solid #555555;
+}

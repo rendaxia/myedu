@@ -1,0 +1,96 @@
+#close{
+	width: 100%;
+	height:40px;
+	box-shadow: 0px 0px 2px #ACACB4;
+	/*border:1px solid;*/
+}
+
+#close i{
+	font-size: 140%;
+	margin-top: 6px;
+	margin-left: 10px;
+	color:gray;
+}
+
+#concrete_course{
+	margin-top:10px;
+	width: 100%;
+	height:500px;
+	/*border:1px solid;*/
+}
+
+#concrete_course .icon{
+	border-radius:10px;
+	margin:5px;
+	width:20%;
+	height:25px;
+	background-color: #DD524D;
+}
+
+#concrete_course .icon h5{
+	color:white;
+	margin-left:20%;
+    position: relative;
+	top:2px;
+}
+
+#concrete_course .header h4,h5{
+	line-height: 22px;
+	margin-left:4px;
+}
+
+#concrete_course .header h4{
+	font-weight: 400;
+}
+
+#concrete_course img{
+	width:97.5%;
+	margin-left:4px;
+	border-radius: 5px;
+}
+
+#shopping_bottom{
+	/*display: inline-block;*/
+	width:100%;
+	height:60px;
+	/*border:1px solid;*/
+	bottom:0;
+	position:fixed;
+	box-shadow: 0px 0px 2px #ACACB4;
+	background-color: white;
+}
+
+#shopping_bottom #cart{
+	/*display: inline-block;*/
+	width:15%;
+	margin-left: 23px;
+	color:gray;
+	/*border:1px solid;*/
+	margin-top: 9px;
+	height:50px;
+	float:left;
+}
+
+#shopping_bottom #cart i{
+	font-size: 130%;
+}
+
+#shopping_bottom #shopping_bottom_btn{
+	/*display: inline-block;*/
+	width:70%;
+	height:40px;
+	/*border:1px solid;*/
+	margin-top:9px;
+	margin-right:20px;
+	border-radius: 20px;
+	float:right;
+	background-color: #DD524D;
+	box-shadow: 0px 0px 1px #323232;
+}
+
+#shopping_bottom #shopping_bottom_btn h5{
+	margin-left: 35%;
+	margin-top: 10px;
+	color: white;
+	
+}

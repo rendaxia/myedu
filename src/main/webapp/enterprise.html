@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+	<link href="css/mui.min.css" rel="stylesheet"/>
+	<link href="css/main.css" rel="stylesheet"/>
+	<link href="css/enterprise.css" rel="stylesheet"/>
+	<link href="css/swiper.min.css" rel="stylesheet"/>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/swiper.min.js"></script>
+	<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+</head>
+<body onload="init()">
+	<div id="search">
+		<i class="fa fa-comment"></i>
+		<div class="mui-input-row mui-search" id="searchForm">
+			<input type="search" id="searchInput" class="mui-input-clear" placeholder="大数据 &nbsp &nbsp  java &nbsp &nbsp css">
+		</div>
+		<i class="fa fa-cart-arrow-down" style="left:-15px; top:5px;"></i>
+	</div>
+	<div id="top">
+			
+		<div class="top_icon">
+			<h5><a href="main.html">推荐</a></h5>
+		</div>
+		<div class="top_icon">
+			<h5><a href="teacher.html">师资</a></h5>
+		</div>
+		<div class="top_icon">
+			<h5><a href="enterprise.html">企业</a></h5>
+		</div>
+		<div class="top_icon">
+			<h5><a href="course.html">课程</a></h5>
+		</div>
+	</div>
+	
+	<div id="enterprise_model">
+		<ul>
+			<li><i class="fa fa-black-tie"></i><br><h5>企业介绍</h5></li>
+			<li><i class="fa fa-building"></i><br><h5>学校地点</h5></li>
+			<li><i class="fa fa-phone"></i><br><h5>联系我们</h5></li>
+		</ul>
+	</div>
+	
+	<hr>
+	
+	<div style="display:none" id="introduction">
+		<div class="swiper-container"> 
+			<div class="swiper-wrapper">  
+				<div class="swiper-slide"><img src="img/1.jpg"></div>  
+				<div class="swiper-slide"><img src="img/2.jpg"></div>  
+				<div class="swiper-slide"><img src="img/1.jpg"></div>  
+			</div>    
+			<div class="swiper-pagination"></div>
+		</div> 
+		
+		<div  class="description">
+			<h5>东软简介:</h5>
+			<h5 style="font-size:90%;">基于github App 业务深度讲解kotlin1.2高级特性与框架设计</h5>
+		</div>
+	</div>
+	
+	
+	<div id="address">
+		<!--<div style="height:20px"></div>-->
+		<!--<div>
+        <input id="keyword" type="textbox" value="酒店">
+        <input type="button" value="搜索" onclick="searchKeyword()">
+    </div>-->
+    <div style="width:100%;height:300px;" id="container"></div>
+    <!--<div style='width: 500px; height: 180px' id="infoDiv"></div>-->
+		<ul>
+			<li><h5>分校1</h5></li>
+			<hr >
+			<li><h5>分校2</h5></li>
+			<hr >
+			<li><h5>分校3</h5></li>
+			<hr >
+			<li><h5>分校4</h5></li>
+		</ul>
+	</div>
+	
+	
+	<div id="connector">
+		<h5>联系电话:</h5>
+		<h5>邮箱:</h5>
+	</div>
+	
+	<div id="auto_place"></div>
+	
+	<div id="bottom">
+		<div class="bottom_icon">
+			<i class="fa fa-home"></i>
+			<h6><a href="main.html">首页</a></h6>
+		</div>
+		<div class="bottom_icon">
+			<i class="fa fa-cart-arrow-down"></i>
+			<h6><a href="cart.html">购物车</a></h6>
+		</div>
+		<div class="bottom_icon" style="bottom:10px;position:relative">
+			<i class="fa fa-paper-plane"></i>
+		</div>
+		<div class="bottom_icon">
+			<i class="fa fa-star"></i>
+			<h6><a href="friend.html">朋友圈</a></h6>
+		</div>
+		<div class="bottom_icon">
+			<i class="fa fa-child"></i>
+			<h6><a href="user.html">我的</a></h6>
+		</div>
+		
+	</div>
+
+<script>
+        var searchService, markers = [];
+        var init = function() {
+            var center = new qq.maps.LatLng(39.916527, 116.397128);
+            var map = new qq.maps.Map(document.getElementById('container'), {
+                center: center,
+                zoom: 13
+            });
+
+            var latlngBounds = new qq.maps.LatLngBounds();
+            //设置Poi检索服务，用于本地检索、周边检索
+            searchService = new qq.maps.SearchService({
+                //设置搜索范围为北京
+                location: "北京",
+                //设置搜索页码为1
+                pageIndex: 1,
+                //设置每页的结果数为5
+                pageCapacity: 5,
+                //设置展现查询结构到infoDIV上
+                panel: document.getElementById('infoDiv'),
+                //设置动扩大检索区域。默认值true，会自动检索指定城市以外区域。
+                autoExtend: true,
+                //检索成功的回调函数
+                complete: function(results) {
+                    //设置回调函数参数
+                    var pois = results.detail.pois;
+                    for (var i = 0, l = pois.length; i < l; i++) {
+                        var poi = pois[i];
+                        //扩展边界范围，用来包含搜索到的Poi点
+                        latlngBounds.extend(poi.latLng);
+                        var marker = new qq.maps.Marker({
+                            map: map,
+                            position: poi.latLng
+                        });
+
+                        marker.setTitle(i + 1);
+
+                        markers.push(marker);
+
+                    }
+                    //调整地图视野
+                    map.fitBounds(latlngBounds);
+                },
+                //若服务请求失败，则运行以下函数
+                error: function() {
+                    alert("出错了。");
+                }
+            });
+
+        }
+
+         //清除地图上的marker
+            function clearOverlays(overlays) {
+                var overlay;
+                while (overlay = overlays.pop()) {
+                    overlay.setMap(null);
+                }
+            }
+            //设置搜索的范围和关键字等属性
+            function searchKeyword() {
+                var keyword = document.getElementById("keyword").value;
+                clearOverlays(markers);
+                //根据输入的城市设置搜索范围
+                // searchService.setLocation("北京");
+                //根据输入的关键字在搜索范围内检索
+                searchService.search(keyword);
+            }
+    </script>
+	
+<script>        
+		var mySwiper = new Swiper ('.swiper-container', {
+			direction: 'horizontal',
+			loop: true,
+			autoplay:{
+				stopOnLastSlide:false,
+			},
+            slidesPerView: "auto",
+            centeredSlides:true,
+            spaceBetween: 10,
+			pagination: {
+              el: '.swiper-pagination',
+			  clickable:true,
+            }
+		})        
+    </script>		
+</body>
+</html>
