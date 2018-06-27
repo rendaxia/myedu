@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/shopping.css" rel="stylesheet"/>
+    <link href="css/main.css" rel="stylesheet"/>
+    <link href="css/swiper.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/swiper.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+    <script type="text/javascript" charset="utf-8">
+        $(function () {
+            $.ajax({
+                url:"/DisplayHandler_getAllFreelistenBookByCondition",
+                dataType:"json",
+                success:function(data){
+                    console.log(data);
+                    for(var i=0;i<data.length;i++){
+                        var ii = document.createElement("i");
+                        var br = document.createElement("br");
+                        var hr = document.createElement("hr");
+                        var div01 = document.createElement("div");
+                        var div02 = document.createElement("div");
+                        var img01 = document.createElement("img");
+                        var hx01 = document.createElement("h5");
+                        var hx02 = document.createElement("h5");
+                        var hx03 = document.createElement("h5");
+                        $(".lesson_model_2").append(div01,hr);
+                        div01.append(img01,div02);
+                        div02.append(hx01,br,hx02,hx03);
+                        hx03.append(ii);
+                        hx03.style.float = "right";
+                        hx03.style.marginRight = "10px";
+                        hx03.innerText="撤销";
+                        ii.className="fa fa-heartbeat";
+                        hx02.innerText="价格:0.00";
+                        img01.src="img/"+data[i].freelisten.imgurl;
+                        hx01.innerText="课程名:"+data[i].freelisten.title;
+
+                    }
+                }
+
+            })
+        });
+        mui.init();
+    </script>
+
+</head>
+<body>
+<div id="close">
+    <i class="fa fa-reply"></i>
+    <i class="fa fa-share-alt" style="float:right; margin-right:10px;"></i>
+</div>
+
+
+<div id="freeLession">
+    <div class="lesson_model_2"></div>
+</div>
+<hr style="">
+
+<div id="auto_place">
+
+</div>
+
+<div id="bottom">
+    <div class="bottom_icon">
+        <i class="fa fa-home"></i>
+        <h6><a href="main.html">首页</a></h6>
+    </div>
+    <div class="bottom_icon">
+        <i class="fa fa-cart-arrow-down"></i>
+        <h6><a href="cart.html">我的订单</a></h6>
+    </div>
+    <div class="bottom_icon" style="bottom:10px;position:relative">
+        <i class="fa fa-paper-plane"></i>
+    </div>
+    <div class="bottom_icon">
+        <i class="fa fa-star"></i>
+        <h6><a href="friend.html">朋友圈</a></h6>
+    </div>
+    <div class="bottom_icon">
+        <i class="fa fa-child"></i>
+        <h6><a href="user.html">我的</a></h6>
+    </div>
+
+</div>
+
+
+<script>
+    var mySwiper = new Swiper ('.swiper-container', {
+        direction: 'horizontal',
+        loop: true,
+        autoplay:{
+            stopOnLastSlide:false,
+        },
+        slidesPerView: "auto",
+        centeredSlides:true,
+        spaceBetween: 10,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable:true,
+        }
+    })
+</script>
+
+</body>
+</html>
