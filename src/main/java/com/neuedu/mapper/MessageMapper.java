@@ -17,4 +17,11 @@ public interface MessageMapper {
     public Boolean removeMessagelike(Messagelike ml);
 
     public Boolean removeMessagereply(Messagereply mr);
+
+    /////////////////////////////////////////////////
+    ////////////////////////////////////////////////
+
+    public int getMessagelikeAmount(int qid);
+
+    public int getMessagereplyAmount(int qid);
 }

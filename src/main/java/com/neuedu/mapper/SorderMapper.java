@@ -22,10 +22,12 @@ public interface SorderMapper {
 
     public boolean refundSorder(int lid, String openid) throws Exception;//申请退款
 
-    ArrayList<Sorder> getAllSorderByCondition(String openid, String status);
+    public ArrayList<Sorder> getAllSorderByCondition(String openid, String status) ;
 
     //////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////
+
+    public int getSorderAmount(int qid) throws Exception;
 
 
 

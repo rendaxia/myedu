@@ -18,4 +18,26 @@ public interface DisplayService {
     public ArrayList<Enterprise> getEnterprise();
 
     public ArrayList<Sorder> getAllSorderByCondition(String openid, String status);
+
+
+    ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+
+    public boolean checkUser(String username,String userpassword);
+
+    public int getQidOfUser(String username,String userpassword);
+
+    public int getTeacherAmount(int qid);
+
+    public int getLessonAmount(int qid);
+
+    public int getFreelistenAmount(int qid);
+
+    public int getSorderAmount(int qid);
+
+    public int getFreelistenbookAmount(int qid);
+
+    public int getMessagereplyAmount(int qid);
+
+    public int getMessagelikeAmount(int qid);
 }

@@ -3,13 +3,24 @@ package com.neuedu.mapper;
 import com.neuedu.po.Address;
 import com.neuedu.po.Enterprise;
 import com.neuedu.po.Teacher;
+import com.neuedu.po.User;
 
 import java.util.ArrayList;
 
 public interface CompanyMapper {
-    ArrayList<Teacher> getAllTeacher();
+    public ArrayList<Teacher> getAllTeacher();
 
-    ArrayList<Address> getAllAddress();
+    public ArrayList<Address> getAllAddress();
 
-    ArrayList<Enterprise> getAllEnterprise();
+    public ArrayList<Enterprise> getAllEnterprise();
+
+
+    ////////////////////////////////////////////
+    ////////////////////////////////////////////
+
+    public int checkUser(String username,String userpassword) throws Exception;
+
+    public int getQidOfUser(String username,String userpassword)throws Exception;
+
+    public int getTeacherAmount(int qid)throws Exception;
 }

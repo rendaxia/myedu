@@ -17,4 +17,9 @@
     <!--///////////////////////////////////////////////////////////// -->
     <!--///////////////////////////////////////////////////////////// -->
 
+
+    <select id="getFreelistenbookAmount"  resultType="int">
+        select count(*) from freelistenbook where qid = #{0}
+    </select>
+
 </mapper>

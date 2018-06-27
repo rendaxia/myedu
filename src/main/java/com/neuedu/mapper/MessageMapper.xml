@@ -31,4 +31,11 @@
     <!-- ////////////////////////////////////////////////////////////////////// -->
     <!-- ////////////////////////////////////////////////////////////////////// -->
 
+    <select id="getMessagelikeAmount"  resultType="int">
+        select count(*) from message join messagelike where message.qid = #{0} and message.mid = messagelike.mid
+    </select>
+
+    <select id="getMessagereplyAmount" resultType="int">
+        select count(*) from message join messagereply where message.qid = #{0} and message.mid = messagereply.mid
+    </select>
 </mapper>

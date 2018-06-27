@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.mapper.ClassMapper">
+
+
+
+
+
+
+
+    <!-- ///////////////////////////////////////////////////////// -->
+    <!-- ///////////////////////////////////////////////////////// -->
+
+    <select id="getLessonAmount" resultType="int">
+        select count(*) from lesson where qid = #{0}
+    </select>
+
+    <select id="getFreelistenAmount"   resultType="int">
+        select count(*) from freelisten where qid = #{0}
+    </select>
+
+
+</mapper>

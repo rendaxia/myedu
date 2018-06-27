@@ -17,4 +17,22 @@
     <!--///////////////////////////////////////////////////////////// -->
     <!--///////////////////////////////////////////////////////////// -->
 
+    <select id="checkUser" resultType="int">
+        select count(*) from user where username = #{0} and userpassword = #{1}
+    </select>
+
+    <select id="getQidOfUser"   resultType="int">
+        select qid from user where username = #{0} and userpassword = #{1}
+    </select>
+
+    <select id="getTeacherAmount"  resultType="int">
+        select count(*) from teacher where qid = #{0}
+    </select>
+
+
+
+
+
+
+
 </mapper>

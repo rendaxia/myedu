@@ -18,6 +18,6 @@ public interface FreelistenbookMapper {
     /////////////////////////////////////////////////////////////
 
 
-
+    public  int getFreelistenbookAmount(int qid)throws  Exception;
 
 }
