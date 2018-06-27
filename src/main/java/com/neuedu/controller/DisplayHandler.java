@@ -45,6 +45,8 @@ public class DisplayHandler {
         System.out.println("******************DisplayHandler_getAllTeacher*********************");
         ArrayList<Teacher> list=null;
         list=displayService.getAllTeacher();
+        System.out.println(list.get(0).getIntroduction());
+
         return list;
     }
 

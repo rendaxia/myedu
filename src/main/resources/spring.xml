@@ -50,6 +50,7 @@
     <bean id="txm" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="ds"></property>
     </bean>
+
     <!-- 配置事务通知 -->
     <tx:advice id="txAdvice" transaction-manager="txm">
         <tx:attributes>
