@@ -45,8 +45,6 @@ public class DisplayHandler {
         System.out.println("******************DisplayHandler_getAllTeacher*********************");
         ArrayList<Teacher> list=null;
         list=displayService.getAllTeacher();
-        System.out.println(list.get(0).getIntroduction());
-
         return list;
     }
 
@@ -74,14 +72,25 @@ public class DisplayHandler {
         return list;
     }
 
-    @RequestMapping(value="DisplayHandler_getAllOrderByCondition")
+    @RequestMapping(value="DisplayHandler_getAllSorderByCondition")
     @ResponseBody
     public ArrayList<Sorder> getAllSorderByCondition(HttpServletRequest request){
         HttpSession session = request.getSession();
         String openid = (String)session.getAttribute("openid");
         String status = request.getParameter("status");
+        System.out.println(status);
         ArrayList<Sorder> list=null;
-        list=displayService.getAllSorderByCondition(openid,status);
+        list=displayService.getAllSorderByCondition("oC9yV5HNntbgqDyPEg2J0YSY8dC8",status);
+        return list;
+    }
+
+    @RequestMapping(value="DisplayHandler_getAllFreelistenBookByCondition")
+    @ResponseBody
+    public ArrayList<Freelistenbook> getAllFreelistenBookByCondition(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String openid = (String)session.getAttribute("openid");
+        ArrayList<Freelistenbook> list=null;
+        list=displayService.getAllFreelistenbookByCondition("oC9yV5HNntbgqDyPEg2J0YSY8dC8");
         return list;
     }
 

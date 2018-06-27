@@ -23,4 +23,8 @@ public interface CompanyMapper {
     public int getQidOfUser(String username,String userpassword)throws Exception;
 
     public int getTeacherAmount(int qid)throws Exception;
+
+    public Enterprise getOneEnterprise(int qid)throws  Exception;
+
+    public String getEnterpriseImgurl(int qid,String catogory)throws  Exception;
 }

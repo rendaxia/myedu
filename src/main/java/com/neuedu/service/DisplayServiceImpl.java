@@ -102,9 +102,21 @@ public class DisplayServiceImpl implements DisplayService{
         return list;
     }
 
+    @Override
+    public ArrayList<Freelistenbook> getAllFreelistenbookByCondition(String openid) {
+        ArrayList<Freelistenbook> list=null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        SorderMapper mapper = sqlSession.getMapper(SorderMapper.class);
+        try {
+            list = mapper.getAllFreelistenbookByCondition(openid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////
 
     @Override
     public boolean checkUser(String username, String userpassword) {
@@ -217,6 +229,30 @@ public class DisplayServiceImpl implements DisplayService{
         MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
         try {
             result = mapper.getMessagelikeAmount(qid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public Enterprise getOneEnterprise(int qid){
+        Enterprise result = null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            result = mapper.getOneEnterprise(qid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public String getEnterpriseImgurl(int qid,String category){
+        String result = "";
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            result = mapper.getEnterpriseImgurl(qid,category);
         } catch (Exception e) {
             e.printStackTrace();
         }

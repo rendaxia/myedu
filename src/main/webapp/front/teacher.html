@@ -14,14 +14,32 @@
 	<script type="text/javascript" src="js/swiper.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <script type="text/javascript" charset="utf-8">
-        $.ajax({
-            url:"/DisplayHandler_getAllTeacher",
-            dataType:"json",
-            sucess:function(data){
-                alert("1");
-                alert(data);
-                console.log(data);
-            }
+        $(function () {
+            $.ajax({
+                url:"/DisplayHandler_getAllTeacher",
+                dataType:"json",
+                success:function(data){
+                    console.log(data);
+                    for(var i=0;i<data.length;i++){
+                        var hr = document.createElement("hr");
+                        var div01 = document.createElement("div");
+                        var div02 = document.createElement("div");
+                        var img01 = document.createElement("img");
+                        var hx01 = document.createElement("h5");
+                        var hx02 = document.createElement("h4");
+                        var hx03 = document.createElement("h4");
+                        $(".teacher").append(div01,hr);
+                        div01.append(img01,div02,hx02,hx03);
+                        div02.append(hx01);
+                        hx02.innerText="姓名"+data[i].tname;
+                        hx03.innerText="所属公司:东软睿道";
+                        img01.src="img/"+data[i].tphoto;
+                        hx01.innerText="简介:"+data[i].introduction;
+
+					}
+                }
+
+            })
         });
 
         mui.init();
@@ -78,64 +96,9 @@
 		</div>
 	</div>
 	
+
 	<div class="teacher">
-		<div>
-			<img src="img/teacher01.jpg" alt="">
-			
-			<div>
-				<h5>主要从事HTML5开发、Java开源领域及Android移动开发，在东软集团担任过6年的软件工程师，2年半的HTML5、JAVA培训讲师，承担过东北大学，北交大等重点高校培训项目。</h5>
-			</div>
-			<h4>姓名:111</h4>
-			<h4>性别:111</h4>
-		</div>
-		<hr>
-		<div class="teacher">
-			<img src="img/teacher01.jpg" alt="">
-			<div>
-				<h5>主要从事HTML5开发、Java开源领域及Android移动开发，在东软集团担任过6年的软件工程师，2年半的HTML5、JAVA培训讲师，承担过东北大学，北交大等重点高校培训项目。</h5>
-			</div>
-			<h4>姓名:111</h4>
-			<h4>性别:111</h4>
-		</div>
-		<hr>
-	</div>
-	<div class="teacher">
-		<div>
-			<img src="img/teacher01.jpg" alt="">
-			<div>
-				<h5>主要从事HTML5开发、Java开源领域及Android移动开发，在东软集团担任过6年的软件工程师，2年半的HTML5、JAVA培训讲师，承担过东北大学，北交大等重点高校培训项目。</h5>
-			</div>
-			<h4>姓名:111</h4>
-			<h4>性别:111</h4>
-		</div>
-		<hr >
-		<div>
-			<img src="img/teacher01.jpg" alt="">
-			<div>
-				<h5>主要从事HTML5开发、Java开源领域及Android移动开发，在东软集团担任过6年的软件工程师，2年半的HTML5、JAVA培训讲师，承担过东北大学，北交大等重点高校培训项目。</h5>
-			</div>
-			<h4>姓名:111</h4>
-			<h4>性别:111</h4>
-		</div>
-	</div>
-	<div class="teacher">
-		<div>
-			<img src="img/teacher01.jpg" alt="">
-			<div>
-				<h5>主要从事HTML5开发、Java开源领域及Android移动开发，在东软集团担任过6年的软件工程师，2年半的HTML5、JAVA培训讲师，承担过东北大学，北交大等重点高校培训项目。</h5>
-			</div>
-			<h4>姓名:111</h4>
-			<h4>性别:111</h4>
-		</div>
-		<hr >
-		<div>
-			<img src="img/teacher01.jpg" alt="">
-			<div>
-				<h5>主要从事HTML5开发、Java开源领域及Android移动开发，在东软集团担任过6年的软件工程师，2年半的HTML5、JAVA培训讲师，承担过东北大学，北交大等重点高校培训项目。</h5>
-			</div>
-			<h4>姓名:111</h4>
-			<h4>性别:111</h4>
-		</div>
+
 	</div>
 
 	<div id="auto_place">

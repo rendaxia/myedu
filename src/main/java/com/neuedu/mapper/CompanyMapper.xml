@@ -29,6 +29,14 @@
         select count(*) from teacher where qid = #{0}
     </select>
 
+    <select id="getOneEnterprise" resultType="com.neuedu.po.Enterprise">
+        select * from enterprise where qid = #{0}
+    </select>
+
+    <select id="getEnterpriseImgurl" resultType="java.lang.String">
+        select imgurl from swiper where qid = #{0} and category = #{1}
+    </select>
+
 
 
 

@@ -23,7 +23,7 @@ public class AdminMainHandler {
     private DisplayService displayService;
 
     @RequestMapping(value="AdminLogin")
-    public String AdminLogin(HttpServletRequest request){
+    public String adminLogin(HttpServletRequest request){
         String username = request.getParameter("username");
         String userpassword = request.getParameter("userpassword");
         // 判断是否非空
@@ -47,6 +47,16 @@ public class AdminMainHandler {
         }
 
     }
+
+    @RequestMapping(value="AdminExit")
+    public String adminExit(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.removeAttribute("qid");
+        session.removeAttribute("username");
+        session.invalidate();
+        return "forward:/back/admin_login.jsp";
+    }
+
 
 
     @RequestMapping(value="AdminGoToIndex")

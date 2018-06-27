@@ -9,6 +9,15 @@ public class Freelistenbook {
     private String status;
     private String comment;
     private String openid;
+    private Freelisten freelisten;
+
+    public Freelisten getFreelisten() {
+        return freelisten;
+    }
+
+    public void setFreelisten(Freelisten freelisten) {
+        this.freelisten = freelisten;
+    }
 
     public int getId() {
         return id;

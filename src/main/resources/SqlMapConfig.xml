@@ -8,7 +8,7 @@
 			<!-- 数据源 -->
 			<dataSource type="POOLED">
 				<property name="driver" value="com.mysql.jdbc.Driver" />
-				<property name="url" value="jdbc:mysql://localhost:3306/education" />
+				<property name="url" value="jdbc:mysql://localhost:3306/education?useUnicode=true&amp;characterEncoding=utf-8" />
 				<property name="username" value="root" />
 				<property name="password" value="011323" />
 			</dataSource>

@@ -19,6 +19,7 @@ public interface DisplayService {
 
     public ArrayList<Sorder> getAllSorderByCondition(String openid, String status);
 
+    public ArrayList<Freelistenbook> getAllFreelistenbookByCondition(String openid);
 
     ///////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////
@@ -40,4 +41,8 @@ public interface DisplayService {
     public int getMessagereplyAmount(int qid);
 
     public int getMessagelikeAmount(int qid);
+
+    public Enterprise getOneEnterprise(int qid);
+
+    public String getEnterpriseImgurl(int qid,String category);
 }
