@@ -1,13 +1,11 @@
 package com.neuedu.service;
 
 import com.neuedu.mapper.ClassMapper;
+import com.neuedu.mapper.CompanyMapper;
 import com.neuedu.mapper.MessageMapper;
 import com.neuedu.mapper.SorderMapper;
 import com.neuedu.myBatis.SqlSessionUtil;
-import com.neuedu.po.Lesson;
-import com.neuedu.po.Messagelike;
-import com.neuedu.po.Messagereply;
-import com.neuedu.po.Sorder;
+import com.neuedu.po.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
@@ -149,5 +147,23 @@ public class ActionServiceImpl implements ActionService{
             e.printStackTrace();
         }
         return isOK;
+    }
+
+
+
+    ////////////////////////////////////////////////////////////
+
+    public int setEnterprise(Enterprise enterprise){
+        int isOK = 0;
+        Messagereply mr = new Messagereply();
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            isOK = mapper.setEnterprise(enterprise);
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+        }
+        return  isOK;
     }
 }

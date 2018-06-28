@@ -38,6 +38,10 @@
     </select>
 
 
+    <update id="setEnterprise" parameterType="com.neuedu.po.Enterprise" >
+        update enterprise set name = #{name},videopath= #{videopath},introduction=#{introduction},jczs = #{jczs} where qid =#{qid}
+    </update>
+
 
 
 

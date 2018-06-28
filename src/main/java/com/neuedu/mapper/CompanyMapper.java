@@ -28,4 +28,6 @@ public interface CompanyMapper {
     public Enterprise getOneEnterprise(int qid)throws  Exception;
 
     public String getEnterpriseImgurl(int qid,String catogory)throws  Exception;
+
+    public int setEnterprise(Enterprise enterprise)throws  Exception;
 }

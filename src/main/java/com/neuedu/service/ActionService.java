@@ -1,5 +1,7 @@
 package com.neuedu.service;
 
+import com.neuedu.po.Enterprise;
+
 public interface ActionService {
     public Boolean freelistenBook(int fid, String username, String tel, String comment, String openid);
 
@@ -22,4 +24,5 @@ public interface ActionService {
 
     ///////////////////////////////////////////////////
 
+    public int setEnterprise(Enterprise enterprise);
 }
