@@ -161,7 +161,7 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="enterprise1.html">
+                            <a href="/AdminGoToEnterpriseBasic">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 企业基本信息浏览及修改
                             </a>
                         </li>

@@ -9,12 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.UUID;
 
 @Controller
@@ -61,6 +64,7 @@ public class AdminCompanyHandler {
 
         request.setAttribute("enterprise",enterprise);
         request.setAttribute("enterprise_img",enterprise_img);
+        request.setAttribute("jczs",enterprise.getJczs());
         return "forward:/back/admin_enterprise_modify.jsp";
     }
 
@@ -70,13 +74,51 @@ public class AdminCompanyHandler {
         String username = (String)session.getAttribute("username");
         int qid = (Integer) session.getAttribute("qid");
 
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        String name = request.getParameter("name");
+        String introduction = request.getParameter("introduction");
+        String jczs = request.getParameter("jczs");
+        String imgurl;
+        String videopath;
+
+        int token = 0;
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+        if(multipartResolver.isMultipart(request)){ //判断request是否有文件上传
+            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+            Iterator<String> ite = multiRequest.getFileNames();
+
+            while(ite.hasNext()){
+                token ++;
+                MultipartFile file = multiRequest.getFile(ite.next());
+                if(file!=null){
+                    File localFile;
+                    if (token == 1){
+                        localFile = new File(session.getServletContext().getRealPath("/img/")+file.getOriginalFilename());
+                        imgurl = file.getOriginalFilename();
+                    }
+                    else {
+                        localFile = new File(session.getServletContext().getRealPath("/video/")+file.getOriginalFilename());
+                        videopath = file.getOriginalFilename();
+                    }
+                    try {
+                        file.transferTo(localFile); //将上传文件写到服务器上指定的文件
+                    } catch (IllegalStateException e) {
+                        //e.printStackTrace();
+                    } catch (IOException e) {
+                        //e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+
+
+
         System.out.println(request.getParameter("jczs"));
 //
 //        request.setAttribute("enterprise",enterprise);
 //        request.setAttribute("enterprise_img",enterprise_img);
 //        return "forward:/back/admin_enterprise_basic.jsp";
-        return "forward:/back/admin_index.jsp";
+        return "forward:/AdminGoToEnterpriseBasic";
     }
 
     @RequestMapping(value="AdminEnterpriseRichTextImgUpload")
@@ -105,7 +147,8 @@ public class AdminCompanyHandler {
 
             // "/upload"是你自己定义的上传目录
 
-            String realPath = session.getServletContext().getRealPath("/back/img");
+            String realPath = session.getServletContext().getRealPath("/img");
+            //System.out.println("!!!!!!!!realpath:"+realPath);
             File uploadFile = new File(realPath, realName);
             try {
                 myFileName.transferTo(uploadFile);
@@ -113,7 +156,8 @@ public class AdminCompanyHandler {
                 e.printStackTrace();
             }
         }
-        String [] str = {request.getContextPath() + "/back/img/" + realName};
+        String [] str = {request.getContextPath() + "/img/" + realName};
+        System.out.println("!!!!!!!str:"+str[0]);
         return ResultUtil.success(str);
     }
 }
