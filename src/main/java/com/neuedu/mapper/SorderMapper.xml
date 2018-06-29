@@ -26,7 +26,7 @@
     </resultMap>
 
     <select id="getAllSorderByCondition" parameterType="java.lang.String" resultType="com.neuedu.po.Sorder">
-        select * from sorder where openid = #{0}
+        select * from sorder where openid = #{0} and status = #{1}
     </select>
 
     <select id="getAllFreelistenbookByCondition" parameterType="java.lang.String" resultMap="freelistenbook_freelisten_map">

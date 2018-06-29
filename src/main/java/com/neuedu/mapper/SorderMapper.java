@@ -1,5 +1,6 @@
 package com.neuedu.mapper;
 
+import com.neuedu.po.Freelisten;
 import com.neuedu.po.Freelistenbook;
 import com.neuedu.po.Sorder;
 
@@ -31,4 +32,6 @@ public interface SorderMapper {
     /////////////////////////////////////////////////////////////
 
     public int adminGetSorderAmount(int qid) throws Exception;
+
+
 }

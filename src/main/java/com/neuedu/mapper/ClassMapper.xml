@@ -4,8 +4,66 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.mapper.ClassMapper">
 
+    <resultMap type="com.neuedu.po.Lesson" id="lesson_lessonbranch_map">
+        <id property="lid" column="lid"/>
+        <result property="lname" column="lname"/>
+        <result property="imgurl" column="imgurl"/>
+        <result property="lprice" column="lprice"/>
+        <result property="lprice" column="lprice"/>
+        <result property="ldesc" column="ldesc"/>
+        <result property="category" column="category"/>
+        <result property="qid" column="qid"/>
+        <result property="pubtime" column="pubtime"/>
+        <association property="lessonbranch" javaType="com.neuedu.po.Lessonbranch">
+            <id property="id" column="id"/>
+            <result property="lid" column="lid"/>
+            <result property="branchid" column="branchid"/>
+        </association>
+    </resultMap>
 
+    <resultMap type="com.neuedu.po.Freelisten" id="freelisten_lessonbranch_map">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="imgurl" column="imgurl"/>
+        <result property="qid" column="qid"/>
+        <result property="fdesc" column="fdesc"/>
+        <result property="branchid" column="branchid"/>
+        <result property="qid" column="qid"/>
+        <result property="pubtime" column="pubtime"/>
+        <association property="lessonbranch" javaType="com.neuedu.po.Lessonbranch">
+            <id property="id" column="id"/>
+            <result property="lid" column="lid"/>
+            <result property="branchid" column="branchid"/>
+        </association>
+    </resultMap>
 
+    <select id="getAllLessonByCondition" resultMap="lesson_lessonbranch_map">
+        select lesson.*,lessonbranch.* from lesson inner join lessonbranch on
+        lesson.lid = lessonbranch.lid
+        <if test="category!=null and category!=''">
+            where category = #{category}
+        </if>
+        <if test="branchid!=null and branchid!='' and category!=null and category!=''">
+            and branchid = #{branchid}
+        </if>
+        <if test="category=='' and branchid!=0">
+            where branchid = #{branchid}
+        </if>
+    </select>
+
+    <select id="getAllFreelistenByCondition" resultMap="freelisten_lessonbranch_map">
+        select freelisten.*,lessonbranch.* from freelisten inner join lessonbranch on
+        freelisten.id = lessonbranch.lid
+        <if test="category!=null and category!=''">
+            where category = #{category}
+        </if>
+        <if test="branchid!=null and branchid!='' and category!=null and category!=''">
+            and branchid = #{branchid}
+        </if>
+        <if test="category=='' and branchid!=0">
+            where branchid = #{branchid}
+        </if>
+    </select>
 
 
 

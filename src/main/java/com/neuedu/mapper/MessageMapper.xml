@@ -4,8 +4,33 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.mapper.MessageMapper">
 
-    <select id="getAllMessage">
-        select * from message,messageimg,messagelike,messagereply where message.mid = messageimg.mid and
+    <resultMap type="com.neuedu.po.Message" id="message_messagelike_messageimg_messagereply_map">
+        <id property="mid" column="mid"/>
+        <result property="mtitle" column="mtitle"/>
+        <result property="qid" column="qid"/>
+        <result property="mtime" column="mtime"/>
+        <collection property="messageimgs" ofType="com.neuedu.po.Messageimg">
+            <id property="id" column="id"/>
+            <result property="mid" column="mid"/>
+            <result property="imgurl" column="imgurl"/>
+        </collection>
+        <collection property="messagelikes" ofType="com.neuedu.po.Messagelike">
+            <id property="id" column="id"/>
+            <result property="mid" column="mid"/>
+            <result property="nickname" column="nickname"/>
+            <result property="stime" column="stime"/>
+        </collection>
+        <collection property="messagereplies" ofType="com.neuedu.po.Messagereply">
+            <id property="id" column="id"/>
+            <result property="mid" column="mid"/>
+            <result property="nickname" column="nickname"/>
+            <result property="stime" column="stime"/>
+            <result property="content" column="content"/>
+        </collection>
+    </resultMap>
+
+    <select id="getAllMessage" resultMap="message_messagelike_messageimg_messagereply_map">
+        select message.*,messagelike.*,messagereply.*,messageimg.* from message,messageimg,messagelike,messagereply where message.mid = messageimg.mid and
         messageimg.mid = messagelike.mid and messagelike.mid = messagereply.mid
     </select>
 

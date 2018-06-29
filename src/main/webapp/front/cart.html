@@ -14,6 +14,41 @@
 	<script type="text/javascript" src="js/swiper.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <script type="text/javascript" charset="utf-8">
+        $(function () {
+            $.ajax({
+                url:"/DisplayHandler_getAllSorderByCondition",
+                type:"post",
+                data:{status:"待付款"},
+                dataType:"json",
+                success:function(data){
+                    console.log(data);
+                    for(var i=0;i<data.length;i++){
+                        var ii = document.createElement("i");
+                        var br = document.createElement("br");
+                        var hr = document.createElement("hr");
+                        var div01 = document.createElement("div");
+                        var div02 = document.createElement("div");
+                        var img01 = document.createElement("img");
+                        var hx01 = document.createElement("h5");
+                        var hx02 = document.createElement("h5");
+                        var hx03 = document.createElement("h5");
+                        $(".lesson_model_2").append(div01,hr);
+                        div01.append(img01,div02);
+                        div02.append(hx01,br,hx02,hx03);
+                        hx03.append(ii);
+                        hx03.style.float = "right";
+                        hx03.style.marginRight = "10px";
+                        hx03.innerText="待付款";
+                        ii.className="fa fa-heartbeat";
+                        hx02.innerText="价格:"+data[i].total;
+                        img01.src="img/"+data[i].tphoto;
+                        hx01.innerText="课程名:"+data[i].lid;
+
+                    }
+                }
+
+            })
+        });
       	mui.init();
     </script>
 </head>
@@ -23,34 +58,14 @@
 		<i class="fa fa-share-alt" style="float:right; margin-right:10px;"></i>
 	</div>
 	
-	<div id="products">
+
 		<div style="height:10px;width:100%;visibility: hidden;"></div>
-		<div>
-			<img src="img/4.jpg" alt="">
-			<div>
-				<h5>python3入门机器学习 经典算法与应用</h5>
-				<h5>¥1999.00</h5>
-				<h5><i class="fa fa-heart"></i>33</h5>
+		<div id="freeLession">
+			<div class="lesson_model_2">
+
 			</div>
 		</div>
-		<div>
-			<img src="img/4.jpg" alt="">
-			<div>
-				<h5>python3入门机器学习 经典算法与应用</h5>
-				<h5>¥1999.00</h5>
-				<h5><i class="fa fa-heart"></i>33</h5>
-			</div>
-		</div>
-		<div>
-			<img src="img/4.jpg" alt="">
-			<div>
-				<h5>python3入门机器学习 经典算法与应用</h5>
-				<h5>¥1999.00</h5>
-				<h5><i class="fa fa-heart"></i>33</h5>
-			</div>
-		</div>
-		
-	</div>
+
 	
 	<div id="auto_place"></div>
 	

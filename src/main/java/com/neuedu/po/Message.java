@@ -7,23 +7,32 @@ public class Message {
     private String mtitle;
     private String mtime;
     private int qid;
-    private ArrayList<Messageimg> imgs;
-    private ArrayList<Messagelike> likes;
+    private ArrayList<Messageimg> messageimgs;
+    private ArrayList<Messagelike> messagelikes;
+    private ArrayList<Messagereply> messagereplies;
 
-    public void setImg(ArrayList<Messageimg> imgs) {
-        this.imgs = imgs;
+    public void setMessageimgs(ArrayList<Messageimg> messageimgs) {
+        this.messageimgs = messageimgs;
     }
 
-    public void setLike(ArrayList<Messagelike> likes) {
-        this.likes = likes;
+    public void setMessagelikes(ArrayList<Messagelike> messagelikes) {
+        this.messagelikes = messagelikes;
     }
 
-    public ArrayList<Messageimg> getImgs() {
-        return imgs;
+    public void setMessagereplies(ArrayList<Messagereply> messagereplies) {
+        this.messagereplies = messagereplies;
     }
 
-    public ArrayList<Messagelike> getLikes() {
-        return likes;
+    public ArrayList<Messageimg> getMessageimgs() {
+        return messageimgs;
+    }
+
+    public ArrayList<Messagelike> getMessagelikes() {
+        return messagelikes;
+    }
+
+    public ArrayList<Messagereply> getMessagereplies() {
+        return messagereplies;
     }
 
     public int getMid() {

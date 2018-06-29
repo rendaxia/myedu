@@ -9,6 +9,15 @@ public class Lesson {
     private String category;
     private int qid;
     private String pubtime;
+    private Lessonbranch lessonbranch;
+
+    public Lessonbranch getLessonbranch() {
+        return lessonbranch;
+    }
+
+    public void setLessonbranch(Lessonbranch lessonbranch) {
+        this.lessonbranch = lessonbranch;
+    }
 
     public int getLid() {
         return lid;

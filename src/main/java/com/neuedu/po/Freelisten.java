@@ -9,6 +9,15 @@ public class Freelisten {
     private int qid;
     private int branchid;
     private String pubtime;
+    private Lessonbranch lessonbranch;
+
+    public Lessonbranch getLessonbranch() {
+        return lessonbranch;
+    }
+
+    public void setLessonbranch(Lessonbranch lessonbranch) {
+        this.lessonbranch = lessonbranch;
+    }
 
     public int getId() {
         return id;

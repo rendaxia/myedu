@@ -15,11 +15,21 @@ import java.util.ArrayList;
 public class DisplayServiceImpl implements DisplayService{
     @Override
     public ArrayList<Lesson> getAllLessonByCondition(String type, String address) {
+        int branchid=0;
         ArrayList<Lesson> list=null;
         SqlSession sqlSession = SqlSessionUtil.getSession();
         ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        CompanyMapper com_mapper = sqlSession.getMapper(CompanyMapper.class);
         try {
-            list = mapper.getAllLessonByCondition(type,address);
+            branchid = com_mapper.getAddressid(address);
+            System.out.println(branchid);
+            System.out.println(type);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+
+            list = mapper.getAllLessonByCondition(type,branchid);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -29,10 +39,20 @@ public class DisplayServiceImpl implements DisplayService{
     @Override
     public ArrayList<Freelisten> getAllFreelistenByCondition(String type, String address) {
         ArrayList<Freelisten> list=null;
+        int branchid=0;
         SqlSession sqlSession = SqlSessionUtil.getSession();
         ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        CompanyMapper com_mapper = sqlSession.getMapper(CompanyMapper.class);
         try {
-            list = mapper.getAllFreelistenByCondition(type,address);
+            branchid = com_mapper.getAddressid(address);
+            System.out.println(branchid);
+            System.out.println(type);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            list = mapper.getAllFreelistenByCondition(type,branchid);
         } catch (Exception e) {
             e.printStackTrace();
         }

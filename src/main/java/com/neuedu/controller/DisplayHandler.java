@@ -22,10 +22,12 @@ public class DisplayHandler {
     @RequestMapping(value="DisplayHandler_getAllLessonByCondition")
     @ResponseBody
     public ArrayList<Lesson> getAllLessonByCondition(HttpServletRequest request){
-        String type = request.getParameter("type");
-        String address = request.getParameter("address");
+        String type = request.getParameter("category");
+        String address = request.getParameter("branch");
+        //System.out.println(address);
         ArrayList<Lesson> list=null;
         list=displayService.getAllLessonByCondition(type,address);
+//        System.out.println(list.get(0).getCategory());
         return list;
     }
 
@@ -33,9 +35,11 @@ public class DisplayHandler {
     @ResponseBody
     public ArrayList<Freelisten> getAllFreelistenByCondition(HttpServletRequest request){
         String type = request.getParameter("type");
-        String address = request.getParameter("address");
+        String address = request.getParameter("branch");
         ArrayList<Freelisten> list=null;
+
         list=displayService.getAllFreelistenByCondition(type,address);
+        System.out.println(list.get(0).getPubtime());
         return list;
     }
 
@@ -80,17 +84,18 @@ public class DisplayHandler {
         String status = request.getParameter("status");
         System.out.println(status);
         ArrayList<Sorder> list=null;
-        list=displayService.getAllSorderByCondition("oC9yV5HNntbgqDyPEg2J0YSY8dC8",status);
+        list=displayService.getAllSorderByCondition("oC9yV5KjYiv_zu6qJ0pm_WlN4LEk",status);
         return list;
     }
 
     @RequestMapping(value="DisplayHandler_getAllFreelistenBookByCondition")
     @ResponseBody
     public ArrayList<Freelistenbook> getAllFreelistenBookByCondition(HttpServletRequest request){
+        System.out.println("************DisplayHandler_getAllFreelistenBookByCondition************");
         HttpSession session = request.getSession();
         String openid = (String)session.getAttribute("openid");
         ArrayList<Freelistenbook> list=null;
-        list=displayService.getAllFreelistenbookByCondition("oC9yV5HNntbgqDyPEg2J0YSY8dC8");
+        list=displayService.getAllFreelistenbookByCondition("oC9yV5KjYiv_zu6qJ0pm_WlN4LEk");
         return list;
     }
 

@@ -13,7 +13,120 @@
 	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <script type="text/javascript" charset="utf-8">
       	mui.init();
+        $(function () {
 
+            $.ajax({
+                url:"/DisplayHandler_getAllFreelistenByCondition",
+                dataType:"json",
+                success:function(data){
+                    console.log(data);
+                    $("#lesson_model01").innerHTML=" ";
+                    for(var i=0;i<2;i++){
+
+                        var br = document.createElement("br");
+                        var hr = document.createElement("hr");
+                        var div01 = document.createElement("div");
+                        var hx01 = document.createElement("h5");
+                        var hx02 = document.createElement("h5");
+                        var hx03 = document.createElement("h5");
+                        $("#lesson_model01").append(div01);
+                        if(i==0){
+                            div01.style.backgroundColor = "rgba(1,155,255,0.1)";
+						}
+                        else{
+                            div01.style.backgroundColor = "rgba(253,55,2,0.2)";
+						}
+                        div01.append(hx01,br,hx02,hx03);
+                        hx03.innerText=data[i].pubtime;
+                        hx02.innerText=data[i].status;
+                        hx01.innerText=data[i].title;
+
+                    }
+                    for(var i=1;i<3;i++){
+
+                        var br = document.createElement("br");
+                        var hr = document.createElement("hr");
+                        var div01 = document.createElement("div");
+                        var div02 = document.createElement("div");
+                        var img01 = document.createElement("img");
+                        var hx01 = document.createElement("h5");
+                        var hx02 = document.createElement("h5");
+                        var hx03 = document.createElement("h5");
+                        $("#lesson_model02").append(div01,hr);
+                        div01.append(img01,div02);
+                        img01.src="img/"+data[i].imgurl;
+                        div02.append(hx01,br,hx02,hx03);
+                        hx03.innerText=data[i].pubtime;
+                        hx02.innerText=data[i].status;
+                        hx01.innerText=data[i].title;
+                        div01.click(function(){
+                            javascript:window.location.href='shopping.html';
+                        });
+
+                    }
+                }
+
+            })
+        });
+
+        $(function () {
+
+            $.ajax({
+                url:"/DisplayHandler_getAllLessonByCondition",
+                dataType:"json",
+                success:function(data){
+                    console.log(data);
+                    $("#lesson_model02").innerHTML=" ";
+                    for(var i=0;i<2;i++){
+
+                        var br = document.createElement("br");
+                        var hr = document.createElement("hr");
+                        var div01 = document.createElement("div");
+                        var hx01 = document.createElement("h5");
+                        var hx02 = document.createElement("h5");
+                        var hx03 = document.createElement("h5");
+                        $("#lesson_model03").append(div01);
+                        if(i==0){
+                            div01.style.backgroundColor = "rgba(1,155,255,0.1)";
+                        }
+                        else{
+                            div01.style.backgroundColor = "rgba(253,55,2,0.2)";
+                            hx01.style.color = "rgba(253,55,2,0.9)";
+                            hx02.style.color = "rgba(253,55,2,0.9)";
+                            hx03.style.color = "rgba(253,55,2,0.9)";
+                        }
+                        div01.append(hx01,br,hx02,hx03);
+                        hx03.innerText=data[i].pubtime;
+                        hx02.innerText=data[i].lprice;
+                        hx01.innerText=data[i].lname;
+
+                    }
+                    for(var i=1;i<3;i++){
+
+                        var br = document.createElement("br");
+                        var hr = document.createElement("hr");
+                        var div01 = document.createElement("div");
+                        var div02 = document.createElement("div");
+                        var img01 = document.createElement("img");
+                        var hx01 = document.createElement("h5");
+                        var hx02 = document.createElement("h5");
+                        var hx03 = document.createElement("h5");
+                        $("#lesson_model04").append(div01,hr);
+                        div01.append(img01,div02);
+                        img01.src="img/"+data[i].imgurl;
+                        div02.append(hx01,br,hx02,hx03);
+                        hx03.innerText=data[i].pubtime;
+                        hx02.innerText=data[i].lprice;
+                        hx01.innerText=data[i].lname;
+                        div01.click(function(){
+                            javascript:window.location.href='shopping.html';
+						});
+
+                    }
+                }
+
+            })
+        });
     </script>
 		
 </head>
@@ -58,45 +171,10 @@
 				<h5>更多</h5>&nbsp;<i class="fa fa-angle-right"></i>
 			</div>
 		</div>
-		<div class="lesson_model">
-			<div style="background-color: rgba(1,155,255,0.1);">
-				<h5>基于github App 业务深度讲解kotlin1.2高级特性与框架设计</h5>
-				<br>
-				<h5>¥199.00</h5>
-				&nbsp;&nbsp;&nbsp;
-				<h5><i class="fa fa-heart"></i>300</h5>
-			</div>
-			<div class="lesson_model_div" style="background-color: rgba(253,55,2,0.2);">
-				<h5>基于github App 业务深度讲解kotlin1.2高级特性与框架设计</h5>
-				<br>
-				<h5>¥199.00</h5>
-				&nbsp;&nbsp;&nbsp;
-				<h5><i class="fa fa-heart"></i>300</h5>
-			</div>
+		<div class="lesson_model" id="lesson_model01">
 		</div>
-		<div class="lesson_model_2">
-			<div  onclick="javascript:window.location.href='shopping.html'">
-				<img src="img/3.jpg" alt="">
-				<div>
-					<h5>分布式事务实践 解决数据一致性 不惧数据一致性难题</h5>
-					<br>
-					<h5>¥999.00</h5>
-					&nbsp;&nbsp;&nbsp;
-					<h5><i class="fa fa-heart"></i>33</h5>
-				</div>
-				
-			</div>
-			<hr >
-			<div  onclick="javascript:window.location.href='shopping.html'">
-				<img src="img/4.jpg" alt="">
-				<div>
-					<h5>python3入门机器学习 经典算法与应用</h5>
-					<br>
-					<h5>¥1999.00</h5>
-					&nbsp;&nbsp;&nbsp;
-					<h5><i class="fa fa-heart"></i>33</h5>
-				</div>
-			</div>
+		<div class="lesson_model_2" id="lesson_model02">
+
 		</div>
 	</div>
 	<hr style="">
@@ -107,44 +185,12 @@
 				<h5>更多</h5>&nbsp;<i class="fa fa-angle-right"></i>
 			</div>
 		</div>
-		<div class="lesson_model">
-			<div style="background-color: rgba(1,155,255,0.1);">
-				<h5>基于github App 业务深度讲解kotlin1.2高级特性与框架设计</h5>
-				<br>
-				<h5>¥199.00</h5>
-				&nbsp;&nbsp;&nbsp;
-				<h5><i class="fa fa-heart"></i>300</h5>
-			</div>
-			<div class="lesson_model_div" style="background-color: rgba(253,55,2,0.2);">
-				<h5>基于github App 业务深度讲解kotlin1.2高级特性与框架设计</h5>
-				<br>
-				<h5>¥199.00</h5>
-				&nbsp;&nbsp;&nbsp;
-				<h5><i class="fa fa-heart"></i>300</h5>
-			</div>
+		<div class="lesson_model" id="lesson_model03">
+
+
 		</div>
-		<div class="lesson_model_2">
-			<div>
-				<img src="img/5.jpg" alt="">
-				<div>
-					<h5>基于github App 业务深度讲解kotlin1.2高级特性与框架设计</h5>
-					<br>
-					<h5>¥199.00</h5>
-					&nbsp;&nbsp;&nbsp;
-					<h5><i class="fa fa-heart"></i>300</h5>
-				</div>
-			</div>
-			<hr >
-			<div>
-				<img src="img/6.jpg" alt="">
-				<div>
-					<h5>区块链入门与去中心化应用实战 初级课程</h5>
-					<br>
-					<h5>¥2999.00</h5>
-					&nbsp;&nbsp;&nbsp;
-					<h5><i class="fa fa-heart"></i>133</h5>
-				</div>
-			</div>
+		<div class="lesson_model_2" id="lesson_model04">
+
 		</div>
 	</div>
 			
@@ -164,7 +210,7 @@
 			<h6><a href="cart.html">购物车</a></h6>
 		</div>
 		<div class="bottom_icon" style="bottom:10px;position:relative">
-			<i class="fa fa-paper-plane"></i>
+			<i class="fa fa-paper-plane" onclick="javascript:window.location.href='main.html'"></i>
 		</div>
 		<div class="bottom_icon">
 			<i class="fa fa-star"></i>

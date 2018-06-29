@@ -10,13 +10,13 @@ import sun.jvm.hotspot.oops.Array;
 import java.util.ArrayList;
 
 public interface CompanyMapper {
-    public ArrayList<Teacher> getAllTeacher();
+    public ArrayList<Teacher> getAllTeacher() throws Exception;
 
-    public ArrayList<Address> getAllAddress();
+    public ArrayList<Address> getAllAddress() throws Exception;
 
-    public ArrayList<Enterprise> getAllEnterprise();
+    public ArrayList<Enterprise> getAllEnterprise() throws Exception;
 
-
+    public int getAddressid(String address) throws Exception;
     ///////////////////////////////////////////
     ///////////////////////////////////////////
 
