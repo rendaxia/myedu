@@ -4,8 +4,8 @@
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/back/";
-    String imgPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/img/";
-    String videoPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/video/";
+    //String imgPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/img/";
+    //String videoPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/video/";
     request.setCharacterEncoding("utf-8");
     response.setCharacterEncoding("utf-8");
 %>
@@ -29,10 +29,122 @@
     <link rel="stylesheet" href="<%=basePath%>assets/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="<%=basePath%>assets/css/app.css">
     <script src="<%=basePath%>assets/js/jquery.min.js"></script>
-    <style>
-        .jczs img {width:200px;height:100px;}
-    </style>
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=NY4BZ-LPH3U-7ORV6-2J4YO-6DBLZ-Y2BIV"></script>
+    <script>
+        var citylocation, map, marker = null;
+		var searchService, markers = [];
+        window.onload = function () {
 
+            //直接加载地图
+
+
+            //初始化地图函数  自定义函数名init
+            function init() {
+                //定义map变量 调用 qq.maps.Map() 构造函数   获取地图显示容器
+                var map = new qq.maps.Map(document.getElementById("mapcontainer"), {
+                    center: new qq.maps.LatLng(39.916527, 116.397128), // 地图的中心地理坐标。
+                    zoom: 12 // 地图的中心地理坐标。
+                });
+                qq.maps.event.addListener(map, 'click', function (event) {
+                    alert('您点击的位置为: [' + event.latLng.getLat() + ', ' +
+                        event.latLng.getLng() + ']');
+                });
+
+                citylocation = new qq.maps.CityService({
+                    complete: function (results) {
+                        map.setCenter(results.detail.latLng);
+                        city.style.display = 'inline';
+                        city.innerHTML = '所在位置: ' + results.detail.name;
+
+                        if (marker != null) {
+                            marker.setMap(null);
+                        }
+                        //设置marker标记
+                        marker = new qq.maps.Marker({
+                            map: map,
+                            position: results.detail.latLng
+                        });
+                    }
+                });
+
+                var latlngBounds = new qq.maps.LatLngBounds();
+                //设置Poi检索服务，用于本地检索、周边检索
+                searchService = new qq.maps.SearchService({
+                    //设置搜索范围为北京
+                    location: "北京",
+                    //设置搜索页码为1
+                    pageIndex: 1,
+                    //设置每页的结果数为5
+                    pageCapacity: 5,
+                    //设置展现查询结构到infoDIV上
+                    panel: document.getElementById('infoDiv'),
+                    //设置动扩大检索区域。默认值true，会自动检索指定城市以外区域。
+                    autoExtend: true,
+                    //检索成功的回调函数
+                    complete: function (results) {
+                        //设置回调函数参数
+                        var pois = results.detail.pois;
+                        for (var i = 0, l = pois.length; i < l; i++) {
+                            var poi = pois[i];
+                            //扩展边界范围，用来包含搜索到的Poi点
+                            latlngBounds.extend(poi.latLng);
+                            var marker = new qq.maps.Marker({
+                                map: map,
+                                position: poi.latLng
+                            });
+
+                            marker.setTitle(i + 1);
+
+                            markers.push(marker);
+
+                        }
+                        //调整地图视野
+                        map.fitBounds(latlngBounds);
+                    },
+                    //若服务请求失败，则运行以下函数
+                    error: function () {
+                        alert("出错了。");
+                    }
+                });
+            }
+
+            //调用初始化函数地图
+            init();
+
+
+        }
+
+        function geolocation_latlng() {
+            //获取经纬度信息
+            var input = document.getElementById("latLng").value;
+            //用,分割字符串截取两位长度
+            var latlngStr = input.split(",", 2);
+            //解析成浮点数 取值第一位 第二位
+            var lat = parseFloat(latlngStr[0]);
+            var lng = parseFloat(latlngStr[1]);
+            //设置经纬度信息
+            var latLng = new qq.maps.LatLng(lat, lng);
+            //调用城市经纬度查询接口实现经纬查询
+            citylocation.searchCityByLatLng(latLng);
+        }
+
+        function clearOverlays(overlays) {
+            var overlay;
+            while (overlay = overlays.pop()) {
+                overlay.setMap(null);
+            }
+        }
+        //设置搜索的范围和关键字等属性
+        function searchKeyword() {
+            var keyword = document.getElementById("keyword").value;
+			var mylocation = document.getElementById("mylocation").value;
+            clearOverlays(markers);
+            //根据输入的城市设置搜索范围
+             searchService.setLocation(mylocation);
+            //根据输入的关键字在搜索范围内检索
+            searchService.search(keyword);
+        }
+    </script>
 
 </head>
 
@@ -59,14 +171,6 @@
                 <!-- 其它功能-->
                 <div class="am-fr tpl-header-navbar">
                     <ul>
-                        <%--<!-- 欢迎语 -->--%>
-                        <%--<li class="am-text-sm tpl-header-navbar-welcome">--%>
-                            <%--<a href="javascript:;">欢迎你,--%>
-                                <%--<span>任TY</span>--%>
-                            <%--</a>--%>
-                        <%--</li>--%>
-
-
 
 
                         <!-- 退出 -->
@@ -81,8 +185,7 @@
 
         </header>
         <!-- 风格切换 -->
-        
-		<!-- 风格切换 -->
+        <!-- 风格切换 -->
         <div class="tpl-skiner">
             <div class="tpl-skiner-toggle am-icon-cog">
             </div>
@@ -107,9 +210,9 @@
                     </div>
                     <span class="user-panel-logged-in-text">
                         <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
-                        管理员${username}
+                        管理员<%=session.getAttribute("username")%>
                     </span>
-                    
+
                 </div>
             </div>
 
@@ -154,12 +257,12 @@
                             </a>
                         </li>
 
-						<li class="sidebar-nav-link">
-													<a href="teacher-img.html">
-														<span class="am-icon-angle-right sidebar-nav-link-logo"></span> 师资首页图片修改
-													</a>
-												</li>
-						
+                        <li class="sidebar-nav-link">
+                            <a href="teacher-img.html">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 师资首页图片修改
+                            </a>
+                        </li>
+
                     </ul>
                 </li>
                 <li class="sidebar-nav-link">
@@ -189,6 +292,7 @@
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加体验课程
                             </a>
                         </li>
+
                     </ul>
                 </li>
                 <li class="sidebar-nav-link">
@@ -274,84 +378,83 @@
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">企业基本信息</div>
+                                <div class="widget-title am-fl">添加分部</div>
                                 <div class="widget-function am-fr">
                                     <a href="javascript:;" class="am-icon-cog"></a>
                                 </div>
                             </div>
                             <div class="widget-body am-fr">
 
-                                <form class="am-form tpl-form-line-form">
+                                <form class="am-form tpl-form-line-form" action="/AdminAddOneAddress" method="post">
                                     <div class="am-form-group">
-                                        <label for="user-name" class="am-u-sm-3 am-form-label">企业名称
+                                        <label for="user-name" class="am-u-sm-3 am-form-label">分部名字
                                             <span class="tpl-form-line-small-title"></span>
                                         </label>
                                         <div class="am-u-sm-9">
-                                            <%--<input type="text" class="tpl-form-input" id="user-name" value="东软睿道" readonly="readonly">--%>
-                                            ${enterprise.name}
+                                            <input type="text" class="tpl-form-input" id="user-name" name="branch" placeholder="请输入分部名字">
                                         </div>
                                     </div>
 
+
+
+
+
                                     <div class="am-form-group">
-                                        <label for="user-weibo" class="am-u-sm-3 am-form-label">企业图片
+                                        <label for="user-name" class="am-u-sm-3 am-form-label">分部电话
                                             <span class="tpl-form-line-small-title"></span>
                                         </label>
                                         <div class="am-u-sm-9">
-                                            <div class="am-form-group am-form-file">
-                                                <div class="tpl-form-file-img">
-                                                    <img src="<%=imgPath%>${enterprise_img}" style="width:600px;height: 400px" alt="">
-
-                                                </div>
-                                                <!--<button type="button" class="am-btn am-btn-danger am-btn-sm">
-                                                    <i class="am-icon-cloud-upload"></i> 添加图片</button>
-                                                <input id="doc-form-file" type="file" multiple="">-->
-                                            </div>
-
+                                            <input type="text" class="tpl-form-input" id="user-name" name="tel" placeholder="请输入分布电话">
                                         </div>
                                     </div>
 
-
-
                                     <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">企业介绍</label>
+                                        <label for="user-name" class="am-u-sm-3 am-form-label">分部地址
+                                            <span class="tpl-form-line-small-title"></span>
+                                        </label>
                                         <div class="am-u-sm-9">
-                                            ${enterprise.introduction}
+                                            <input type="text" class="tpl-form-input" id="user-name" name="address" placeholder="请输入分布电话">
                                         </div>
                                     </div>
 
                                     <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">企业视频</label>
-                                        <video id="example_video_1" class="video-js vjs-amazeui" controls preload="none" width="640" height="364" poster="http://video-js.zencoder.com/oceans-clip.png"
-                                            data-setup="{}">
-                                            <source src="<%=videoPath%>${enterprise.videopath}" type='video/mp4' />
-                                            <source src="<%=videoPath%>${enterprise.videopath}" type='video/webm' />
-                                            <source src="<%=videoPath%>${enterprise.videopath}" type='video/ogg' />
-                                            <track kind="captions" src="video.js/demo.captions.vtt" srclang="en" label="English"></track>
-                                            <!-- Tracks need an ending tag thanks to IE9 -->
-                                            <track kind="subtitles" src="video.js/demo.captions.vtt" srclang="en" label="English"></track>
-                                            <!-- Tracks need an ending tag thanks to IE9 -->
-                                            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web
-                                                browser that
-                                                <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                                            </p>
-                                        </video>
+                                        <label for="user-intro" class="am-u-sm-3 am-form-label">分部坐标</label>
+
+                                        <!--<div class="am-u-sm-9" id="allmap"></div>-->
+                                        <div>
+                                            <input id="latLng" style="color:#40E0D0" type="textbox" name="pot" value="请输入纬度经度，例如：39.89477,116.35432">
+                                            <input type="button" style="color:#40E0D0" value="search" onclick="geolocation_latlng()">
+                                            <span style="height:30px;display:none" id="city"></span>
+                                        </div>
+
+                                        <div>
+                                            <input id="keyword" style="color:#40E0D0" type="textbox" value="搜索关键字">
+											<input id="mylocation" style="color:#40E0D0" type="textbox" value="搜索城市或范围">
+                                            <input type="button" style="color:#40E0D0" value="search" onclick="searchKeyword()">
+                                        </div>
+
+
+
 
                                     </div>
-
 
 
                                     <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">精彩展示</label>
-                                        <div class="am-u-sm-9 jczs" >
-                                            ${enterprise.jczs}
 
-                                        </div>
+                                        <label for="user-intro" class="am-u-sm-3 am-form-label">地图</label>
+                                        <div id="mapcontainer" style="width:500px; height:400px"></div>
+
                                     </div>
+
+
+
+
 
                                     <div class="am-form-group">
                                         <div class="am-u-sm-9 am-u-sm-push-3">
-                                            <a href="/AdminToSetEnterpriseBasic"  type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">修改</a>
+                                            <input type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success " value="添加"/>
                                         </div>
+
                                     </div>
                                 </form>
                             </div>
@@ -365,14 +468,13 @@
         </div>
     </div>
     </div>
+
+
+
     <script src="<%=basePath%>assets/js/amazeui.min.js"></script>
     <script src="<%=basePath%>assets/js/amazeui.datatables.min.js"></script>
     <script src="<%=basePath%>assets/js/dataTables.responsive.min.js"></script>
     <script src="<%=basePath%>assets/js/app.js"></script>
-    <script src="video.js/video.js"></script>
-    <script>
-        videojs.options.flash.swf = "video.js/video-js.swf";
-    </script>
 
 </body>
 

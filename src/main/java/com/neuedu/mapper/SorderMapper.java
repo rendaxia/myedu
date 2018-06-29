@@ -30,5 +30,5 @@ public interface SorderMapper {
     //////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////
 
-    public int getSorderAmount(int qid) throws Exception;
+    public int adminGetSorderAmount(int qid) throws Exception;
 }

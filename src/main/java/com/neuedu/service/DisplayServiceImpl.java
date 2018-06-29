@@ -4,6 +4,8 @@ package com.neuedu.service;
 import com.neuedu.myBatis.SqlSessionUtil;
 import com.neuedu.po.*;
 import com.neuedu.mapper.*;
+import com.neuedu.tools.AddressPages;
+import com.neuedu.tools.TeacherPages;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
@@ -119,13 +121,13 @@ public class DisplayServiceImpl implements DisplayService{
     //////////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    public boolean checkUser(String username, String userpassword) {
+    public boolean adminCheckUser(String username, String userpassword) {
         boolean isOK = false;
         int result = 0;
         SqlSession sqlSession = SqlSessionUtil.getSession();
         CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
         try {
-            result = mapper.checkUser(username,userpassword);
+            result = mapper.adminCheckUser(username,userpassword);
             if (result > 0){
                 isOK = true;
             }else {
@@ -133,129 +135,273 @@ public class DisplayServiceImpl implements DisplayService{
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return isOK;
     }
 
     @Override
-    public int getQidOfUser(String username, String userpassword) {
+    public int adminGetQidOfUser(String username, String userpassword) {
         int result = -1 ;
         SqlSession sqlSession = SqlSessionUtil.getSession();
         CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
         try {
-            result = mapper.getQidOfUser(username,userpassword);
+            result = mapper.adminGetQidOfUser(username,userpassword);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return result;
     }
 
-    public int getTeacherAmount(int qid){
+    public int adminGetTeacherAmount(int qid){
         int result = -1;
         SqlSession sqlSession = SqlSessionUtil.getSession();
         CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
         try {
-            result = mapper.getTeacherAmount(qid);
+            result = mapper.adminGetTeacherAmount(qid);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return result;
     }
 
-    public int getLessonAmount(int qid){
+    public int adminGetLessonAmount(int qid){
         int result = -1;
         SqlSession sqlSession = SqlSessionUtil.getSession();
         ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
         try {
-            result = mapper.getLessonAmount(qid);
+            result = mapper.adminGetLessonAmount(qid);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return result;
     }
 
-    public int getFreelistenAmount(int qid){
+    public int adminGetFreelistenAmount(int qid){
         int result = -1;
         SqlSession sqlSession = SqlSessionUtil.getSession();
         ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
         try {
-            result = mapper.getFreelistenAmount(qid);
+            result = mapper.adminGetFreelistenAmount(qid);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return result;
     }
 
 
-    public int getSorderAmount(int qid){
+    public int adminGetSorderAmount(int qid){
         int result = -1;
         SqlSession sqlSession = SqlSessionUtil.getSession();
         SorderMapper mapper = sqlSession.getMapper(SorderMapper.class);
         try {
-            result = mapper.getSorderAmount(qid);
+            result = mapper.adminGetSorderAmount(qid);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return result;
     }
 
-    public int getFreelistenbookAmount(int qid){
+    public int adminGetFreelistenbookAmount(int qid){
         int result = -1;
         SqlSession sqlSession = SqlSessionUtil.getSession();
         FreelistenbookMapper mapper = sqlSession.getMapper(FreelistenbookMapper.class);
         try {
-            result = mapper.getFreelistenbookAmount(qid);
+            result = mapper.adminGetFreelistenbookAmount(qid);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return result;
     }
 
-    public int getMessagereplyAmount(int qid){
+    public int adminGetMessagereplyAmount(int qid){
         int result = -1;
         SqlSession sqlSession = SqlSessionUtil.getSession();
         MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
         try {
-            result = mapper.getMessagereplyAmount(qid);
+            result = mapper.adminGetMessagereplyAmount(qid);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return result;
     }
 
-    public int getMessagelikeAmount(int qid){
+    public int adminGetMessagelikeAmount(int qid){
         int result = -1;
         SqlSession sqlSession = SqlSessionUtil.getSession();
         MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
         try {
-            result = mapper.getMessagelikeAmount(qid);
+            result = mapper.adminGetMessagelikeAmount(qid);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return result;
     }
 
-    public Enterprise getOneEnterprise(int qid){
+    public Enterprise adminGetOneEnterprise(int qid){
         Enterprise result = null;
         SqlSession sqlSession = SqlSessionUtil.getSession();
         CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
         try {
-            result = mapper.getOneEnterprise(qid);
+            result = mapper.adminGetOneEnterprise(qid);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return result;
     }
 
-    public String getEnterpriseImgurl(int qid,String category){
+    public String adminGetEnterpriseImgurl(int qid,String category){
         String result = "";
         SqlSession sqlSession = SqlSessionUtil.getSession();
         CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
         try {
-            result = mapper.getEnterpriseImgurl(qid,category);
+            result = mapper.adminGetEnterpriseImgurl(qid,category);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return result;
     }
+
+    public ArrayList<Address> adminGetAllAddress(int qid){
+        ArrayList<Address> list=null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            list = mapper.adminGetAllAddress(qid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return list;
+
+    }
+
+
+    public Address adminSelectOneAddress(int id){
+        Address address = null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            address= mapper.adminSelectOneAddress(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return address;
+
+    }
+
+    public int adminGetAddressAmount(int qid){
+        int result = -1;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            result = mapper.adminGetAddressAmount(qid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return result;
+    }
+
+    public ArrayList<Address> adminGetSomeAddressInPage(int page,int qid){
+        ArrayList<Address> list;
+        SqlSession session=SqlSessionUtil.getSession();
+        int x=(page-1)*AddressPages.N;
+
+        try {
+            CompanyMapper mapper=session.getMapper(CompanyMapper.class);
+            list = mapper.adminGetSomeAddressInPage(qid,x,AddressPages.getN());
+        } catch (Exception e) {
+            list=null;
+            e.printStackTrace();
+        }finally{
+            session.close();
+        }
+        return list;
+    }
+
+    public ArrayList<Teacher> adminGetAllTeacher(int qid){
+        ArrayList<Teacher> list=null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            list = mapper.adminGetAllTeacher(qid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return list;
+    }
+
+    public ArrayList<Teacher> adminGetSomeTeacherInPage(int page,int qid){
+        ArrayList<Teacher> list;
+        SqlSession session=SqlSessionUtil.getSession();
+        int x=(page-1)*TeacherPages.N;
+
+        try {
+            CompanyMapper mapper=session.getMapper(CompanyMapper.class);
+            list = mapper.adminGetSomeTeacherInPage(qid,x,TeacherPages.getN());
+        } catch (Exception e) {
+            list=null;
+            e.printStackTrace();
+        }finally{
+            session.close();
+        }
+        return list;
+    }
+
+    public Teacher adminSelectOneTeacher(int tid){
+        Teacher teacher = null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            teacher= mapper.adminSelectOneTeacher(tid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return teacher;
+    }
+
+    public String adminGetTeacherImg(int qid){
+        String result = "";
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            result = mapper.adminGetTeacherImg(qid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return result;
+    }
+
 }

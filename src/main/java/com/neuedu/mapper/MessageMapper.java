@@ -21,7 +21,7 @@ public interface MessageMapper {
     ////////////////////////////////////////////////
     ////////////////////////////////////////////////
 
-    public int getMessagelikeAmount(int qid);
+    public int adminGetMessagelikeAmount(int qid);
 
-    public int getMessagereplyAmount(int qid);
+    public int adminGetMessagereplyAmount(int qid);
 }

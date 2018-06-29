@@ -25,25 +25,44 @@ public interface DisplayService {
     ///////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////
 
-    public boolean checkUser(String username,String userpassword);
+    public boolean adminCheckUser(String username,String userpassword);
 
-    public int getQidOfUser(String username,String userpassword);
+    public int adminGetQidOfUser(String username,String userpassword);
 
-    public int getTeacherAmount(int qid);
+    public int adminGetTeacherAmount(int qid);
 
-    public int getLessonAmount(int qid);
+    public int adminGetLessonAmount(int qid);
 
-    public int getFreelistenAmount(int qid);
+    public int adminGetFreelistenAmount(int qid);
 
-    public int getSorderAmount(int qid);
+    public int adminGetSorderAmount(int qid);
 
-    public int getFreelistenbookAmount(int qid);
+    public int adminGetFreelistenbookAmount(int qid);
 
-    public int getMessagereplyAmount(int qid);
+    public int adminGetMessagereplyAmount(int qid);
 
-    public int getMessagelikeAmount(int qid);
+    public int adminGetMessagelikeAmount(int qid);
 
-    public Enterprise getOneEnterprise(int qid);
+    public Enterprise adminGetOneEnterprise(int qid);
 
-    public String getEnterpriseImgurl(int qid,String category);
+    public String adminGetEnterpriseImgurl(int qid,String category);
+
+    public ArrayList<Address> adminGetAllAddress(int qid);
+
+    public Address adminSelectOneAddress(int id);
+
+    public int adminGetAddressAmount(int qid);
+
+    public ArrayList<Address> adminGetSomeAddressInPage(int page,int qid);
+
+    public ArrayList<Teacher> adminGetAllTeacher(int qid);
+
+    public ArrayList<Teacher> adminGetSomeTeacherInPage(int qid,int page);
+
+    public Teacher adminSelectOneTeacher(int tid);
+
+    public String adminGetTeacherImg(int qid );
+
+
+
 }

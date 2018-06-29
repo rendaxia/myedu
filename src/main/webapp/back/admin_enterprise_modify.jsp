@@ -40,7 +40,7 @@
         <header>
             <!-- logo -->
             <div class="am-fl tpl-header-logo">
-                <a href="myindex.html">
+                <a href="/AdminGoToIndex">
                     <img src="<%=basePath%>assets/img/logo.png" alt="">
                 </a>
             </div>
@@ -56,66 +56,6 @@
                 <!-- 其它功能-->
                 <div class="am-fr tpl-header-navbar">
                     <ul>
-                        <!-- 欢迎语 -->
-                        <li class="am-text-sm tpl-header-navbar-welcome">
-                            <a href="javascript:;">欢迎你,
-                                <span>任TY</span>
-                            </a>
-                        </li>
-
-                        <!-- 新邮件 -->
-                        <li class="am-dropdown tpl-dropdown" data-am-dropdown>
-                            <a href="javascript:;" class="am-dropdown-toggle tpl-dropdown-toggle" data-am-dropdown-toggle>
-                                <i class="am-icon-envelope"></i>
-                                <span class="am-badge am-badge-success am-round item-feed-badge">4</span>
-                            </a>
-                            <!-- 弹出列表 -->
-                            <ul class="am-dropdown-content tpl-dropdown-content">
-                                <li class="tpl-dropdown-menu-messages">
-                                    <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
-                                        <div class="menu-messages-ico">
-                                            <img src="<%=basePath%>assets/img/user04.png" alt="">
-                                        </div>
-                                        <div class="menu-messages-time">
-                                            3小时前
-                                        </div>
-                                        <div class="menu-messages-content">
-                                            <div class="menu-messages-content-title">
-                                                <i class="am-icon-circle-o am-text-success"></i>
-                                                <span>夕风色</span>
-                                            </div>
-                                            <div class="am-text-truncate"> Amaze UI 的诞生，依托于 GitHub 及其他技术社区上一些优秀的资源；Amaze UI 的成长，则离不开用户的支持。 </div>
-                                            <div class="menu-messages-content-time">2016-09-21 下午 16:40</div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li class="tpl-dropdown-menu-messages">
-                                    <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
-                                        <div class="menu-messages-ico">
-                                            <img src="<%=basePath%>assets/img/user02.png" alt="">
-                                        </div>
-                                        <div class="menu-messages-time">
-                                            5天前
-                                        </div>
-                                        <div class="menu-messages-content">
-                                            <div class="menu-messages-content-title">
-                                                <i class="am-icon-circle-o am-text-warning"></i>
-                                                <span>禁言小张</span>
-                                            </div>
-                                            <div class="am-text-truncate"> 为了能最准确的传达所描述的问题， 建议你在反馈时附上演示，方便我们理解。 </div>
-                                            <div class="menu-messages-content-time">2016-09-16 上午 09:23</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="tpl-dropdown-menu-messages">
-                                    <a href="javascript:;" class="tpl-dropdown-menu-messages-item am-cf">
-                                        <i class="am-icon-circle-o"></i> 进入列表…
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
 
 
                         <!-- 退出 -->
@@ -156,7 +96,7 @@
                     </div>
                     <span class="user-panel-logged-in-text">
                         <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
-                        管理员任庭玉
+                        管理员${username}
                     </span>
 
                 </div>
@@ -171,13 +111,13 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="enterprise1.html">
+                            <a href="/AdminGoToEnterpriseBasic">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 企业基本信息浏览及修改
                             </a>
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="branch-all.html">
+                            <a href="/AdminToShowAllAddress">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 企业分部信息浏览及修改
                             </a>
                         </li>
@@ -192,13 +132,13 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="teacher-all.html">
+                            <a href="/AdminToShowAllTeacher">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>师资信息浏览及修改
                             </a>
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="teacher-add.html">
+                            <a href="/back/admin_teacher_add.jsp">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加老师
                             </a>
                         </li>
@@ -346,7 +286,6 @@
                                         </label>
                                         <div class="am-u-sm-9">
                                             <div class="am-form-group am-form-file">
-
                                                 <button type="button" class="am-btn am-btn-danger am-btn-sm">
                                                     <i class="am-icon-cloud-upload"></i> 修改图片</button>
                                                 <input id="doc-form-file" type="file" name ="img" >

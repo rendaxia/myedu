@@ -30,10 +30,10 @@
     <link rel="stylesheet" href="<%=basePath%>assets/css/app.css">
     <script src="<%=basePath%>assets/js/jquery.min.js"></script>
     <style>
-        .jczs img {width:200px;height:100px;}
+        .td_style {
+            width: 200px;
+        }
     </style>
-
-
 </head>
 
 <body data-type="widgets">
@@ -43,7 +43,7 @@
         <header>
             <!-- logo -->
             <div class="am-fl tpl-header-logo">
-                <a href="/AdminGoToIndex">
+                <a href="myindex.html">
                     <img src="<%=basePath%>assets/img/logo.png" alt="">
                 </a>
             </div>
@@ -59,12 +59,6 @@
                 <!-- 其它功能-->
                 <div class="am-fr tpl-header-navbar">
                     <ul>
-                        <%--<!-- 欢迎语 -->--%>
-                        <%--<li class="am-text-sm tpl-header-navbar-welcome">--%>
-                            <%--<a href="javascript:;">欢迎你,--%>
-                                <%--<span>任TY</span>--%>
-                            <%--</a>--%>
-                        <%--</li>--%>
 
 
 
@@ -81,8 +75,7 @@
 
         </header>
         <!-- 风格切换 -->
-        
-		<!-- 风格切换 -->
+        <!-- 风格切换 -->
         <div class="tpl-skiner">
             <div class="tpl-skiner-toggle am-icon-cog">
             </div>
@@ -153,13 +146,13 @@
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加老师
                             </a>
                         </li>
-
 						<li class="sidebar-nav-link">
 													<a href="teacher-img.html">
 														<span class="am-icon-angle-right sidebar-nav-link-logo"></span> 师资首页图片修改
 													</a>
 												</li>
 						
+
                     </ul>
                 </li>
                 <li class="sidebar-nav-link">
@@ -189,6 +182,7 @@
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加体验课程
                             </a>
                         </li>
+
                     </ul>
                 </li>
                 <li class="sidebar-nav-link">
@@ -261,106 +255,159 @@
 
             </ul>
         </div>
+
+        <!-- 内容区域 -->
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper">
-
-
-
             <div class="row-content am-cf">
-
-
                 <div class="row">
-
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">企业基本信息</div>
-                                <div class="widget-function am-fr">
-                                    <a href="javascript:;" class="am-icon-cog"></a>
-                                </div>
+                                <div class="widget-title  am-cf">预约列表</div>
+
+
                             </div>
-                            <div class="widget-body am-fr">
+                            <div class="widget-body  am-fr">
 
-                                <form class="am-form tpl-form-line-form">
-                                    <div class="am-form-group">
-                                        <label for="user-name" class="am-u-sm-3 am-form-label">企业名称
-                                            <span class="tpl-form-line-small-title"></span>
-                                        </label>
-                                        <div class="am-u-sm-9">
-                                            <%--<input type="text" class="tpl-form-input" id="user-name" value="东软睿道" readonly="readonly">--%>
-                                            ${enterprise.name}
-                                        </div>
-                                    </div>
+                                <form>
+                                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-1">
+                                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 
-                                    <div class="am-form-group">
-                                        <label for="user-weibo" class="am-u-sm-3 am-form-label">企业图片
-                                            <span class="tpl-form-line-small-title"></span>
-                                        </label>
-                                        <div class="am-u-sm-9">
-                                            <div class="am-form-group am-form-file">
-                                                <div class="tpl-form-file-img">
-                                                    <img src="<%=imgPath%>${enterprise_img}" style="width:600px;height: 400px" alt="">
-
-                                                </div>
-                                                <!--<button type="button" class="am-btn am-btn-danger am-btn-sm">
-                                                    <i class="am-icon-cloud-upload"></i> 添加图片</button>
-                                                <input id="doc-form-file" type="file" multiple="">-->
-                                            </div>
+                                            <input type="text" class="am-form-field " placeholder="编号">
 
                                         </div>
                                     </div>
+                                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
 
+                                        <div class="am-form-group tpl-table-list-select">
 
+                                            <select data-am-selected="{btnSize: 's'}">
 
-                                    <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">企业介绍</label>
-                                        <div class="am-u-sm-9">
-                                            ${enterprise.introduction}
+                                                <option value="option1">待处理</option>
+                                                <option value="option2">已处理</option>
+
+                                            </select>
                                         </div>
                                     </div>
 
-                                    <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">企业视频</label>
-                                        <video id="example_video_1" class="video-js vjs-amazeui" controls preload="none" width="640" height="364" poster="http://video-js.zencoder.com/oceans-clip.png"
-                                            data-setup="{}">
-                                            <source src="<%=videoPath%>${enterprise.videopath}" type='video/mp4' />
-                                            <source src="<%=videoPath%>${enterprise.videopath}" type='video/webm' />
-                                            <source src="<%=videoPath%>${enterprise.videopath}" type='video/ogg' />
-                                            <track kind="captions" src="video.js/demo.captions.vtt" srclang="en" label="English"></track>
-                                            <!-- Tracks need an ending tag thanks to IE9 -->
-                                            <track kind="subtitles" src="video.js/demo.captions.vtt" srclang="en" label="English"></track>
-                                            <!-- Tracks need an ending tag thanks to IE9 -->
-                                            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web
-                                                browser that
-                                                <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                                            </p>
-                                        </video>
+                                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-2">
+                                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 
+                                            <input type="text" class="am-form-field" placeholder="用户昵称">
+
+                                        </div>
                                     </div>
+                                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-2">
+                                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 
-
-
-                                    <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">精彩展示</label>
-                                        <div class="am-u-sm-9 jczs" >
-                                            ${enterprise.jczs}
+                                            <input type="text" class="am-form-field" placeholder="起始日期" data-am-datepicker readonly required />
 
                                         </div>
                                     </div>
 
-                                    <div class="am-form-group">
-                                        <div class="am-u-sm-9 am-u-sm-push-3">
-                                            <a href="/AdminToSetEnterpriseBasic"  type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">修改</a>
+                                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-2">
+                                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+
+                                            <input type="text" class="am-form-field" placeholder="结束日期" data-am-datepicker readonly required />
+
                                         </div>
+                                    </div>
+
+                                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-2">
+                                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+
+                                            <button type="button" class="am-btn am-btn-secondary">查询</button>
+                                        </div>
+
                                     </div>
                                 </form>
+                                <div class="am-u-sm-12">
+                                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
+                                        <thead>
+                                            <tr>
+                                                <th>课程编号</th>
+                                                <th>课程标题</th>
+                                                <th>用户昵称</th>
+                                                <th>用户电话</th>
+                                                <th>预约状态</th>
+                                                <th>预约时间</th>
+                                                <th>留言</th>
+                                                <th>处理</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="gradeX">
+                                                <td>1</td>
+                                                <td>王者荣耀打野课</td>
+                                                <td>庄振飞</td>
+                                                <td>1783726293</td>
+                                                <td>待处理</td>
+                                                <td>2016-09-26</td>
+                                                <td class="td_style">我是一个爱打野的少年，我的孙尚香让大家都吃不到经济，然后我参团率6%，最终送掉自己人头，帮助对面赢得胜利</td>
+                                                <td>
+                                                    <div class="tpl-table-black-operation">
+                                                        <a href="javascript:;">
+                                                            <i class="am-icon-hand-pointer-o"></i>确认处理
+                                                        </a>
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="even gradeC">
+                                                <td>2</td>
+                                                <td>王者荣耀射手课</td>
+                                                <td>任婷玉</td>
+                                                <td>1232333293</td>
+                                                <td>已处理</td>
+                                                <td>2016-10-26</td>
+                                                <td class="td_style">我是一个爱ad的少年，我的百里守约让大家都吃不到经济，然后我参团30%，最终收掉对面人头，帮助己方赢得胜利</td>
+                                                <td>
+                                                    <div class="tpl-table-black-operation">
+                                                        <a href="javascript:;">
+                                                            <i class="am-icon-hand-pointer-o"></i>确认处理
+                                                        </a>
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <!-- more data -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="am-u-lg-12 am-cf">
+
+                                    <div class="am-fr">
+                                        <ul class="am-pagination tpl-pagination">
+                                            <li class="am-disabled">
+                                                <a href="#">«</a>
+                                            </li>
+                                            <li class="am-active">
+                                                <a href="#">1</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">2</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">3</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">4</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">5</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">»</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     </div>
@@ -369,10 +416,7 @@
     <script src="<%=basePath%>assets/js/amazeui.datatables.min.js"></script>
     <script src="<%=basePath%>assets/js/dataTables.responsive.min.js"></script>
     <script src="<%=basePath%>assets/js/app.js"></script>
-    <script src="video.js/video.js"></script>
-    <script>
-        videojs.options.flash.swf = "video.js/video-js.swf";
-    </script>
+
 
 </body>
 

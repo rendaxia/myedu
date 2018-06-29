@@ -5,7 +5,8 @@
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/back/";
     String imgPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/img/";
-    String videoPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/video/";
+    //System.out.println(imgPath);
+    //String videoPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/video/";
     request.setCharacterEncoding("utf-8");
     response.setCharacterEncoding("utf-8");
 %>
@@ -29,10 +30,6 @@
     <link rel="stylesheet" href="<%=basePath%>assets/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="<%=basePath%>assets/css/app.css">
     <script src="<%=basePath%>assets/js/jquery.min.js"></script>
-    <style>
-        .jczs img {width:200px;height:100px;}
-    </style>
-
 
 </head>
 
@@ -43,7 +40,7 @@
         <header>
             <!-- logo -->
             <div class="am-fl tpl-header-logo">
-                <a href="/AdminGoToIndex">
+                <a href="/AdminGoToIndexl">
                     <img src="<%=basePath%>assets/img/logo.png" alt="">
                 </a>
             </div>
@@ -59,15 +56,6 @@
                 <!-- 其它功能-->
                 <div class="am-fr tpl-header-navbar">
                     <ul>
-                        <%--<!-- 欢迎语 -->--%>
-                        <%--<li class="am-text-sm tpl-header-navbar-welcome">--%>
-                            <%--<a href="javascript:;">欢迎你,--%>
-                                <%--<span>任TY</span>--%>
-                            <%--</a>--%>
-                        <%--</li>--%>
-
-
-
 
                         <!-- 退出 -->
                         <li class="am-text-sm">
@@ -107,7 +95,7 @@
                     </div>
                     <span class="user-panel-logged-in-text">
                         <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
-                        管理员${username}
+                        管理员<%=session.getAttribute("username")%>>
                     </span>
                     
                 </div>
@@ -153,13 +141,13 @@
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加老师
                             </a>
                         </li>
-
 						<li class="sidebar-nav-link">
 													<a href="teacher-img.html">
 														<span class="am-icon-angle-right sidebar-nav-link-logo"></span> 师资首页图片修改
 													</a>
 												</li>
 						
+
                     </ul>
                 </li>
                 <li class="sidebar-nav-link">
@@ -189,6 +177,7 @@
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加体验课程
                             </a>
                         </li>
+
                     </ul>
                 </li>
                 <li class="sidebar-nav-link">
@@ -274,37 +263,35 @@
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">企业基本信息</div>
+                                <div class="widget-title am-fl">修改讲师信息</div>
                                 <div class="widget-function am-fr">
                                     <a href="javascript:;" class="am-icon-cog"></a>
                                 </div>
                             </div>
                             <div class="widget-body am-fr">
 
-                                <form class="am-form tpl-form-line-form">
+                                <form class="am-form tpl-form-line-form" action="/AdminSetOneTeacher" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="tid" class="tpl-form-input" id="user-name" value="${teacher.tid}">
+
                                     <div class="am-form-group">
-                                        <label for="user-name" class="am-u-sm-3 am-form-label">企业名称
+                                        <label for="user-name" class="am-u-sm-3 am-form-label">讲师姓名
                                             <span class="tpl-form-line-small-title"></span>
                                         </label>
                                         <div class="am-u-sm-9">
-                                            <%--<input type="text" class="tpl-form-input" id="user-name" value="东软睿道" readonly="readonly">--%>
-                                            ${enterprise.name}
+                                            <input type="text" class="tpl-form-input" name="tname" id="user-name" value="${teacher.tname}">
                                         </div>
                                     </div>
 
                                     <div class="am-form-group">
-                                        <label for="user-weibo" class="am-u-sm-3 am-form-label">企业图片
+                                        <label for="user-weibo" class="am-u-sm-3 am-form-label" >讲师图片
                                             <span class="tpl-form-line-small-title"></span>
                                         </label>
                                         <div class="am-u-sm-9">
                                             <div class="am-form-group am-form-file">
-                                                <div class="tpl-form-file-img">
-                                                    <img src="<%=imgPath%>${enterprise_img}" style="width:600px;height: 400px" alt="">
 
-                                                </div>
-                                                <!--<button type="button" class="am-btn am-btn-danger am-btn-sm">
-                                                    <i class="am-icon-cloud-upload"></i> 添加图片</button>
-                                                <input id="doc-form-file" type="file" multiple="">-->
+                                                <button type="button" class="am-btn am-btn-danger am-btn-sm">
+                                                    <i class="am-icon-cloud-upload"></i> 修改图片</button>
+                                                <input id="doc-form-file" name="tphoto" type="file">
                                             </div>
 
                                         </div>
@@ -313,44 +300,20 @@
 
 
                                     <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">企业介绍</label>
+                                        <label for="user-intro" class="am-u-sm-3 am-form-label">讲师介绍</label>
                                         <div class="am-u-sm-9">
-                                            ${enterprise.introduction}
+                                            <textarea class="" rows="10" id="user-intro" name="introduction" >${teacher.introduction}</textarea>
                                         </div>
                                     </div>
 
-                                    <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">企业视频</label>
-                                        <video id="example_video_1" class="video-js vjs-amazeui" controls preload="none" width="640" height="364" poster="http://video-js.zencoder.com/oceans-clip.png"
-                                            data-setup="{}">
-                                            <source src="<%=videoPath%>${enterprise.videopath}" type='video/mp4' />
-                                            <source src="<%=videoPath%>${enterprise.videopath}" type='video/webm' />
-                                            <source src="<%=videoPath%>${enterprise.videopath}" type='video/ogg' />
-                                            <track kind="captions" src="video.js/demo.captions.vtt" srclang="en" label="English"></track>
-                                            <!-- Tracks need an ending tag thanks to IE9 -->
-                                            <track kind="subtitles" src="video.js/demo.captions.vtt" srclang="en" label="English"></track>
-                                            <!-- Tracks need an ending tag thanks to IE9 -->
-                                            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web
-                                                browser that
-                                                <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                                            </p>
-                                        </video>
-
-                                    </div>
 
 
 
-                                    <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">精彩展示</label>
-                                        <div class="am-u-sm-9 jczs" >
-                                            ${enterprise.jczs}
 
-                                        </div>
-                                    </div>
 
                                     <div class="am-form-group">
                                         <div class="am-u-sm-9 am-u-sm-push-3">
-                                            <a href="/AdminToSetEnterpriseBasic"  type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">修改</a>
+                                            <input type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success " value="确认修改"></input>
                                         </div>
                                     </div>
                                 </form>
@@ -369,10 +332,6 @@
     <script src="<%=basePath%>assets/js/amazeui.datatables.min.js"></script>
     <script src="<%=basePath%>assets/js/dataTables.responsive.min.js"></script>
     <script src="<%=basePath%>assets/js/app.js"></script>
-    <script src="video.js/video.js"></script>
-    <script>
-        videojs.options.flash.swf = "video.js/video-js.swf";
-    </script>
 
 </body>
 

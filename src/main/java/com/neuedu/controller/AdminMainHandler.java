@@ -29,10 +29,10 @@ public class AdminMainHandler {
         // 判断是否非空
         if (username!=null && username!="" && userpassword!= null && userpassword != ""){
             // 非空时和数据库比对
-            if (displayService.checkUser(username,userpassword)){
+            if (displayService.adminCheckUser(username,userpassword)){
                 //如果没错
                 HttpSession session = request.getSession();
-                session.setAttribute("qid", displayService.getQidOfUser(username,userpassword)); // 登录成功，向session存入一个登录标记
+                session.setAttribute("qid", displayService.adminGetQidOfUser(username,userpassword)); // 登录成功，向session存入一个登录标记
                 session.setAttribute("username",username);
                 return "forward:/AdminGoToIndex";
             }else {
@@ -66,12 +66,12 @@ public class AdminMainHandler {
         String username = (String)session.getAttribute("username");
         int qid = (Integer) session.getAttribute("qid");
 
-        String teacheramount = ""+displayService.getTeacherAmount(qid);
-        String lessonamount = ""+displayService.getLessonAmount(qid);
-        String freelistenamount = ""+displayService.getFreelistenAmount(qid);
-        String sorderamount = ""+displayService.getSorderAmount(qid);
-        String freelistenbookamount = ""+displayService.getFreelistenAmount(qid);
-        String messageadditionamount = ""+(displayService.getMessagereplyAmount(qid)+displayService.getMessagelikeAmount(qid));
+        String teacheramount = ""+displayService.adminGetTeacherAmount(qid);
+        String lessonamount = ""+displayService.adminGetLessonAmount(qid);
+        String freelistenamount = ""+displayService.adminGetFreelistenAmount(qid);
+        String sorderamount = ""+displayService.adminGetSorderAmount(qid);
+        String freelistenbookamount = ""+displayService.adminGetFreelistenAmount(qid);
+        String messageadditionamount = ""+(displayService.adminGetMessagereplyAmount(qid)+displayService.adminGetMessagelikeAmount(qid));
 
 
         //存储首页信息

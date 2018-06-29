@@ -18,7 +18,7 @@
     <!--//////////////////////////////////////////////////////////// -->
 
 
-    <select id="getFreelistenbookAmount"  resultType="int">
+    <select id="adminGetFreelistenbookAmount"  resultType="int">
         select count(*) from freelistenbook where qid = #{0}
     </select>
 

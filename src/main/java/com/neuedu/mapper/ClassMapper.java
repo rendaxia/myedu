@@ -18,7 +18,7 @@ public interface ClassMapper {
     ///////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////
 
-    public int getLessonAmount(int qid) throws Exception;
+    public int adminGetLessonAmount(int qid) throws Exception;
 
-    public int getFreelistenAmount(int qid) throws Exception;
+    public int adminGetFreelistenAmount(int qid) throws Exception;
 }

@@ -17,32 +17,92 @@
     <!--//////////////////////////////////////////////////////////// -->
     <!--//////////////////////////////////////////////////////////// -->
 
-    <select id="checkUser" resultType="int">
+    <select id="adminCheckUser" resultType="int">
         select count(*) from user where username = #{0} and userpassword = #{1}
     </select>
 
-    <select id="getQidOfUser"   resultType="int">
+    <select id="adminGetQidOfUser"   resultType="int">
         select qid from user where username = #{0} and userpassword = #{1}
     </select>
 
-    <select id="getTeacherAmount"  resultType="int">
+    <select id="adminGetTeacherAmount"  resultType="int">
         select count(*) from teacher where qid = #{0}
     </select>
 
-    <select id="getOneEnterprise" resultType="com.neuedu.po.Enterprise">
+    <select id="adminGetOneEnterprise" resultType="com.neuedu.po.Enterprise">
         select * from enterprise where qid = #{0}
     </select>
 
-    <select id="getEnterpriseImgurl" resultType="java.lang.String">
+    <select id="adminGetEnterpriseImgurl" resultType="java.lang.String">
         select imgurl from swiper where qid = #{0} and category = #{1}
     </select>
 
 
-    <update id="setEnterprise" parameterType="com.neuedu.po.Enterprise" >
+    <update id="adminSetEnterprise" parameterType="com.neuedu.po.Enterprise" >
         update enterprise set name = #{name},videopath= #{videopath},introduction=#{introduction},jczs = #{jczs} where qid =#{qid}
     </update>
 
+    <update id="adminSetEnterpriseImgurl" >
+        update swiper set imgurl=#{0} where qid =#{1} and category='A'
+    </update>
 
+    <select id="adminGetAllAddress" resultType="com.neuedu.po.Address">
+        select * from address where qid = #{0}
+    </select>
 
+    <select id="adminSelectOneAddress" resultType="com.neuedu.po.Address">
+        select * from address where id = #{0}
+    </select>
 
+    <select id="adminGetAddressAmount" resultType="int">
+        select count(*) from address where qid=#{0}
+    </select>
+
+    <select id="adminGetSomeAddressInPage" resultType="com.neuedu.po.Address">
+        select * from address where qid = #{0} order by id limit #{1},#{2}
+    </select>
+
+    <insert id="adminAddOneAddress" parameterType="com.neuedu.po.Address">
+        insert into address(id,qid,branch,address,tel,longitude,latitude)value (null,#{qid},#{branch},#{address},#{tel},#{longitude},#{latitude})
+    </insert>
+
+    <update id="adminSetOneAddress" parameterType="com.neuedu.po.Address">
+        update address set branch=#{branch},address=#{address},tel =#{tel},longitude = #{longitude},latitude = #{latitude} where id = #{id}
+    </update>
+
+    <delete id="adminDeleteOneAddress" parameterType="int">
+        delete from address where id = #{0}
+    </delete>
+
+    <select id="adminGetAllTeacher" resultType="com.neuedu.po.Teacher">
+        select * from teacher where qid = #{0}
+    </select>
+
+    <select id="adminGetSomeTeacherInPage" resultType="com.neuedu.po.Teacher">
+        select * from teacher where qid = #{0} order by tid limit #{1},#{2}
+    </select>
+
+    <select id="adminSelectOneTeacher" resultType="com.neuedu.po.Teacher">
+        select * from teacher where tid = #{0}
+    </select>
+
+    <update id="adminSetOneTeacher" parameterType="com.neuedu.po.Teacher">
+        update teacher set tname=#{tname},tphoto=#{tphoto},introduction=#{introduction} where tid=#{tid}
+    </update>
+
+    <insert id="adminAddOneTeacher" parameterType="com.neuedu.po.Teacher">
+        insert into teacher (tid,tname,tphoto,introduction,qid) value (null,#{tname},#{tphoto},#{introduction},#{qid})
+    </insert>
+
+    <delete id="adminDeleteOneTeacher" parameterType="int">
+        delete from teacher where tid = #{0}
+    </delete>
+
+    <select id="adminGetTeacherImg" parameterType="java.lang.String">
+        select * from swiper where category = 'B' and qid=#{0}
+    </select>
+
+    <update id="adminSetTeacherImg" parameterType="java.lang.String">
+        update swiper set imgurl = #{goalUrl} where qid = #{qid} and category ='B'
+    </update>
 </mapper>

@@ -1,8 +1,10 @@
 package com.neuedu.tools;
 
-public class Pages {
+import com.neuedu.po.Address;
+
+public class AddressPages {
     //N为每页显示5条记录
-    public static int N=5;
+    public static int N=1;
     //分页页码中的个数
     public static int p_N=5;
     //当前页数
@@ -73,7 +75,7 @@ public class Pages {
 
 
     public static void setP_N(int p_N) {
-        Pages.p_N = p_N;
+        AddressPages.p_N = p_N;
     }
 
 
@@ -112,7 +114,7 @@ public class Pages {
      * page：当前页数
      * count：表中记录数
      */
-    public Pages(int page,int count){
+    public AddressPages(int page, int count){
         //	this.page=page;
         this.count=count;
         this.setMaxPage();

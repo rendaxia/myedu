@@ -23,6 +23,8 @@ public class ActionServiceImpl implements ActionService{
             isOK = mapper.freelistenBook(fid,username,tel,comment,openid);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return isOK;
     }
@@ -36,6 +38,8 @@ public class ActionServiceImpl implements ActionService{
             isOK = mapper.freelistenCancel(fid,openid);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return isOK;
     }
@@ -153,17 +157,167 @@ public class ActionServiceImpl implements ActionService{
 
     ////////////////////////////////////////////////////////////
 
-    public int setEnterprise(Enterprise enterprise){
+    public int adminSetEnterprise(Enterprise enterprise){
         int isOK = 0;
-        Messagereply mr = new Messagereply();
+
         SqlSession sqlSession = SqlSessionUtil.getSession();
         CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
         try {
-            isOK = mapper.setEnterprise(enterprise);
+            isOK = mapper.adminSetEnterprise(enterprise);
+            sqlSession.commit();
         } catch (Exception e) {
             isOK = 0;
             e.printStackTrace();
+            sqlSession.rollback();
+
+        }finally {
+            sqlSession.close();
         }
         return  isOK;
     }
+
+    public int adminSetEnterpriseImgurl(String url,int qid){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            isOK = mapper.adminSetEnterpriseImgurl(url,qid);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
+    public int adminAddOneAddress(Address address){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            isOK = mapper.adminAddOneAddress(address);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
+    public int adminSetOneAddress(Address address){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            isOK = mapper.adminSetOneAddress(address);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
+    public int adminDeleteOneAddress(int id){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            isOK = mapper.adminDeleteOneAddress(id);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
+    public int adminSetOneTeacher(Teacher teacher){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            isOK = mapper.adminSetOneTeacher(teacher);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
+    public int adminAddOneTeacher(Teacher teacher){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            isOK = mapper.adminAddOneTeacher(teacher);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
+    public  int adminDeleteOneTeacher(int tid){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            isOK = mapper.adminDeleteOneTeacher(tid);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
+    public int adminSetTeacherImg(String goalUrl,int qid){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            isOK = mapper.adminSetTeacherImg(goalUrl,qid);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
 }

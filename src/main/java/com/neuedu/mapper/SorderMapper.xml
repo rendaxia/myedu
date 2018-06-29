@@ -50,7 +50,7 @@
 
 
 
-    <select id="getSorderAmount"  resultType="int">
+    <select id="adminGetSorderAmount"  resultType="int">
         select count(*) from sorder where qid = #{0}
     </select>
 

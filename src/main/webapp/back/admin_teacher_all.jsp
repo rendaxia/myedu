@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8"%>
+pageEncoding="utf-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
-    String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/back/";
-    String imgPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/img/";
-    String videoPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/video/";
-    request.setCharacterEncoding("utf-8");
-    response.setCharacterEncoding("utf-8");
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/back/";
+String imgPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/img/";
+System.out.println(imgPath);
+String videoPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/video/";
+request.setCharacterEncoding("utf-8");
+response.setCharacterEncoding("utf-8");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,15 +25,15 @@
     <link rel="icon" type="image/png" href="<%=basePath%>assets/i/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="<%=basePath%>assets/i/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <script src="<%=basePath%>assets/js/echarts.min.js"></script>
     <link rel="stylesheet" href="<%=basePath%>assets/css/amazeui.min.css" />
     <link rel="stylesheet" href="<%=basePath%>assets/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="<%=basePath%>assets/css/app.css">
     <script src="<%=basePath%>assets/js/jquery.min.js"></script>
     <style>
-        .jczs img {width:200px;height:100px;}
+        .td_style {
+            width: 500px;
+        }
     </style>
-
 
 </head>
 
@@ -59,14 +60,6 @@
                 <!-- 其它功能-->
                 <div class="am-fr tpl-header-navbar">
                     <ul>
-                        <%--<!-- 欢迎语 -->--%>
-                        <%--<li class="am-text-sm tpl-header-navbar-welcome">--%>
-                            <%--<a href="javascript:;">欢迎你,--%>
-                                <%--<span>任TY</span>--%>
-                            <%--</a>--%>
-                        <%--</li>--%>
-
-
 
 
                         <!-- 退出 -->
@@ -107,7 +100,7 @@
                     </div>
                     <span class="user-panel-logged-in-text">
                         <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
-                        管理员${username}
+                        管理员<%=session.getAttribute("username")%>
                     </span>
                     
                 </div>
@@ -153,13 +146,13 @@
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加老师
                             </a>
                         </li>
-
 						<li class="sidebar-nav-link">
 													<a href="teacher-img.html">
 														<span class="am-icon-angle-right sidebar-nav-link-logo"></span> 师资首页图片修改
 													</a>
 												</li>
 						
+
                     </ul>
                 </li>
                 <li class="sidebar-nav-link">
@@ -189,6 +182,7 @@
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加体验课程
                             </a>
                         </li>
+
                     </ul>
                 </li>
                 <li class="sidebar-nav-link">
@@ -263,116 +257,93 @@
         </div>
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper">
-
-
-
             <div class="row-content am-cf">
-
-
                 <div class="row">
-
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">企业基本信息</div>
-                                <div class="widget-function am-fr">
-                                    <a href="javascript:;" class="am-icon-cog"></a>
-                                </div>
+                                <div class="widget-title  am-cf">师资力量</div>
+
+
                             </div>
-                            <div class="widget-body am-fr">
+                            <div class="widget-body  am-fr">
 
-                                <form class="am-form tpl-form-line-form">
-                                    <div class="am-form-group">
-                                        <label for="user-name" class="am-u-sm-3 am-form-label">企业名称
-                                            <span class="tpl-form-line-small-title"></span>
-                                        </label>
-                                        <div class="am-u-sm-9">
-                                            <%--<input type="text" class="tpl-form-input" id="user-name" value="东软睿道" readonly="readonly">--%>
-                                            ${enterprise.name}
-                                        </div>
+                                <div class="am-u-sm-12">
+                                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
+                                        <thead>
+                                            <tr>
+                                                <th>讲师图片</th>
+                                                <th>讲师姓名</th>
+                                                <th>讲师简介</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+
+                                            <c:forEach items="${list }" var="m">
+
+
+                                                <tr class="gradeX">
+                                                    <td>
+                                                        <img src="<%=imgPath%>${m.tphoto}" class="tpl-table-line-img" style="width: 100px;height: 100px" alt="">
+                                                    </td>
+                                                    <td class="am-text-middle">${m.tname}</td>
+                                                    <td class="am-text-middle td_style">${m.introduction}</td>
+
+                                                    <td class="am-text-middle">
+                                                        <div class="tpl-table-black-operation">
+                                                            <a href="/AdminToSetOneTeacher?tid=${m.tid}">
+                                                                <i class="am-icon-pencil"></i> 编辑
+                                                            </a>
+                                                            <a href="javascript:;" class="tpl-table-black-operation-del">
+                                                                <i class="am-icon-trash"></i> 删除
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                            </c:forEach>
+
+
+                                            <!-- more data -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="am-u-lg-12 am-cf">
+
+                                    <div class="am-fr">
+                                        <ul class="am-pagination tpl-pagination">
+                                            <li><a href="/AdminToShowAllTeacher?page=1">首页</a></li>
+                                            <li><a href="/AdminToShowAllTeacher?page=${p.page-1}">上一页</a></li>
+
+                                            <c:forEach begin="${p.startPage }" end="${p.endPage }" var="i">
+                                                <%--<li><a href="/test/MyHandler_findSome?page=${i }">${i }</a></li>--%>
+                                                <c:choose>
+                                                    <c:when test="${i == p.page}">
+                                                        <a style="opacity: 0.1" onclick="return false;" >${i }</a>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <a href="/AdminToShowAllTeacher?page=${i }">${i }</a>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+
+                                            <li><a href="/AdminToShowAllTeacher?page=${p.page+1}">下一页</a></li>
+                                            <li><a href="/AdminToShowAllTeacher?page=${p.maxPage }">尾页</a></li>
+                                        </ul>
                                     </div>
-
-                                    <div class="am-form-group">
-                                        <label for="user-weibo" class="am-u-sm-3 am-form-label">企业图片
-                                            <span class="tpl-form-line-small-title"></span>
-                                        </label>
-                                        <div class="am-u-sm-9">
-                                            <div class="am-form-group am-form-file">
-                                                <div class="tpl-form-file-img">
-                                                    <img src="<%=imgPath%>${enterprise_img}" style="width:600px;height: 400px" alt="">
-
-                                                </div>
-                                                <!--<button type="button" class="am-btn am-btn-danger am-btn-sm">
-                                                    <i class="am-icon-cloud-upload"></i> 添加图片</button>
-                                                <input id="doc-form-file" type="file" multiple="">-->
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">企业介绍</label>
-                                        <div class="am-u-sm-9">
-                                            ${enterprise.introduction}
-                                        </div>
-                                    </div>
-
-                                    <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">企业视频</label>
-                                        <video id="example_video_1" class="video-js vjs-amazeui" controls preload="none" width="640" height="364" poster="http://video-js.zencoder.com/oceans-clip.png"
-                                            data-setup="{}">
-                                            <source src="<%=videoPath%>${enterprise.videopath}" type='video/mp4' />
-                                            <source src="<%=videoPath%>${enterprise.videopath}" type='video/webm' />
-                                            <source src="<%=videoPath%>${enterprise.videopath}" type='video/ogg' />
-                                            <track kind="captions" src="video.js/demo.captions.vtt" srclang="en" label="English"></track>
-                                            <!-- Tracks need an ending tag thanks to IE9 -->
-                                            <track kind="subtitles" src="video.js/demo.captions.vtt" srclang="en" label="English"></track>
-                                            <!-- Tracks need an ending tag thanks to IE9 -->
-                                            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web
-                                                browser that
-                                                <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                                            </p>
-                                        </video>
-
-                                    </div>
-
-
-
-                                    <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">精彩展示</label>
-                                        <div class="am-u-sm-9 jczs" >
-                                            ${enterprise.jczs}
-
-                                        </div>
-                                    </div>
-
-                                    <div class="am-form-group">
-                                        <div class="am-u-sm-9 am-u-sm-push-3">
-                                            <a href="/AdminToSetEnterpriseBasic"  type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">修改</a>
-                                        </div>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     </div>
     </div>
     <script src="<%=basePath%>assets/js/amazeui.min.js"></script>
-    <script src="<%=basePath%>assets/js/amazeui.datatables.min.js"></script>
-    <script src="<%=basePath%>assets/js/dataTables.responsive.min.js"></script>
     <script src="<%=basePath%>assets/js/app.js"></script>
-    <script src="video.js/video.js"></script>
-    <script>
-        videojs.options.flash.swf = "video.js/video-js.swf";
-    </script>
 
 </body>
 

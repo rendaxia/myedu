@@ -31,7 +31,7 @@
         <header>
             <!-- logo -->
             <div class="am-fl tpl-header-logo">
-                <a href="myindex.html">
+                <a href="/AdminGoToIndex">
                     <img src="<%=request.getContextPath()%>back/assets/img/logo.png" alt="">
                 </a>
             </div>
@@ -167,7 +167,7 @@
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="branch-all.html">
+                            <a href="/AdminToShowAllAddress">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 企业分部信息浏览及修改
                             </a>
                         </li>
@@ -182,13 +182,13 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="teacher-all.html">
+                            <a href="/AdminToShowAllTeacher">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>师资信息浏览及修改
                             </a>
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="teacher-add.html">
+                            <a href="/back/admin_teacher_add.jsp">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加老师
                             </a>
                         </li>

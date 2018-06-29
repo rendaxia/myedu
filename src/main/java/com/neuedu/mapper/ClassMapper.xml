@@ -13,11 +13,11 @@
     <!-- ///////////////////////////////////////////////////////// -->
     <!-- //////////////////////////////////////////////////////// -->
 
-    <select id="getLessonAmount" resultType="int">
+    <select id="adminGetLessonAmount" resultType="int">
         select count(*) from lesson where qid = #{0}
     </select>
 
-    <select id="getFreelistenAmount"   resultType="int">
+    <select id="adminGetFreelistenAmount"   resultType="int">
         select count(*) from freelisten where qid = #{0}
     </select>
 
