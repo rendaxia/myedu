@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+	<link href="css/mui.min.css" rel="stylesheet"/>
+	<link href="css/main.css" rel="stylesheet"/>
+	<link href="css/shopping.css" rel="stylesheet"/>
+	<link href="css/swiper.min.css" rel="stylesheet"/>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/swiper.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+
+    </script>
+</head>
+<body>
+	<div id="close">
+		<i class="fa fa-reply" onclick="javascript:window.location.href='main.html'"></i>
+		<i class="fa fa-share-alt" style="float:right; margin-right:10px;"></i>
+	</div>
+	
+	<div id="concrete_course">
+		<div class="icon" style="background-color: #0062CC;">
+			<h5>体验课</h5>
+		</div>
+		<div class="header">
+			<h4>基于github App 业务深度讲解kotlin1.2高级特性与框架设计</h4>
+			<h4 style="color:#0062CC;margin:10px;">¥396</h4>
+			<h5>简介:基于github App 业务深度讲解kotlin1.2高级特性与框架设计</h5>
+		</div>
+		<div>
+			<img src="img/7.jpg" alt="">
+		</div>
+		<div class="parameter">
+			<ul>
+				<li><h5>体验课ID:3</h5></li>
+				<li><h5>分部ID:</h5></li>
+				<li><h5>企业ID:</h5></li>
+				<li><h5>发布时间:</h5></li>
+				<li><textarea style="font-size: 85%;width:96%;margin-left:2%;color:#555555;" rows="2" cols="12"></textarea></li>
+			</ul>
+		</div>
+	</div>
+	
+	<div id="auto_place"></div>
+	
+	<div id="shopping_bottom">
+		<div id="cart">
+			<i class="fa fa-shopping-cart"></i>
+			<h6>预约</h6>
+		</div>
+		<div id="shopping_bottom_btn" style="background-color: #0062CC;">
+			<h5>添加预约</h5>
+		</div>
+	</div>
+
+	<script>
+		document.getElementById("shopping_bottom_btn").onclick = function(){
+		    var freelistenID = document.getElementsByTagName("li")[0].innerText;
+		    var ID = freelistenID.substr(6);
+		    var comment = document.getElementsByTagName("textarea")[0].value;
+		    $.ajax({
+				url:"/ActionHandler_freelistenBook",
+                dataType:"json",
+                type:"post",
+                data:{ID:ID,comment:comment},
+                success:function(data){
+                    if(data==="{\"result\":\"success\"}"){
+                        alert("success");
+                    }
+                    else{
+                        alert("error");
+                    }
+                }
+			})
+		}
+	</script>
+				
+
+</body>
+</html>

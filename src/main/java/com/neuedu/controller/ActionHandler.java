@@ -25,7 +25,8 @@ public class ActionHandler {
         openid = (String) session.getAttribute("openid");
         String username = (String) session.getAttribute("username");
         String tel = (String) session.getAttribute("tel");
-        int fid = Integer.parseInt(request.getParameter("fid"));
+        //System.out.println(request.getParameter("ID"));
+        int fid = Integer.parseInt(request.getParameter("ID"));
         String comment = request.getParameter("comment");
         isOK = actionService.freelistenBook(fid,"费园园","15804049843",comment,"oC9yV5IbgeaLrGfM8tSLSO8Jmj0c");
         if(isOK){

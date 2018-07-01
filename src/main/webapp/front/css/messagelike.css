@@ -1,0 +1,40 @@
+h4{
+	font-weight: 300;
+}
+
+#friends_like{
+	width:100%;
+}
+
+#friends_like .date{
+	width:inherit;
+	height:25px;
+}
+
+#friends_like .mylike{
+	width:inherit;
+	height:60px;
+}
+
+#friends_like .mylike img{
+	border-radius: 50%;
+	width:15%;
+	float:left;
+	margin-left:5%;
+	margin-top:5px;
+}
+
+#friends_like .mylike h4{
+	position: relative;
+	left:5%;
+	top:12px;
+}
+
+#friends_like .mylike h6{
+	position: relative;
+	left:5%;
+	top:12px;
+}
+
+
+
