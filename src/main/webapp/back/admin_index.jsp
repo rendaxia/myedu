@@ -193,7 +193,7 @@
                             </a>
                         </li>
 						<li class="sidebar-nav-link">
-													<a href="teacher-img.html">
+													<a href="/AdminToSetTeacherImg">
 														<span class="am-icon-angle-right sidebar-nav-link-logo"></span> 师资首页图片修改
 													</a>
 												</li>
@@ -208,23 +208,23 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="course-see.html">
+                            <a href="/AdminToShowAllLesson">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>实体课程浏览及修改
                             </a>
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="book-see.html">
+                            <a href="/AdminToShowAllFreelisten">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>体验课程浏览及修改
                             </a>
                         </li>
                         <li class="sidebar-nav-link">
-                            <a href="course-add.html">
+                            <a href="/AdminToAddOneLesson">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加实体课程
                             </a>
                         </li>
                         <li class="sidebar-nav-link">
-                            <a href="book-add.html">
+                            <a href="/AdminToAddOneFreelisten">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加体验课程
                             </a>
                         </li>
@@ -238,7 +238,7 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="book-all.html">
+                            <a href="/AdminToShowAllFreelistenbook">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>预约查询及处理
                             </a>
                         </li>
@@ -251,17 +251,17 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="order-all.html">
+                            <a href="/AdminToShowAllSorder">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>订单查询
                             </a>
                         </li>
                         <li class="sidebar-nav-link">
-                            <a href="order-refund.html">
+                            <a href="/AdminToShowAllSorderForRefund">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>退款处理
                             </a>
                         </li>
                         <li class="sidebar-nav-link">
-                           <a href="order-cav.html">
+                           <a href="/AdminToShowAllSorderForCAV">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>订单核销
                             </a>
                         </li>

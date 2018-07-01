@@ -1,8 +1,6 @@
 package com.neuedu.service;
 
-import com.neuedu.po.Address;
-import com.neuedu.po.Enterprise;
-import com.neuedu.po.Teacher;
+import com.neuedu.po.*;
 
 public interface ActionService {
     public Boolean freelistenBook(int fid, String username, String tel, String comment, String openid);
@@ -43,4 +41,28 @@ public interface ActionService {
     public  int adminDeleteOneTeacher(int tid);
 
     public int adminSetTeacherImg(String goalUrl,int qid);
+
+    public int adminAddOneLesson(Lesson lesson);
+
+    public int adminAddOneLessonbranch(Lessonbranch lessonbranch);
+
+    public int adminAddOneFreelisten(Freelisten freelisten);
+
+    public int adminSetOneLesson(Lesson lesson);
+
+    public int adminSetOneLessonbranch(Lessonbranch lessonbranch);
+
+    public int adminSetOneFreelisten(Freelisten freelisten);
+
+    public int adminDeleteOneLesson(int lid);
+
+    public int adminDeleteOneLessonbranch(int id);
+
+    public int adminDeleteOneFreelisten(int id);
+
+    public int adminConfirmFreelistenbook(int id);
+
+    public int adminRefundSorder(int oid);
+
+    public int adminCAVSorder(int oid);
 }

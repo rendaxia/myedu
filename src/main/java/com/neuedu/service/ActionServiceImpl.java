@@ -323,4 +323,226 @@ public class ActionServiceImpl implements ActionService{
         return  isOK;
     }
 
+    public int adminAddOneLesson(Lesson lesson){
+
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            isOK = mapper.adminAddOneLesson(lesson);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
+    public int adminAddOneLessonbranch(Lessonbranch lessonbranch){
+
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            isOK = mapper.adminAddOneLessonbranch(lessonbranch);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
+    public int adminAddOneFreelisten(Freelisten freelisten){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            isOK = mapper.adminAddOneFreelisten(freelisten);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+
+    }
+
+    public int adminSetOneLesson(Lesson lesson){
+
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            isOK = mapper.adminSetOneLesson(lesson);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
+    public int adminSetOneLessonbranch(Lessonbranch lessonbranch){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            isOK = mapper.adminSetOneLessonbranch(lessonbranch);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+
+    }
+
+    public int adminSetOneFreelisten(Freelisten freelisten){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            isOK = mapper.adminSetOneFreelisten(freelisten);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+
+    }
+
+    public int adminDeleteOneLesson(int lid){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            isOK = mapper.adminDeleteOneLesson(lid);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+
+    }
+
+    public int adminDeleteOneLessonbranch(int id){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            isOK = mapper.adminDeleteOneLessonbranch(id);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
+    public int adminDeleteOneFreelisten(int id){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            isOK = mapper.adminDeleteOneFreelisten(id);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+    public int adminConfirmFreelistenbook(int id){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            isOK = mapper.adminConfirmFreelistenbook(id);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
+    public int adminRefundSorder(int oid){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            isOK = mapper.adminRefundSorder(oid);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+    public int adminCAVSorder(int oid){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            isOK = mapper.adminCAVSorder(oid);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
+
 }

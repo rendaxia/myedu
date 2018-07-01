@@ -5,6 +5,8 @@ import com.neuedu.myBatis.SqlSessionUtil;
 import com.neuedu.po.*;
 import com.neuedu.mapper.*;
 import com.neuedu.tools.AddressPages;
+import com.neuedu.tools.FreelistenbookPages;
+import com.neuedu.tools.SorderPages;
 import com.neuedu.tools.TeacherPages;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
@@ -503,6 +505,224 @@ public class DisplayServiceImpl implements DisplayService{
         return result;
     }
 
+    public ArrayList<Lesson> adminGetAllLessonByCondition(int qid,int branchid){
+        ArrayList<Lesson> list=null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            list = mapper.adminGetAllLessonByCondition(qid,branchid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return list;
+    }
+
+    public ArrayList<Lesson> adminGetAllLessonByConditionInPage(int qid,int branchid,int page){
+
+        ArrayList<Lesson> list=null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        int x=(page-1)*AddressPages.N;
+        try {
+            list = mapper.adminGetAllLessonByConditionInPage(qid, branchid, x,AddressPages.getN());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return list;
+    }
+
+    public int adminGetLessonByConditionAmount(int qid,int branchid){
+        int result = -1;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            result = mapper.adminGetLessonByConditionAmount(qid,branchid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return result;
+
+    }
+
+
+    public ArrayList<Freelisten> adminGetAllFreelistenByCondition(int qid,int branchid){
+        ArrayList<Freelisten> list=null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            list = mapper.adminGetAllFreelistenByCondition(qid,branchid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return list;
+    }
+
+    public ArrayList<Freelisten> adminGetAllFreelistenByConditionInPage(int qid,int branchid,int page){
+
+        ArrayList<Freelisten> list=null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        int x=(page-1)*AddressPages.N;
+        try {
+            list = mapper.adminGetAllFreelistenByConditionInPage(qid, branchid, x,AddressPages.getN());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return list;
+    }
+
+    public int adminGetFreelistenByConditionAmount(int qid,int branchid){
+        int result = -1;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            result = mapper.adminGetFreelistenByConditionAmount(qid,branchid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return result;
+    }
+
+    public Lesson adminGetOneLesson(int lid){
+        Lesson lesson = null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            lesson= mapper.adminGetOneLesson(lid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return lesson;
+    }
+
+    public Freelisten adminGetOneFreelisten(int id){
+        Freelisten freelisten = null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            freelisten= mapper.adminGetOneFreelisten(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return freelisten;
+    }
+    public  Lesson adminGetOneLessonByLnameAndQidAndCategory(String lname,int qid,String category){
+        Lesson lesson = null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            lesson= mapper.adminGetOneLessonByLnameAndQidAndCategory(lname,qid,category);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return lesson;
+    }
+
+    public Address adminGetOneAddressByLid(int lid ){
+        Address address = null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            address= mapper.adminGetOneAddressByLid(lid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return address;
+    }
+    public Lessonbranch adminGetOneLessonbranch(int lid,int branchid){
+        Lessonbranch lessonbranch = null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        try {
+            lessonbranch= mapper.adminGetOneLessonbranch(lid,branchid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return lessonbranch;
+    }
+
+    public ArrayList<Freelistenbook> adminGetAllFreelistenbookByCondition(int qid,int fid,String status,String username,String startTime,String endTime){
+
+        ArrayList<Freelistenbook> list=null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        //int x=(page-1)*AddressPages.N;
+        try {
+            list = mapper.adminGetAllFreelistenbookByCondition(qid, fid, status, username, startTime, endTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return list;
+    }
+
+    public ArrayList<Freelistenbook> adminGetAllFreelistenbookByConditionInPage(int qid,int fid,String status,String username,String startTime,String endTime,int page){
+        ArrayList<Freelistenbook> list=null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        int x=(page-1)*AddressPages.N;
+        try {
+            list = mapper.adminGetAllFreelistenbookByConditionInPage(qid, fid, status, username, startTime, endTime,x,FreelistenbookPages.getN());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return list;
+    }
+
+    public ArrayList<Sorder> adminGetAllSorderByCondition(int qid,int lid,String status,String nickname,String startTime,String endTime){
+        ArrayList<Sorder> list = null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        //int x=(page-1)*AddressPages.N;
+        try {
+            list = mapper.adminGetAllSorderByCondition(qid, lid, status, nickname, startTime, endTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return  list;
+    }
+
+    public ArrayList<Sorder> adminGetAllSorderByConditionInPage(int qid,int lid,String status,String nickname,String startTime,String endTime,int page){
+        ArrayList<Sorder> list = null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        int x=(page-1)*AddressPages.N;
+        try {
+            list = mapper.adminGetAllSorderByConditionInPage(qid, lid, status, nickname, startTime, endTime,x,SorderPages.getN());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return  list;
+    }
 
 
 }

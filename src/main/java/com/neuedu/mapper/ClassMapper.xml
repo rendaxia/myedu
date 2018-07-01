@@ -82,5 +82,198 @@
         select count(*) from freelisten where qid = #{0}
     </select>
 
+    <select id="adminGetAllLessonByCondition" resultType="com.neuedu.po.Lesson">
+        select * from lesson  inner join lessonbranch on lesson.lid = lessonbranch.lid
+        where lesson.qid = #{qid}
+        <if test="branchid!=null and branchid!=''and branchid!=-1" >
+            and branchid = #{branchid}
+        </if>
+    </select>
 
+    <select id="adminGetAllLessonByConditionInPage" resultType="com.neuedu.po.Lesson">
+        select * from lesson  inner join lessonbranch on lesson.lid = lessonbranch.lid
+        where lesson.qid = #{qid}
+        <if test="branchid!=null and branchid!='' and branchid!=-1">
+            and branchid = #{branchid}
+        </if>
+          order by id desc limit #{start},#{n}
+    </select>
+
+    <select id="adminGetLessonByConditionAmount" resultType="int">
+        select  count(*) from lesson  inner join lessonbranch on lesson.lid = lessonbranch.lid
+        where lesson.qid = #{qid}
+        <if test="branchid!=null and branchid!='' and branchid!=-1">
+            and branchid = #{branchid}
+        </if>
+    </select>
+
+    <select id="adminGetAllFreelistenByCondition" resultType="com.neuedu.po.Freelisten">
+        select * from freelisten where qid = #{qid}
+        <if test="branchid!=null and branchid!='' and branchid!=-1">
+            and branchid = #{branchid}
+        </if>
+    </select>
+
+    <select id="adminGetAllFreelistenByConditionInPage" resultType="com.neuedu.po.Freelisten">
+        select * from freelisten where qid = #{qid}
+        <if test="branchid!=null and branchid!='' and branchid!=-1">
+            and branchid = #{branchid}
+        </if>
+        order by id desc limit #{start},#{n}
+    </select>
+
+    <select id="adminGetFreelistenByConditionAmount" resultType="int">
+        select  count(*) from freelisten
+        where qid = #{qid}
+        <if test="branchid!=null and branchid!='' and branchid!=-1">
+            and branchid = #{branchid}
+        </if>
+    </select>
+
+    <select id="adminGetOneLesson" resultType="com.neuedu.po.Lesson">
+        select * from lesson where lid = #{0}
+    </select>
+
+    <select id="adminGetOneFreelisten" resultType="com.neuedu.po.Freelisten">
+        select * from freelisten where id =#{0}
+    </select>
+
+    <insert id="adminAddOneLesson" parameterType="com.neuedu.po.Lesson">
+        insert into lesson (lid,lname,imgurl,lprice,ldesc,category,qid,pubtime) value (null,#{lname},#{imgurl},#{lprice},#{ldesc},#{category},#{qid},NOW())
+    </insert>
+
+    <insert id="adminAddOneLessonbranch" parameterType="com.neuedu.po.Lessonbranch">
+        insert into lessonbranch(id,lid,branchid) value(null,#{lid},#{branchid})
+    </insert>
+
+    <insert id="adminAddOneFreelisten" parameterType="com.neuedu.po.Freelisten">
+        insert into freelisten(id,title,imgurl,fdesc,status,qid,branchid,pubtime) value(null,#{title},#{imgurl},#{fdesc},#{status},#{qid},#{branchid},NOW())
+    </insert>
+
+    <update id="adminSetOneLesson" parameterType="com.neuedu.po.Lesson">
+        update lesson set lname=#{lname},imgurl=#{imgurl},lprice=#{lprice},ldesc=#{ldesc},category=#{category},qid=#{qid} where lid=#{lid}
+    </update>
+
+    <update id="adminSetOneLessonbranch" parameterType="com.neuedu.po.Lessonbranch">
+        update lessonbranch set branchid=#{branchid} where lid=#{lid} and id = #{id}
+    </update>
+
+    <update id="adminSetOneFreelisten">
+        update freelisten set title=#{title},imgurl=#{imgurl},fdesc=#{fdesc},qid=#{qid},branchid=#{branchid} where id=#{id}
+    </update>
+
+    <delete id="adminDeleteOneLesson" parameterType="int">
+        delete from lesson where lid=#{0}
+    </delete>
+
+    <delete id="adminDeleteOneLessonbranch" parameterType="int">
+        delete from lessonbranch where id = #{id} and lid = #{lid}
+    </delete>
+
+    <delete id="adminDeleteOneFreelisten" parameterType="int">
+        delete from freelisten where id = #{id}
+    </delete>
+
+    <select id="adminGetOneLessonByLnameAndQidAndCategory" resultType="com.neuedu.po.Lesson">
+        select * from lesson where lname=#{0} and qid =#{1} and category = #{2}
+    </select>
+
+    <select id="adminGetOneAddressByLid" resultType="com.neuedu.po.Address">
+        select address.* from lesson  inner join lessonbranch on lesson.lid = lessonbranch.lid inner join
+        address on address.id = lessonbranch.branchid where lesson.lid = #{0}
+    </select>
+
+    <select id="adminGetOneLessonbranch" resultType="com.neuedu.po.Lessonbranch">
+        select  * from lessonbranch where lid = #{0} and branchid = #{1}
+    </select>
+
+    <select id="adminGetAllFreelistenbookByCondition" resultType="com.neuedu.po.Freelistenbook">
+        select freelistenbook.*  from freelistenbook inner join freelisten on freelisten.id = freelistenbook.fid where qid = #{qid}
+        <if test="fid!=null and fid!='' and fid!=-1">
+            and freelistenbook.fid = #{fid}
+        </if>
+        <if test="status!=null and status!='' ">
+            and freelistenbook.status = #{status}
+        </if>
+        <if test="username!=null and username!='' ">
+            and freelistenbook.username = #{username}
+        </if>
+        <if test="startTime!=null and startTime!='' ">
+            and freelistenbook.booktime &gt;= #{startTime}
+        </if>
+        <if test="endTime!=null and endTime!='' ">
+            and freelistenbook.booktime &lt;= #{endTime}
+        </if>
+    </select>
+
+    <select id="adminGetAllFreelistenbookByConditionInPage" resultType="com.neuedu.po.Freelistenbook">
+        select freelistenbook.*  from freelistenbook inner join freelisten on freelisten.id = freelistenbook.fid where freelisten.qid = #{qid}
+        <if test="fid!=null and fid!='' and fid!=-1">
+            and freelistenbook.fid = #{fid}
+        </if>
+        <if test="status!=null and status!='' ">
+            and freelistenbook.status = #{status}
+        </if>
+        <if test="username!=null and username!='' ">
+            and freelistenbook.username = #{username}
+        </if>
+        <if test="startTime!=null and startTime!='' ">
+            and freelistenbook.booktime &gt;= #{startTime}
+        </if>
+        <if test="endTime!=null and endTime!='' ">
+            and freelistenbook.booktime &lt;= #{endTime}
+        </if>
+        order by id desc limit #{start},#{n}
+    </select>
+
+    <update id="adminConfirmFreelistenbook" parameterType="int">
+        update freelistenbook set status = '已处理' where id = #{0}
+    </update>
+
+    <select id="adminGetAllSorderByCondition" resultType="com.neuedu.po.Sorder">
+        select *  from sorder where qid = #{qid}
+        <if test="lid!=null and lid!='' and lid!=-1">
+            and lid = #{lid}
+        </if>
+        <if test="status!=null and status!='' ">
+            and status = #{status}
+        </if>
+        <if test="nickname!=null and nickname!='' ">
+            and nickname = #{nickname}
+        </if>
+        <if test="startTime!=null and startTime!='' ">
+            and ordertime &gt;= #{startTime}
+        </if>
+        <if test="endTime!=null and endTime!='' ">
+            and ordertime &lt;= #{endTime}
+        </if>
+    </select>
+
+    <select id="adminGetAllSorderByConditionInPage" resultType="com.neuedu.po.Sorder">
+        select *  from sorder where qid = #{qid}
+        <if test="lid!=null and lid!='' and lid!=-1">
+            and lid = #{lid}
+        </if>
+        <if test="status!=null and status!='' ">
+            and status = #{status}
+        </if>
+        <if test="nickname!=null and nickname!='' ">
+            and nickname = #{nickname}
+        </if>
+        <if test="startTime!=null and startTime!='' ">
+            and ordertime &gt;= #{startTime}
+        </if>
+        <if test="endTime!=null and endTime!='' ">
+            and ordertime &lt;= #{endTime}
+        </if>
+        order by oid desc limit #{start},#{n}
+    </select>
+
+    <update id="adminRefundSorder" parameterType="int">
+        update sorder set status ='已退款' where oid =#{oid}
+    </update>
+
+    <update id="adminCAVSorder" parameterType="int">
+        update sorder set status ='已使用' where oid =#{oid}
+    </update>
 </mapper>

@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="<%=basePath%>assets/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="<%=basePath%>assets/css/app.css">
     <script src="<%=basePath%>assets/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="<%=basePath%>assets/video.js/amazeui.videojs.css"/>
     <style>
         .jczs img {width:200px;height:100px;}
     </style>
@@ -81,7 +82,7 @@
 
         </header>
         <!-- 风格切换 -->
-        
+
 		<!-- 风格切换 -->
         <div class="tpl-skiner">
             <div class="tpl-skiner-toggle am-icon-cog">
@@ -109,7 +110,7 @@
                         <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
                         管理员${username}
                     </span>
-                    
+
                 </div>
             </div>
 
@@ -155,11 +156,11 @@
                         </li>
 
 						<li class="sidebar-nav-link">
-													<a href="teacher-img.html">
+													<a href="/AdminToSetTeacherImg">
 														<span class="am-icon-angle-right sidebar-nav-link-logo"></span> 师资首页图片修改
 													</a>
 												</li>
-						
+
                     </ul>
                 </li>
                 <li class="sidebar-nav-link">
@@ -169,23 +170,23 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="course-see.html">
+                            <a href="/AdminToShowAllLesson">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>实体课程浏览及修改
                             </a>
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="book-see.html">
+                            <a href="/AdminToShowAllFreelisten">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>体验课程浏览及修改
                             </a>
                         </li>
                         <li class="sidebar-nav-link">
-                            <a href="course-add.html">
+                            <a href="/AdminToAddOneLesson">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加实体课程
                             </a>
                         </li>
                         <li class="sidebar-nav-link">
-                            <a href="book-add.html">
+                            <a href="/AdminToAddOneFreelisten">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加体验课程
                             </a>
                         </li>
@@ -198,7 +199,7 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="book-all.html">
+                            <a href="/AdminToShowAllFreelistenbook">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>预约查询及处理
                             </a>
                         </li>
@@ -211,17 +212,17 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="order-all.html">
+                            <a href="/AdminToShowAllSorder">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>订单查询
                             </a>
                         </li>
                         <li class="sidebar-nav-link">
-                            <a href="order-refund.html">
+                            <a href="/AdminToShowAllSorderForRefund">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>退款处理
                             </a>
                         </li>
                         <li class="sidebar-nav-link">
-                            <a href="order-cav.html">
+                            <a href="/AdminToShowAllSorderForCAV">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>订单核销
                             </a>
                         </li>
@@ -257,7 +258,7 @@
 
                     </ul>
                 </li>
-                
+
 
             </ul>
         </div>
@@ -336,6 +337,10 @@
                                             </p>
                                         </video>
 
+                                        <script src="<%=videoPath%>assets/video.js/video.js"></script>
+                                        <script>
+                                            videojs.options.flash.swf = "<%=basePath%>assets/video.js/video-js.swf";
+                                        </script>
                                     </div>
 
 
@@ -369,10 +374,6 @@
     <script src="<%=basePath%>assets/js/amazeui.datatables.min.js"></script>
     <script src="<%=basePath%>assets/js/dataTables.responsive.min.js"></script>
     <script src="<%=basePath%>assets/js/app.js"></script>
-    <script src="video.js/video.js"></script>
-    <script>
-        videojs.options.flash.swf = "video.js/video-js.swf";
-    </script>
 
 </body>
 

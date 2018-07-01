@@ -94,11 +94,11 @@
         delete from teacher where tid = #{0}
     </delete>
 
-    <select id="adminGetTeacherImg" parameterType="java.lang.String">
-        select * from swiper where category = 'B' and qid=#{0}
+    <select id="adminGetTeacherImg"  resultType="java.lang.String">
+        select imgurl from swiper where category = 'B' and qid=#{0}
     </select>
 
-    <update id="adminSetTeacherImg" parameterType="java.lang.String">
-        update swiper set imgurl = #{goalUrl} where qid = #{qid} and category ='B'
+    <update id="adminSetTeacherImg">
+        update swiper set imgurl = #{0} where qid = #{1} and category ='B'
     </update>
 </mapper>

@@ -5,6 +5,7 @@
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/back/";
     String imgPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/img/";
+    System.out.println(imgPath);
     String videoPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/video/";
     request.setCharacterEncoding("utf-8");
     response.setCharacterEncoding("utf-8");
@@ -29,11 +30,7 @@
     <link rel="stylesheet" href="<%=basePath%>assets/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="<%=basePath%>assets/css/app.css">
     <script src="<%=basePath%>assets/js/jquery.min.js"></script>
-    <style>
-        .td_style {
-            width: 200px;
-        }
-    </style>
+
 </head>
 
 <body data-type="widgets">
@@ -43,7 +40,7 @@
         <header>
             <!-- logo -->
             <div class="am-fl tpl-header-logo">
-                <a href="myindex.html">
+                <a href="/AdminGoToIndex">
                     <img src="<%=basePath%>assets/img/logo.png" alt="">
                 </a>
             </div>
@@ -62,7 +59,6 @@
 
 
 
-
                         <!-- 退出 -->
                         <li class="am-text-sm">
                             <a href="javascript:;">
@@ -75,7 +71,8 @@
 
         </header>
         <!-- 风格切换 -->
-        <!-- 风格切换 -->
+
+				<!-- 风格切换 -->
         <div class="tpl-skiner">
             <div class="tpl-skiner-toggle am-icon-cog">
             </div>
@@ -100,7 +97,7 @@
                     </div>
                     <span class="user-panel-logged-in-text">
                         <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
-                        管理员${username}
+                        管理员<%=session.getAttribute("username")%>>
                     </span>
                     
                 </div>
@@ -142,17 +139,17 @@
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="/back/admin_teacher_add.jsp">
+                            <a href="/AdminAddOneTeacher">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加老师
                             </a>
                         </li>
-						<li class="sidebar-nav-link">
-													<a href="teacher-img.html">
-														<span class="am-icon-angle-right sidebar-nav-link-logo"></span> 师资首页图片修改
-													</a>
-												</li>
-						
 
+												<li class="sidebar-nav-link">
+																			<a href="/AdminToSetTeacherImg">
+																				<span class="am-icon-angle-right sidebar-nav-link-logo"></span> 师资首页图片修改
+																			</a>
+																		</li>
+												
                     </ul>
                 </li>
                 <li class="sidebar-nav-link">
@@ -162,23 +159,23 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="course-see.html">
+                            <a href="/AdminToShowAllLesson">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>实体课程浏览及修改
                             </a>
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="book-see.html">
+                            <a href="/AdminToShowAllFreelisten">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>体验课程浏览及修改
                             </a>
                         </li>
                         <li class="sidebar-nav-link">
-                            <a href="course-add.html">
+                            <a href="/AdminToAddOneLesson">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加实体课程
                             </a>
                         </li>
                         <li class="sidebar-nav-link">
-                            <a href="book-add.html">
+                            <a href="/AdminToAddOneFreelisten">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加体验课程
                             </a>
                         </li>
@@ -192,7 +189,7 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="book-all.html">
+                            <a href="/AdminToShowAllFreelistenbook">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>预约查询及处理
                             </a>
                         </li>
@@ -205,17 +202,17 @@
                     </a>
                     <ul class="sidebar-nav sidebar-nav-sub">
                         <li class="sidebar-nav-link">
-                            <a href="order-all.html">
+                            <a href="/AdminToShowAllSorder">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>订单查询
                             </a>
                         </li>
                         <li class="sidebar-nav-link">
-                            <a href="order-refund.html">
+                            <a href="/AdminToShowAllSorderForRefund">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>退款处理
                             </a>
                         </li>
                         <li class="sidebar-nav-link">
-                            <a href="order-cav.html">
+                            <a href="/AdminToShowAllSorderForCAV">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span>订单核销
                             </a>
                         </li>
@@ -257,120 +254,95 @@
         </div>
 
         <!-- 内容区域 -->
-        <!-- 内容区域 -->
         <div class="tpl-content-wrapper">
             <div class="row-content am-cf">
                 <div class="row">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
+                            <form  class="am-form tpl-form-line-form"  action="/AdminToShowAllLesson" method="post" >
                             <div class="widget-head am-cf">
-                                <div class="widget-title  am-cf">预约列表</div>
+								<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+                                <div class="widget-title  am-cf">实体课程信息列表</div>
+								</div>
 
 
+                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+
+
+
+                                        <select name="branchid" data-am-selected="{btnSize: 's'}">
+
+                                            <c:forEach items="${addresses}" var="m">
+                                                <c:choose>
+                                                    <c:when test="${m.id == branchid}">
+                                                        <option value="${m.id}" selected >${m.branch}</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${m.id}">${m.branch}</option>
+
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+
+                                        </select>
+
+
+                                </div>
+                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-3" style = "width: 100px">
+
+
+
+
+                                    <input type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success " value="查找">
+
+
+                                </div>
+
+
+                            </form>
                             </div>
                             <div class="widget-body  am-fr">
 
-                                <form>
-                                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-1">
-                                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-
-                                            <input type="text" class="am-form-field " placeholder="编号">
-
-                                        </div>
-                                    </div>
-                                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-
-                                        <div class="am-form-group tpl-table-list-select">
-
-                                            <select data-am-selected="{btnSize: 's'}">
-
-                                                <option value="option1">待处理</option>
-                                                <option value="option2">已处理</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-2">
-                                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-
-                                            <input type="text" class="am-form-field" placeholder="用户昵称">
-
-                                        </div>
-                                    </div>
-                                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-2">
-                                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-
-                                            <input type="text" class="am-form-field" placeholder="起始日期" data-am-datepicker readonly required />
-
-                                        </div>
-                                    </div>
-
-                                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-2">
-                                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-
-                                            <input type="text" class="am-form-field" placeholder="结束日期" data-am-datepicker readonly required />
-
-                                        </div>
-                                    </div>
-
-                                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-2">
-                                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-
-                                            <button type="button" class="am-btn am-btn-secondary">查询</button>
-                                        </div>
-
-                                    </div>
-                                </form>
                                 <div class="am-u-sm-12">
                                     <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
                                         <thead>
                                             <tr>
-                                                <th>课程编号</th>
-                                                <th>课程标题</th>
-                                                <th>用户昵称</th>
-                                                <th>用户电话</th>
-                                                <th>预约状态</th>
-                                                <th>预约时间</th>
-                                                <th>留言</th>
-                                                <th>处理</th>
+												<th>课程编号</th>
+                                                <th>课程名称</th>
+                                                <th>课程图片</th>
+                                                <th>课程价钱</th>
+												<th>课程类别</th>
+                                                <th>发布时间</th>
+                                                <th>操作</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <c:forEach items="${list }" var="m">
                                             <tr class="gradeX">
-                                                <td>1</td>
-                                                <td>王者荣耀打野课</td>
-                                                <td>庄振飞</td>
-                                                <td>1783726293</td>
-                                                <td>待处理</td>
-                                                <td>2016-09-26</td>
-                                                <td class="td_style">我是一个爱打野的少年，我的孙尚香让大家都吃不到经济，然后我参团率6%，最终送掉自己人头，帮助对面赢得胜利</td>
+												<td>${m.lid}</td>
+											
+                                                <td>${m.lname}</td>
+                                                <td>
+                                                    <img src="<%=imgPath%>${m.imgurl}" style="width: 100px;height: 100px" class="tpl-table-line-img" alt="">
+                                                </td>
+                                                <td>${m.lprice}</td>
+												<td>${m.category}</td>
+                                                <td>${m.pubtime}</td>
                                                 <td>
                                                     <div class="tpl-table-black-operation">
-                                                        <a href="javascript:;">
-                                                            <i class="am-icon-hand-pointer-o"></i>确认处理
+                                                        <a href="/AdminToShowOneLesson?lid=${m.lid}">
+                                                            <i class="am-icon-eye"></i>
                                                         </a>
-
+                                                        <a href="/AdminToSetOneLesson?lid=${m.lid}">
+                                                            <i class="am-icon-pencil"></i>
+                                                        </a>
+                                                        <a href="/AdminDeleteOneLesson?lid=${m.lid}" class="tpl-table-black-operation-del">
+                                                            <i class="am-icon-trash"></i>
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr class="even gradeC">
-                                                <td>2</td>
-                                                <td>王者荣耀射手课</td>
-                                                <td>任婷玉</td>
-                                                <td>1232333293</td>
-                                                <td>已处理</td>
-                                                <td>2016-10-26</td>
-                                                <td class="td_style">我是一个爱ad的少年，我的百里守约让大家都吃不到经济，然后我参团30%，最终收掉对面人头，帮助己方赢得胜利</td>
-                                                <td>
-                                                    <div class="tpl-table-black-operation">
-                                                        <a href="javascript:;">
-                                                            <i class="am-icon-hand-pointer-o"></i>确认处理
-                                                        </a>
-
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            </c:forEach>
 
                                             <!-- more data -->
                                         </tbody>
@@ -379,30 +351,28 @@
                                 <div class="am-u-lg-12 am-cf">
 
                                     <div class="am-fr">
+
                                         <ul class="am-pagination tpl-pagination">
-                                            <li class="am-disabled">
-                                                <a href="#">«</a>
-                                            </li>
-                                            <li class="am-active">
-                                                <a href="#">1</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">2</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">3</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">4</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">5</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">»</a>
-                                            </li>
+                                            <li><a href="/AdminToShowAllLesson?page=1&branchid=${branchid}">首页</a></li>
+                                            <li><a href="/AdminToShowAllLesson?page=${p.page-1}&branchid=${branchid}">上一页</a></li>
+
+                                            <c:forEach begin="${p.startPage }" end="${p.endPage }" var="i">
+                                                <%--<li><a href="/test/MyHandler_findSome?page=${i }">${i }</a></li>--%>
+                                                <c:choose>
+                                                    <c:when test="${i == p.page}">
+                                                        <a style="opacity: 0.1" onclick="return false;" >${i }</a>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <a href="/AdminToShowAllLesson?page=${i }&branchid=${branchid}">${i }</a>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+
+                                            <li><a href="/AdminToShowAllLesson?page=${p.page+1}&branchid=${branchid}">下一页</a></li>
+                                            <li><a href="/AdminToShowAllLesson?page=${p.maxPage }&branchid=${branchid}">尾页</a></li>
                                         </ul>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -416,7 +386,6 @@
     <script src="<%=basePath%>assets/js/amazeui.datatables.min.js"></script>
     <script src="<%=basePath%>assets/js/dataTables.responsive.min.js"></script>
     <script src="<%=basePath%>assets/js/app.js"></script>
-
 
 </body>
 

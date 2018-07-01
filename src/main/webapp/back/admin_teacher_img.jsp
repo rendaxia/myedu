@@ -5,8 +5,7 @@
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/back/";
     String imgPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/img/";
-    System.out.println(imgPath);
-    String videoPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/video/";
+    //String videoPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/video/";
     request.setCharacterEncoding("utf-8");
     response.setCharacterEncoding("utf-8");
 %>
@@ -57,8 +56,6 @@
                 <div class="am-fr tpl-header-navbar">
                     <ul>
 
-
-
                         <!-- 退出 -->
                         <li class="am-text-sm">
                             <a href="javascript:;">
@@ -71,7 +68,7 @@
 
         </header>
         <!-- 风格切换 -->
-        
+
 		<!-- 风格切换 -->
         <div class="tpl-skiner">
             <div class="tpl-skiner-toggle am-icon-cog">
@@ -97,9 +94,9 @@
                     </div>
                     <span class="user-panel-logged-in-text">
                         <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
-                        管理员${username}
+                        管理员<%=session.getAttribute("username")%>>
                     </span>
-                    
+
                 </div>
             </div>
 
@@ -143,13 +140,13 @@
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加老师
                             </a>
                         </li>
-
 						<li class="sidebar-nav-link">
-													<a href="/AdminToSetTeacherImg">
-														<span class="am-icon-angle-right sidebar-nav-link-logo"></span> 师资首页图片修改
-													</a>
-												</li>
-						
+							<a href="/AdminToSetTeacherImg">
+								<span class="am-icon-angle-right sidebar-nav-link-logo"></span> 师资首页图片修改
+							</a>
+						</li>
+
+
                     </ul>
                 </li>
                 <li class="sidebar-nav-link">
@@ -249,103 +246,68 @@
                     </ul>
                 </li>
                 
+
             </ul>
         </div>
-
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper">
+
+
+
             <div class="row-content am-cf">
+
+
                 <div class="row">
+
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title  am-cf">分布信息列表</div>
-
-
-								
-                            </div>
-							<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-								<div class="am-form-group">
-									<div class="am-btn-toolbar">
-										<div class="am-btn-group am-btn-group-xs">
-											<button type="button" onclick="{location.href='/back/admin_address_add.jsp'}" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-											
-										</div>
-									</div>
-								</div>
-							</div>
-                            <div class="widget-body  am-fr">
-
-                                <div class="am-u-sm-12">
-                                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
-                                        <thead>
-                                            <tr>
-                                                <th>分部名称</th>
-                                                <th>分部地址</th>
-                                                <th>电话</th>
-                                                <th>操作</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <c:forEach items="${list }" var="m">
-
-
-                                                <tr class="gradeX">
-                                                    <td>${m.branch}</td>
-                                                    <td>${m.address}</td>
-                                                    <td>${m.tel}</td>
-                                                    <td>
-                                                        <div class="tpl-table-black-operation">
-                                                            <a href="/AdminToShowOneAddress?id=${m.id}">
-                                                                <i class="am-icon-map-marker"></i>
-                                                            </a>
-                                                            <a href="/AdminToSetOneAddress?id=${m.id}">
-                                                                <i class="am-icon-pencil"></i>
-                                                            </a>
-                                                            <a href="/AdminDeleteOneAddress?id=${m.id}" class="tpl-table-black-operation-del">
-                                                                <i class="am-icon-trash"></i>
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-
-                                            <!-- more data -->
-                                        </tbody>
-                                    </table>
+                                <div class="widget-title am-fl">师资首页图片</div>
+                                <div class="widget-function am-fr">
+                                    <a href="javascript:;" class="am-icon-cog"></a>
                                 </div>
-                                <div class="am-u-lg-12 am-cf">
+                            </div>
+                            <div class="widget-body am-fr">
 
-                                    <div class="am-fr">
+                                <form class="am-form tpl-form-line-form"  action="/AdminSetTeacherImg" method="post" enctype="multipart/form-data">
+                                    
 
-                                        <ul class="am-pagination tpl-pagination">
-                                            <li><a href="/AdminToShowAllAddress?page=1">首页</a></li>
-                                            <li><a href="/AdminToShowAllAddress?page=${p.page-1}">上一页</a></li>
+                                    <div class="am-form-group">
+                                        <label for="user-weibo" class="am-u-sm-3 am-form-label">原图片
+                                            <span class="tpl-form-line-small-title"></span>
+                                        </label>
+                                        <div class="am-u-sm-9">
+                                            <div class="am-form-group am-form-file">
+                                                <div class="tpl-form-file-img">
+                                                    <img src="<%=imgPath%>${teacherImg}" style="width: 500px;height: 400px" alt="">
+                                                </div>
+                                                <button type="button" class="am-btn am-btn-danger am-btn-sm">
+                                                    <i class="am-icon-cloud-upload"></i> 点击图片修改</button>
+                                                <input id="doc-form-file" type="file" name="img">
+                                            </div>
 
-                                            <c:forEach begin="${p.startPage }" end="${p.endPage }" var="i">
-                                                <%--<li><a href="/test/MyHandler_findSome?page=${i }">${i }</a></li>--%>
-                                                <c:choose>
-                                                    <c:when test="${i == p.page}">
-                                                        <a style="opacity: 0.1" onclick="return false;" >${i }</a>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <a href="/AdminToShowAllAddress?page=${i }">${i }</a>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </c:forEach>
-
-                                            <li><a href="/AdminToShowAllAddress?page=${p.page+1}">下一页</a></li>
-                                            <li><a href="/AdminToShowAllAddress?page=${p.maxPage }">尾页</a></li>
-                                        </ul>
+                                        </div>
                                     </div>
 
 
-                                </div>
+
+                                    
+
+
+
+                                    <div class="am-form-group">
+                                        <div class="am-u-sm-9 am-u-sm-push-3">
+                                            <input type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success " value="保存"></input>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+
             </div>
         </div>
     </div>

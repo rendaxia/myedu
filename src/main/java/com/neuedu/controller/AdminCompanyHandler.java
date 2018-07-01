@@ -51,6 +51,7 @@ public class AdminCompanyHandler {
 
         request.setAttribute("enterprise",enterprise);
         request.setAttribute("enterprise_img",enterprise_img);
+        System.err.println(" !!!!!"+enterprise_img);
         return "forward:/back/admin_enterprise_basic.jsp";
     }
 
@@ -105,7 +106,7 @@ public class AdminCompanyHandler {
                 if(file!=null){
                     File localFile;
                     String fileName = file.getOriginalFilename();
-                    String fileNameExtension = "enterprise";
+                    String fileNameExtension = "enterprise.jpg";
                     // 生成实际存储的真实文件名
 
                     String realName = UUID.randomUUID().toString() + fileNameExtension;
@@ -130,10 +131,10 @@ public class AdminCompanyHandler {
             }
         }
 
-        if (videopath == "" || videopath == null){
+        if (videopath == "" || videopath == null ){
             videopath = old_enterprise.getVideopath();
         }
-        if (imgurl != null && imgurl != "") {
+        if (imgurl != null && imgurl != "" && imgurl != displayService.adminGetEnterpriseImgurl(qid,"A")) {
             actionService.adminSetEnterpriseImgurl(imgurl,qid);
             System.out.println("!!!!!!!!!imgurl"+imgurl);
         }
@@ -176,7 +177,7 @@ public class AdminCompanyHandler {
             String fileNameExtension = fileName.substring(fileName.indexOf("."), fileName.length() - 1);
             // 生成实际存储的真实文件名
 
-            realName = UUID.randomUUID().toString() + fileNameExtension;
+            realName = UUID.randomUUID().toString() + fileNameExtension+"jpg";
 
             // "/upload"是你自己定义的上传目录
 
@@ -237,7 +238,6 @@ public class AdminCompanyHandler {
     @RequestMapping(value="AdminAddOneAddress")
     public String addOneAddress(HttpServletRequest request) {
 
-        System.out.println("dadadadadadadadadadadsdadadadadda");
         HttpSession session = request.getSession();
         String username = (String)session.getAttribute("username");
         int qid = (Integer) session.getAttribute("qid");
@@ -468,6 +468,72 @@ public class AdminCompanyHandler {
         actionService.adminAddOneTeacher(teacher);
 
 
+        return "forward:/AdminToShowAllTeacher";
+    }
+    @RequestMapping(value = "AdminToSetTeacherImg")
+    public String toSetTeacherImg(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String username = (String)session.getAttribute("username");
+        int qid = (Integer) session.getAttribute("qid");
+        //request.setAttribute("username",username);
+
+        String teacherImgurl = displayService.adminGetTeacherImg(qid);
+        System.out.println("!!!!!!!!!!!!!!!teacherimgurl"+teacherImgurl);
+        request.setAttribute("teacherImg",teacherImgurl);
+        return "forward:/back/admin_teacher_img.jsp";
+    }
+
+    @RequestMapping(value = "AdminSetTeacherImg")
+    public String setTeacherImg(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String username = (String)session.getAttribute("username");
+        int qid = (Integer) session.getAttribute("qid");
+        //request.setAttribute("username",username);
+
+        String newTeacherImg="";
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+        if(multipartResolver.isMultipart(request)){ //判断request是否有文件上传
+            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+            Iterator<String> ite = multiRequest.getFileNames();
+
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!");
+            while (ite.hasNext()){
+                //token ++;
+                MultipartFile file = multiRequest.getFile(ite.next());
+                if(file!=null){
+                    File localFile;
+                    String fileName = file.getOriginalFilename();
+                    String fileNameExtension = "-teacherImg";
+                    // 生成实际存储的真实文件名
+
+                    String realName = UUID.randomUUID().toString() + fileNameExtension;
+                    localFile = new File(session.getServletContext().getRealPath("/img/")+realName);
+                    newTeacherImg = realName;
+
+                    try {
+                        file.transferTo(localFile); //将上传文件写到服务器上指定的文件
+                    } catch (IllegalStateException e) {
+                        //e.printStackTrace();
+                    } catch (IOException e) {
+                        //e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        System.out.println(newTeacherImg);
+        if (newTeacherImg == null || newTeacherImg ==""){
+            newTeacherImg = displayService.adminGetTeacherImg(qid);
+        }
+        actionService.adminSetTeacherImg(newTeacherImg,qid);
+        return "forward:/AdminToSetTeacherImg";
+    }
+
+    @RequestMapping(value="AdminDeleteOneTeacher")
+    public String deleteOneTeacher(HttpServletRequest request) {
+
+        int tid = Integer.parseInt(request.getParameter("tid"));
+        actionService.adminDeleteOneTeacher(tid);
         return "forward:/AdminToShowAllTeacher";
     }
 

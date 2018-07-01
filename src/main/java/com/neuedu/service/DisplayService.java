@@ -63,6 +63,7 @@ public interface DisplayService {
 
     public ArrayList<Address> adminGetSomeAddressInPage(int page,int qid);
 
+    //may
     public ArrayList<Teacher> adminGetAllTeacher(int qid);
 
     public ArrayList<Teacher> adminGetSomeTeacherInPage(int qid,int page);
@@ -71,6 +72,36 @@ public interface DisplayService {
 
     public String adminGetTeacherImg(int qid );
 
+    //may
+    public ArrayList<Lesson> adminGetAllLessonByCondition(int qid,int branchid);
 
+    public ArrayList<Lesson> adminGetAllLessonByConditionInPage(int qid,int branchid,int page);
+
+    public int adminGetLessonByConditionAmount(int qid,int branchid);
+
+    //may
+    public ArrayList<Freelisten> adminGetAllFreelistenByCondition(int qid,int branchid);
+
+    public ArrayList<Freelisten> adminGetAllFreelistenByConditionInPage(int qid,int branchid,int page);
+
+    public int adminGetFreelistenByConditionAmount(int qid,int branchid);
+
+    public Lesson adminGetOneLesson(int lid);
+
+    public Freelisten adminGetOneFreelisten(int id);
+
+    public Lesson adminGetOneLessonByLnameAndQidAndCategory(String lname,int qid,String category);
+
+    public Address adminGetOneAddressByLid(int lid );
+
+    public Lessonbranch adminGetOneLessonbranch(int lid,int branchid);
+
+    public ArrayList<Freelistenbook> adminGetAllFreelistenbookByCondition(int qid,int fid,String status,String username,String startTime,String endTime);
+
+    public ArrayList<Freelistenbook> adminGetAllFreelistenbookByConditionInPage(int qid,int fid,String status,String username,String startTime,String endTime,int page);
+
+    public ArrayList<Sorder> adminGetAllSorderByCondition(int qid,int lid,String status,String nickname,String startTime,String endTime);
+
+    public ArrayList<Sorder> adminGetAllSorderByConditionInPage(int qid,int lid,String status,String nickname,String startTime,String endTime,int page);
 
 }
