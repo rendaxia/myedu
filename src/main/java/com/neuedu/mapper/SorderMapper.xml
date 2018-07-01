@@ -4,6 +4,31 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.mapper.SorderMapper">
 
+    <resultMap type="com.neuedu.po.Sorder" id="sorder_lesson_map">
+        <id property="oid" column="oid"/>
+        <result property="lid" column="lid"/>
+        <result property="total" column="total"/>
+        <result property="ordertime" column="ordertime"/>
+        <result property="actual" column="actual"/>
+        <result property="status" column="status"/>
+        <result property="qid" column="qid"/>
+        <result property="transactionid" column="transactionid"/>
+        <result property="nickname" column="nickname"/>
+        <result property="tel" column="tel"/>
+        <result property="openid" column="openid"/>
+        <association property="lesson" javaType="com.neuedu.po.Lesson">
+            <id property="lid" column="lid"/>
+            <result property="lname" column="lname"/>
+            <result property="imgurl" column="imgurl"/>
+            <result property="lprice" column="lprice"/>
+            <result property="lprice" column="lprice"/>
+            <result property="ldesc" column="ldesc"/>
+            <result property="category" column="category"/>
+            <result property="qid" column="qid"/>
+            <result property="pubtime" column="pubtime"/>
+        </association>
+    </resultMap>
+
     <resultMap type="com.neuedu.po.Freelistenbook" id="freelistenbook_freelisten_map">
         <id property="id" column="id"/>
         <result property="fid" column="fid"/>
@@ -25,8 +50,12 @@
         </association>
     </resultMap>
 
-    <select id="getAllSorderByCondition" parameterType="java.lang.String" resultType="com.neuedu.po.Sorder">
-        select * from sorder where openid = #{0} and status = #{1}
+    <select id="getAllSorderByCondition" parameterType="java.lang.String" resultMap="sorder_lesson_map">
+        select sorder.*,lesson.* from sorder,lesson  where openid = #{openid}
+        <if test="status!=null and status!=''">
+            and status = #{status}
+        </if>
+        and sorder.lid = lesson.lid
     </select>
 
     <select id="getAllFreelistenbookByCondition" parameterType="java.lang.String" resultMap="freelistenbook_freelisten_map">
@@ -34,7 +63,7 @@
         and freelistenbook.fid = freelisten.id
     </select>
 
-    <insert id="addToCart" parameterType="com.neuedu.po.Sorder">
+    <insert id="addToCart">
         insert into sorder values (NULL,#{lid},#{openid},#{total},0,0,#{status},NOW(),1,0,#{nickname},#{tel})
     </insert>
 

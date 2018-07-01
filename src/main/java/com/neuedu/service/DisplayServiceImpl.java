@@ -22,8 +22,8 @@ public class DisplayServiceImpl implements DisplayService{
         CompanyMapper com_mapper = sqlSession.getMapper(CompanyMapper.class);
         try {
             branchid = com_mapper.getAddressid(address);
-            System.out.println(branchid);
-            System.out.println(type);
+            //System.out.println(branchid);
+            //System.out.println(type);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,8 +45,8 @@ public class DisplayServiceImpl implements DisplayService{
         CompanyMapper com_mapper = sqlSession.getMapper(CompanyMapper.class);
         try {
             branchid = com_mapper.getAddressid(address);
-            System.out.println(branchid);
-            System.out.println(type);
+            //System.out.println(branchid);
+            //System.out.println(type);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -88,10 +88,36 @@ public class DisplayServiceImpl implements DisplayService{
     @Override
     public ArrayList<Message> getAllMessage() {
         ArrayList<Message> list=null;
+        ArrayList<Messageimg> imgList=null;
+        ArrayList<Messagelike> likeList=null;
+        ArrayList<Messagereply> replyList=null;
         SqlSession sqlSession = SqlSessionUtil.getSession();
         MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
         try {
             list = mapper.getAllMessage();
+            imgList = mapper.getAllMessageimg();
+            likeList = mapper.getAllMessagelike();
+            replyList = mapper.getAllMessagereply();
+            list = mapper.getAllMessage();
+            for(int i=0;i<list.size();i++){
+                for(Messageimg img:imgList){
+                    if(list.get(i).getMid()==img.getMid()){
+                        list.get(i).getMessageimgs().add(img);
+
+                    }
+                }
+                for(Messagelike like:likeList){
+                    if(list.get(i).getMid()==like.getMid()){
+                        list.get(i).getMessagelikes().add(like);
+                    }
+                }
+                for(Messagereply reply:replyList){
+                    if(list.get(i).getMid()==reply.getMid()){
+                        list.get(i).getMessagereplies().add(reply);
+                    }
+
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,6 +157,59 @@ public class DisplayServiceImpl implements DisplayService{
         SorderMapper mapper = sqlSession.getMapper(SorderMapper.class);
         try {
             list = mapper.getAllFreelistenbookByCondition(openid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+
+    public ArrayList<Message> getAllMessagelikeByCondition(String nickname) {
+        ArrayList<Message> list=null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        try {
+            list = mapper.getAllMessagelikeByCondition(nickname);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public ArrayList<Message> getAllMessagereplyByCondition(String nickname) {
+        ArrayList<Message> list=null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        try {
+            list = mapper.getAllMessagereplyByCondition(nickname);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public ArrayList<Integer> getAllMessagelikeByMessage() {
+        ArrayList<Integer> list=null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        try {
+            list = mapper.getAllMessagelikeByMessage();
+            System.out.println(list.get(0));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public ArrayList<Integer> getAllMessagereplyByMessage() {
+        ArrayList<Integer> list=null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        try {
+            list = mapper.getAllMessagereplyByMessage();
+            System.out.println("reply:"+list.get(0));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -423,5 +502,7 @@ public class DisplayServiceImpl implements DisplayService{
         }
         return result;
     }
+
+
 
 }

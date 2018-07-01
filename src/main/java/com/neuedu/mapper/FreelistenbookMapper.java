@@ -12,7 +12,7 @@ public interface FreelistenbookMapper {
 
     public boolean cancelFreelistenbook(String openid,int fid) throws Exception;
 
-    public boolean addFreelistenbook(Freelistenbook fb) throws Exception;
+    public boolean freelistenbook(Freelistenbook fb) throws Exception;
 
     //////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <title></title>
-    <script src="js/mui.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <title></title>
+  <script src="js/mui.min.js"></script>
 	<link href="css/mui.min.css" rel="stylesheet"/>
-	<link href="css/main.css" rel="stylesheet"/>
 	<link href="css/enterprise.css" rel="stylesheet"/>
+	<link href="css/main.css" rel="stylesheet"/>
 	<link href="css/swiper.min.css" rel="stylesheet"/>
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/swiper.min.js"></script>
@@ -23,7 +23,7 @@
 		<div class="mui-input-row mui-search" id="searchForm">
 			<input type="search" id="searchInput" class="mui-input-clear" placeholder="大数据 &nbsp &nbsp  java &nbsp &nbsp css">
 		</div>
-		<i class="fa fa-cart-arrow-down" style="left:-15px; top:5px;"></i>
+		<i class="fa fa-cart-arrow-down" style="left:-15px; top:-20px;"></i>
 	</div>
 	<div id="top">
 			
@@ -43,29 +43,77 @@
 	
 	<div id="enterprise_model">
 		<ul>
-			<li><i class="fa fa-black-tie"></i><br><h5>企业介绍</h5></li>
-			<li><i class="fa fa-building"></i><br><h5>学校地点</h5></li>
-			<li><i class="fa fa-phone"></i><br><h5>联系我们</h5></li>
+			<li id="li01"><i class="fa fa-black-tie"></i><br><h5>企业介绍</h5></li>
+			<li id="li02"><i class="fa fa-building"></i><br><h5>学校地点</h5></li>
+			<li id="li03"><i class="fa fa-phone"></i><br><h5>联系我们</h5></li>
 		</ul>
 	</div>
 	
-	<hr>
+	<script>
+		
+		$("#li01").click(function(){
+			//alert("1");
+			document.getElementById("introduction").style.display = 'block';
+			document.getElementById("address").style.display = 'none';
+			document.getElementById("connector").style.display = 'none';
+		});
+		
+		$("#li02").click(function(){
+			document.getElementById("introduction").style.display = 'none';
+			document.getElementById("address").style.display = 'block';
+			document.getElementById("connector").style.display = 'none';
+		});
+		
+		$("#li03").click(function(){
+			document.getElementById("introduction").style.display = 'none';
+			document.getElementById("address").style.display = 'none';
+			document.getElementById("connector").style.display = 'block';
+		});
+	</script>
 	
 	<div style="display:none" id="introduction">
-		<div class="swiper-container"> 
-			<div class="swiper-wrapper">  
-				<div class="swiper-slide"><img src="img/1.jpg"></div>  
-				<div class="swiper-slide"><img src="img/2.jpg"></div>  
-				<div class="swiper-slide"><img src="img/1.jpg"></div>  
-			</div>    
-			<div class="swiper-pagination"></div>
-		</div> 
 		
 		<div  class="description">
-			<h5>东软简介:</h5>
-			<h5 style="font-size:90%;">基于github App 业务深度讲解kotlin1.2高级特性与框架设计</h5>
+			<h5>NEU东软睿道:</h5>
+			<h5 style="font-size:90%;">
+				沈阳东软睿道教育服务有限公司（简称东软睿道）由东软创办，基于东软的产业发展与人才培养实践，提供更加符合IT行业发展需求的人才培养体系和方法学，精准提升大学生和大学后的就业、创业技能，为新经济时代的转型发展提供高质量规模化的人才供给。
+　　     东软睿道倡导“产业融入教育”的经营理念，将科学的学习方法与先进的信息技术相结合，打造产学研融合式人才培养模式，创新引领工程教育模式，推动中国经济转型发展。
+			</h5>
 		</div>
+		<div class="images">
+			<h5>园区环境</h5>
+			<h5 style="font-size:90%;">东软沈阳园区</h5>
+			<div class="swiper-container"> 
+				<div class="swiper-wrapper">  
+					<div class="swiper-slide"><img src="img/enterprise02.jpg"></div>  
+					<div class="swiper-slide"><img src="img/enterprise06.jpg"></div>  
+					<div class="swiper-slide"><img src="img/enterprise07.jpg"></div> 
+					<div class="swiper-slide"><img src="img/enterprise08.jpg"></div> 
+				</div>    
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
+				<div class="swiper-pagination"></div>
+			</div>
+			
+			<h5 style="font-size:90%;">沈阳实训中心</h5>
+			<div class="swiper-container"> 
+				<div class="swiper-wrapper">  
+					<div class="swiper-slide"><img src="img/enterprise01.jpg"></div>  
+					<div class="swiper-slide"><img src="img/enterprise03.jpg"></div>  
+					<div class="swiper-slide"><img src="img/enterprise04.jpg"></div>
+					<div class="swiper-slide"><img src="img/enterprise05.jpg"></div> 
+				</div>    
+				<div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+				<div class="swiper-pagination"></div>
+			</div> 
+		</div>
+		
 	</div>
+	
+	<script>        
+		      
+		</script>		
 	
 	
 	<div id="address">
@@ -77,25 +125,30 @@
     <div style="width:100%;height:300px;" id="container"></div>
     <!--<div style='width: 500px; height: 180px' id="infoDiv"></div>-->
 		<ul>
-			<li><h5>分校1</h5></li>
-			<hr >
-			<li><h5>分校2</h5></li>
-			<hr >
-			<li><h5>分校3</h5></li>
-			<hr >
-			<li><h5>分校4</h5></li>
+			<li><h5>&nbsp;分校1:东软实训中心<i class="fa fa-compass"></i></h5></li>
+
+			<li><h5>&nbsp;分校2:多才艺术中心<i class="fa fa-compass"></i></h5></li>
+
+			<li><h5>&nbsp;分校3:恒大名都<i class="fa fa-compass"></i></h5></li>
+
+			<li><h5>&nbsp;分校4:东北大学233寝室<i class="fa fa-compass"></i></h5></li>
+			<br>
+			<br>
 		</ul>
 	</div>
 	
 	
 	<div id="connector">
-		<h5>联系电话:</h5>
-		<h5>邮箱:</h5>
+		<h5>沈阳实训中心</h5>
+		<h5>联系电话：024-8366 2222</h5>
+    <h5>基地地址：辽宁省沈阳市浑南新区新秀街2号东软软件园A9座
+    公交路线：乘坐154路至“唯美品格”站或150路至“东海电子”站</h5>
+		<h5>邮箱:ren.ty@foxmail.com</h5>
 	</div>
 	
 	<div id="auto_place"></div>
 	
-	<div id="bottom">
+	<div id="bottom" style="background-color: white">
 		<div class="bottom_icon">
 			<i class="fa fa-home"></i>
 			<h6><a href="main.html">首页</a></h6>
@@ -119,6 +172,26 @@
 	</div>
 
 <script>
+	var mySwiper = new Swiper ('.swiper-container', {
+		observer:true, // 修改swiper自己或子元素时，自动初始化swiper
+    observeParents:true, // 修改swiper的父元素时，自动初始化swiper
+		direction: 'horizontal',
+		loop: true,
+		autoplay:{
+			stopOnLastSlide:false,
+		},
+		slidesPerView: "auto",
+		centeredSlides:true,
+		spaceBetween: 10,
+		navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+		pagination: {
+			el: '.swiper-pagination',
+			clickable:true,
+		}
+	}); 
         var searchService, markers = [];
         var init = function() {
             var center = new qq.maps.LatLng(39.916527, 116.397128);
@@ -167,7 +240,7 @@
                 }
             });
 
-        }
+        };
 
          //清除地图上的marker
             function clearOverlays(overlays) {
@@ -186,22 +259,6 @@
                 searchService.search(keyword);
             }
     </script>
-	
-<script>        
-		var mySwiper = new Swiper ('.swiper-container', {
-			direction: 'horizontal',
-			loop: true,
-			autoplay:{
-				stopOnLastSlide:false,
-			},
-            slidesPerView: "auto",
-            centeredSlides:true,
-            spaceBetween: 10,
-			pagination: {
-              el: '.swiper-pagination',
-			  clickable:true,
-            }
-		})        
-    </script>		
+		
 </body>
 </html>

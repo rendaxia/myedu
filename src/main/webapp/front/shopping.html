@@ -14,34 +14,26 @@
 	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <script type="text/javascript" charset="utf-8">
       	mui.init();
+      	$(function () {
+            var url = window.location.search;
+            var result;
+            if(url.indexOf("?")!=-1){
+                result = decodeURI(url.substr(url.indexOf("=")+1));
+            }
+            document.getElementById("concrete_course").innerHTML = result;
+        });
+
     </script>
 </head>
 <body>
 	<div id="close">
-		<i class="fa fa-reply"></i>
+		<i class="fa fa-reply" onclick="javascript:window.location.href='main.html'"></i>
 		<i class="fa fa-share-alt" style="float:right; margin-right:10px;"></i>
 	</div>
 	
 	<div id="concrete_course">
-		<div class="icon">
-			<h5>实体课</h5>
-		</div>
-		<div class="header">
-			<h4>基于github App 业务深度讲解kotlin1.2高级特性与框架设计</h4>
-			<h4 style="color:#DD524D;margin:10px;">¥396</h4>
-			<h5>简介:基于github App 业务深度讲解kotlin1.2高级特性与框架设计</h5>
-		</div>
-		<div>
-			<img src="img/1920-3.jpg" alt="">
-		</div>
-		<div class="parameter">
-			<ul>
-				<li><h5>体验课ID:</h5></li>
-				<li><h5>分部ID:</h5></li>
-				<li><h5>企业ID:</h5></li>
-				<li><h5>发布时间:</h5></li>
-			</ul>
-		</div>
+
+
 	</div>
 	
 	<div id="auto_place"></div>

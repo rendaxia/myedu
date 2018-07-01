@@ -38,7 +38,7 @@ hr{
 	font-size: 140%;
 	color: white;
 	position: relative;
-	top:4px;
+	top:5px;
 	left:9px;
 }
 
@@ -110,7 +110,9 @@ hr{
 	
 }
 
-.lesson_model div{
+
+/*红蓝推荐框*/
+.lesson_model_div{
 	width:45%;
 	margin-left:2.5%;
 	margin-top:10px;
@@ -120,15 +122,26 @@ hr{
 	border-radius:5px;
 }
 
-.lesson_model div h5{
-	line-height:20px;
+.lesson_model_div_div{
+	width:90%;
+	height:90px;
+	margin-top:5px;
+	margin-left:5%;
+	/*border: 1px solid;*/
+}
+
+.lesson_model div div h5{
+	line-height:16px;
 	display: inline;
-	color:rgba(1,155,255,0.8);
+	color:rgba(1,155,255,1);
 }
 
 .lesson_model .lesson_model_div h5{ 
-	color: rgba(253,55,2,0.8);
+	color: rgba(253,55,2,0.9);
 }
+
+
+
 
 
 .lesson_model_2 div{

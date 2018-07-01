@@ -4,15 +4,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title></title>
+	<!--mui-->
     <script src="js/mui.min.js"></script>
-	<link href="css/mui.min.css" rel="stylesheet"/>
+	<link href="css/mui.css" rel="stylesheet"/>
+	<!--css-->
 	<link href="css/main.css" rel="stylesheet"/>
 	<link href="css/swiper.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+	<!--js-->
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/swiper.min.js"></script>
-	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <script type="text/javascript" charset="utf-8">
       	mui.init();
+
+        //课程点击事件
+
+
+      	//体验课加载
         $(function () {
 
             $.ajax({
@@ -26,25 +34,40 @@
                         var br = document.createElement("br");
                         var hr = document.createElement("hr");
                         var div01 = document.createElement("div");
+                        var div02 = document.createElement("div");
                         var hx01 = document.createElement("h5");
                         var hx02 = document.createElement("h5");
                         var hx03 = document.createElement("h5");
+                        var hx04 = document.createElement("h5");
                         $("#lesson_model01").append(div01);
                         if(i==0){
                             div01.style.backgroundColor = "rgba(1,155,255,0.1)";
+                            hx01.style.color = "rgba(1,155,255,1)";
+                            hx02.style.color = "rgba(1,155,255,1)";
+                            hx03.style.color = "rgba(1,155,255,1)";
 						}
                         else{
                             div01.style.backgroundColor = "rgba(253,55,2,0.2)";
 						}
-                        div01.append(hx01,br,hx02,hx03);
-                        hx03.innerText=data[i].pubtime;
-                        hx02.innerText=data[i].status;
+                        div01.append(div02);
+                        div01.className="lesson_model_div";
+                        div02.append(hx01,br,hx02,hx03,hx04);
+                        div02.className="lesson_model_div_div";
+                        hx03.innerText=data[i].status;
+                        hx02.innerText=data[i].pubtime;
                         hx01.innerText=data[i].title;
+                        hx04.innerText=data[i].fdesc;
+                        hx04.style.display = "none";
+                        div02.onclick=function(){
+                            //alert(this.childNodes[4].innerText);
+                            location.href="booking.html?rich="+this.childNodes[4].innerText;
+						}
 
                     }
                     for(var i=1;i<3;i++){
 
-                        var br = document.createElement("br");
+                        var br01 = document.createElement("br");
+                        var br02 = document.createElement("br");
                         var hr = document.createElement("hr");
                         var div01 = document.createElement("div");
                         var div02 = document.createElement("div");
@@ -52,23 +75,25 @@
                         var hx01 = document.createElement("h5");
                         var hx02 = document.createElement("h5");
                         var hx03 = document.createElement("h5");
+                        var hx04 = document.createElement("h5");
                         $("#lesson_model02").append(div01,hr);
                         div01.append(img01,div02);
                         img01.src="img/"+data[i].imgurl;
-                        div02.append(hx01,br,hx02,hx03);
+                        div02.append(hx01,br01,hx02,br02,hx03,hx04);
                         hx03.innerText=data[i].pubtime;
                         hx02.innerText=data[i].status;
                         hx01.innerText=data[i].title;
-                        div01.click(function(){
-                            javascript:window.location.href='shopping.html';
-                        });
-
+                        div02.onclick=function(){
+                            //alert(this.childNodes[5].innerText);
+                            location.href="booking.html?rich="+this.childNodes[5].innerText;
+                        }
                     }
                 }
 
             })
         });
 
+        //实体课加载
         $(function () {
 
             $.ajax({
@@ -79,31 +104,43 @@
                     $("#lesson_model02").innerHTML=" ";
                     for(var i=0;i<2;i++){
 
-                        var br = document.createElement("br");
+                        var br01 = document.createElement("br");
+                        var br02 = document.createElement("br");
                         var hr = document.createElement("hr");
                         var div01 = document.createElement("div");
+                        var div02 = document.createElement("div");
                         var hx01 = document.createElement("h5");
                         var hx02 = document.createElement("h5");
                         var hx03 = document.createElement("h5");
+                        var hx04 = document.createElement("h5");
                         $("#lesson_model03").append(div01);
                         if(i==0){
                             div01.style.backgroundColor = "rgba(1,155,255,0.1)";
+                            hx01.style.color = "rgba(1,155,255,1)";
+                            hx02.style.color = "rgba(1,155,255,1)";
+                            hx03.style.color = "rgba(1,155,255,1)";
                         }
                         else{
                             div01.style.backgroundColor = "rgba(253,55,2,0.2)";
-                            hx01.style.color = "rgba(253,55,2,0.9)";
-                            hx02.style.color = "rgba(253,55,2,0.9)";
-                            hx03.style.color = "rgba(253,55,2,0.9)";
                         }
-                        div01.append(hx01,br,hx02,hx03);
+                        div01.append(div02);
+                        div01.className="lesson_model_div";
+                        div02.append(hx01,br01,hx02,br02,hx03,hx04);
+                        div02.className="lesson_model_div_div";
+                        hx02.innerText="¥"+data[i].lprice;
                         hx03.innerText=data[i].pubtime;
-                        hx02.innerText=data[i].lprice;
                         hx01.innerText=data[i].lname;
+                        hx04.innerText=data[i].ldesc;
+                        hx04.style.display  ="none";
+                        div02.onclick=function(){
+                            //alert(this.childNodes[5].innerText);
+                            location.href="shopping.html?rich="+this.childNodes[5].innerText;
+                        }
 
                     }
                     for(var i=1;i<3;i++){
-
-                        var br = document.createElement("br");
+                        var br01 = document.createElement("br");
+                        var br02 = document.createElement("br");
                         var hr = document.createElement("hr");
                         var div01 = document.createElement("div");
                         var div02 = document.createElement("div");
@@ -111,22 +148,28 @@
                         var hx01 = document.createElement("h5");
                         var hx02 = document.createElement("h5");
                         var hx03 = document.createElement("h5");
+                        var hx04 = document.createElement("h5");
                         $("#lesson_model04").append(div01,hr);
                         div01.append(img01,div02);
                         img01.src="img/"+data[i].imgurl;
-                        div02.append(hx01,br,hx02,hx03);
+                        div02.append(hx01,br01,hx02,br02,hx03,hx04);
                         hx03.innerText=data[i].pubtime;
-                        hx02.innerText=data[i].lprice;
+                        hx02.innerText="¥"+data[i].lprice;
                         hx01.innerText=data[i].lname;
-                        div01.click(function(){
-                            javascript:window.location.href='shopping.html';
-						});
+                        hx04.innerText=data[i].ldesc;
+                        hx04.style.display  ="none";
+                        div02.onclick=function(){
+                            //alert(this.childNodes[5].innerText);
+                            location.href=encodeURIComponent("shopping.html?rich="+this.childNodes[5].innerText);
+                        }
 
                     }
                 }
 
             })
         });
+
+
     </script>
 		
 </head>
@@ -138,6 +181,7 @@
 		</div>
 		<i class="fa fa-cart-arrow-down" style="left:-15px; top:5px;"></i>
 	</div>
+
 	<div id="top">
 		  
 		<div class="top_icon">
@@ -153,52 +197,49 @@
 			<h5><a href="course.html">课程</a></h5>
 		</div>
 	</div>
-	
-	<div class="swiper-container"> 
-		<div class="swiper-wrapper">  
-			<div class="swiper-slide"><img src="img/1.jpg"></div>
+
+	﻿<div class="swiper-container">
+		<div class="swiper-wrapper">
 			<div class="swiper-slide"><img src="img/2.jpg"></div>
-			<div class="swiper-slide"><img src="img/1.jpg"></div>
-		</div>    
-		
+			<div class="swiper-slide"><img src="img/9.jpg"></div>
+			<div class="swiper-slide"><img src="img/10.jpg"></div>
+		</div>
+
 		<div class="swiper-pagination"></div>
-    </div>  
-  
-	<div id="freeLession">
+	</div>
+
+	<div>
+
 		<div class="title">
 			<h5>&nbsp;体验课推荐</h5>
 			<div>
 				<h5>更多</h5>&nbsp;<i class="fa fa-angle-right"></i>
 			</div>
 		</div>
-		<div class="lesson_model" id="lesson_model01">
-		</div>
-		<div class="lesson_model_2" id="lesson_model02">
 
-		</div>
+		<div class="lesson_model" id="lesson_model01"></div>
+
+		<div class="lesson_model_2" id="lesson_model02"></div>
+
 	</div>
-	<hr style="">
-	<div id="lession">
+	<div>
+
 		<div class="title">
 			<h5>&nbsp;实体课推荐</h5>
 			<div>
 				<h5>更多</h5>&nbsp;<i class="fa fa-angle-right"></i>
 			</div>
 		</div>
-		<div class="lesson_model" id="lesson_model03">
 
+		<div class="lesson_model" id="lesson_model03"></div>
 
-		</div>
-		<div class="lesson_model_2" id="lesson_model04">
+		<div class="lesson_model_2" id="lesson_model04"></div>
 
-		</div>
 	</div>
 			
 		
 
-	<div id="auto_place">
-		
-	</div>
+	<div id="auto_place"></div>
 	
 	<div id="bottom">
 		<div class="bottom_icon">

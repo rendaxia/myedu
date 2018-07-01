@@ -1,9 +1,6 @@
 package com.neuedu.service;
 
-import com.neuedu.mapper.ClassMapper;
-import com.neuedu.mapper.CompanyMapper;
-import com.neuedu.mapper.MessageMapper;
-import com.neuedu.mapper.SorderMapper;
+import com.neuedu.mapper.*;
 import com.neuedu.myBatis.SqlSessionUtil;
 import com.neuedu.po.*;
 import org.apache.ibatis.session.SqlSession;
@@ -17,10 +14,16 @@ public class ActionServiceImpl implements ActionService{
     @Override
     public Boolean freelistenBook(int fid, String username, String tel, String comment, String openid) {
         Boolean isOK = false;
+        Freelistenbook fb = new Freelistenbook();
         SqlSession sqlSession = SqlSessionUtil.getSession();
-        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        FreelistenbookMapper mapper = sqlSession.getMapper(FreelistenbookMapper.class);
         try {
-            isOK = mapper.freelistenBook(fid,username,tel,comment,openid);
+            fb.setComment(comment);
+            fb.setFid(fid);
+            fb.setOpenid(openid);
+            fb.setTel(tel);
+            fb.setUsername(username);
+            isOK = mapper.freelistenbook(fb);
         } catch (Exception e) {
             e.printStackTrace();
         }finally {

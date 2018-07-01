@@ -1,6 +1,7 @@
 package com.neuedu.mapper;
 
 import com.neuedu.po.Freelisten;
+import com.neuedu.po.Freelistenbook;
 import com.neuedu.po.Lesson;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,8 +11,6 @@ public interface ClassMapper {
     public ArrayList<Lesson> getAllLessonByCondition(@Param("category")String type, @Param("branchid")int branchid);
 
     public ArrayList<Freelisten> getAllFreelistenByCondition(@Param("category")String type, @Param("branchid")int branchid);
-
-    public Boolean freelistenBook(int fid, String username, String tel, String comment, String openid);
 
     public Boolean freelistenCancel(int fid, String openid);
 

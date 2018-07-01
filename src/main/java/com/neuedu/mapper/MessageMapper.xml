@@ -29,9 +29,20 @@
         </collection>
     </resultMap>
 
-    <select id="getAllMessage" resultMap="message_messagelike_messageimg_messagereply_map">
-        select message.*,messagelike.*,messagereply.*,messageimg.* from message,messageimg,messagelike,messagereply where message.mid = messageimg.mid and
-        messageimg.mid = messagelike.mid and messagelike.mid = messagereply.mid
+    <select id="getAllMessage" resultType="com.neuedu.po.Message">
+        select * from message
+    </select>
+
+    <select id="getAllMessagelike" resultType="com.neuedu.po.Messagelike">
+        select * from messagelike
+    </select>
+
+    <select id="getAllMessageimg" resultType="com.neuedu.po.Messageimg">
+        select * from messageimg
+    </select>
+
+    <select id="getAllMessagereply" resultType="com.neuedu.po.Messagereply">
+        select * from messagereply
     </select>
 
     <insert id="addMessagelike" parameterType="com.neuedu.po.Messagelike">
@@ -49,6 +60,24 @@
     <delete id="removeMessagereply" parameterType="com.neuedu.po.Messagereply">
         delete from messagereply where openid = #{openid} and mid = #{mid}
     </delete>
+
+    <select id="getAllMessagelikeByCondition" parameterType="java.lang.String" resultMap="message_messagelike_messageimg_messagereply_map">
+        select message.*,messagelike.*,messagereply.*,messageimg.* from message,messageimg,messagelike,messagereply where message.mid = messageimg.mid and
+        messageimg.mid = messagelike.mid and messagelike.mid = messagereply.mid and messagelike.nickname = #{nickname}
+    </select>
+
+    <select id="getAllMessagelikeByMessage" resultType="java.lang.Integer">
+        select count(*) from messagelike group by mid
+    </select>
+
+    <select id="getAllMessagereplyByMessage" resultType="java.lang.Integer">
+        select count(*) from messagereply group by mid order by mid
+    </select>
+
+    <select id="getAllMessagereplyByCondition" parameterType="java.lang.String" resultMap="message_messagelike_messageimg_messagereply_map">
+        select message.*,messagelike.*,messagereply.*,messageimg.* from message,messageimg,messagelike,messagereply where message.mid = messageimg.mid and
+        messageimg.mid = messagelike.mid and messagelike.mid = messagereply.mid and messagereply.nickname = #{nickname}
+    </select>
 
     <!--///////////////////////////////////////////////////////////// -->
     <!--///////////////////////////////////////////////////////////// -->

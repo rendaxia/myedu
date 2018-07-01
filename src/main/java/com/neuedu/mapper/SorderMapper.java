@@ -3,6 +3,7 @@ package com.neuedu.mapper;
 import com.neuedu.po.Freelisten;
 import com.neuedu.po.Freelistenbook;
 import com.neuedu.po.Sorder;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public interface SorderMapper {
 
     public boolean refundSorder(int lid, String openid) throws Exception;//申请退款
 
-    public ArrayList<Sorder> getAllSorderByCondition(String openid, String status);
+    public ArrayList<Sorder> getAllSorderByCondition(@Param("openid")String openid, @Param("status") String status);
 
     public ArrayList<Freelistenbook> getAllFreelistenbookByCondition(String openid);
 

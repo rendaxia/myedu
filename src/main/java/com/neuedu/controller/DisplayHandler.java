@@ -39,7 +39,7 @@ public class DisplayHandler {
         ArrayList<Freelisten> list=null;
 
         list=displayService.getAllFreelistenByCondition(type,address);
-        System.out.println(list.get(0).getPubtime());
+        System.out.println(list.get(0).getStatus());
         return list;
     }
 
@@ -98,6 +98,51 @@ public class DisplayHandler {
         list=displayService.getAllFreelistenbookByCondition("oC9yV5KjYiv_zu6qJ0pm_WlN4LEk");
         return list;
     }
+
+
+    //获得每个说说的点赞数
+    @RequestMapping(value="DisplayHandler_getAllMessagelikeByMessage")
+    @ResponseBody
+    public ArrayList<Integer> getAllMessagelikeByMessage(HttpServletRequest request){
+        System.out.println("************DisplayHandler_getAllMessagelikeByMessage************");
+        ArrayList<Integer> list=null;
+        list=displayService.getAllMessagelikeByMessage();
+        return list;
+    }
+
+    //获得每个说说的评论数
+    @RequestMapping(value="DisplayHandler_getAllMessagereplyByMessage")
+    @ResponseBody
+    public ArrayList<Integer> getAllMessagereplyByMessage(HttpServletRequest request){
+        System.out.println("************DisplayHandler_getAllMessagereplyByMessage************");
+        ArrayList<Integer> list=null;
+        list=displayService.getAllMessagereplyByMessage();
+        return list;
+    }
+
+    @RequestMapping(value="DisplayHandler_getAllMessagelikeByCondition")
+    @ResponseBody
+    public ArrayList<Message> getAllMessagelikeByCondition(HttpServletRequest request){
+        System.out.println("************DisplayHandler_getAllMessagelikeByCondition************");
+        HttpSession session = request.getSession();
+        String nickname = (String)session.getAttribute("nickname");
+        ArrayList<Message> list=null;
+        list=displayService.getAllMessagelikeByCondition("费园园");
+        return list;
+    }
+
+    @RequestMapping(value="DisplayHandler_getAllMessagereByreplyCondition")
+    @ResponseBody
+    public ArrayList<Message> getAllMessagereplyByCondition(HttpServletRequest request){
+        System.out.println("************DisplayHandler_getAllMessagereplyByCondition************");
+        HttpSession session = request.getSession();
+        String nickname = (String)session.getAttribute("nickname");
+        ArrayList<Message> list=null;
+        list=displayService.getAllMessagereplyByCondition("费园园");
+        return list;
+    }
+
+
 
 
 

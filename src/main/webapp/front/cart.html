@@ -14,6 +14,27 @@
 	<script type="text/javascript" src="js/swiper.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <script type="text/javascript" charset="utf-8">
+		var length=0;
+		var sum = 0.00;
+		$(function () {
+			$("body").mouseover(function(){
+
+			    for(var i=0;i<length;i++){
+                    if(document.getElementById("i0"+i).style.color == "red"){
+                        var money =  document.getElementById("i0"+i).parentNode.childNodes[2].innerText.substr(3);
+                        sum+=parseFloat(money);
+                        document.getElementById("i0"+i).style.color = "orange";
+                    }
+                    if(document.getElementById("i0"+i).style.color == "gray"){
+                        var money =  document.getElementById("i0"+i).parentNode.childNodes[2].innerText.substr(3);
+                        sum-=parseFloat(money);
+                        document.getElementById("i0"+i).style.color = "lightgray";
+                    }
+				}
+                document.getElementById("money").innerText="合计:"+sum;
+
+			});
+        });
         $(function () {
             $.ajax({
                 url:"/DisplayHandler_getAllSorderByCondition",
@@ -21,10 +42,13 @@
                 data:{status:"待付款"},
                 dataType:"json",
                 success:function(data){
-                    console.log(data);
+
+                    length = data.length;
+                    console.log(length);
                     for(var i=0;i<data.length;i++){
                         var ii = document.createElement("i");
-                        var br = document.createElement("br");
+                        var br01 = document.createElement("br");
+                        var br02 = document.createElement("br");
                         var hr = document.createElement("hr");
                         var div01 = document.createElement("div");
                         var div02 = document.createElement("div");
@@ -34,15 +58,26 @@
                         var hx03 = document.createElement("h5");
                         $(".lesson_model_2").append(div01,hr);
                         div01.append(img01,div02);
-                        div02.append(hx01,br,hx02,hx03);
-                        hx03.append(ii);
-                        hx03.style.float = "right";
-                        hx03.style.marginRight = "10px";
+                        div02.append(hx01,br01,hx02,br02,hx03,ii);
                         hx03.innerText="待付款";
-                        ii.className="fa fa-heartbeat";
+                        ii.className="fa fa-check-circle";
+                        ii.id="i0"+i;
+                        ii.style.fontSize = "128%";
+                        ii.style.color = "lightgray";
+                        ii.style.float = "right";
+                        ii.style.marginRight = "10px;"
                         hx02.innerText="价格:"+data[i].total;
                         img01.src="img/"+data[i].tphoto;
-                        hx01.innerText="课程名:"+data[i].lid;
+                        hx01.innerText="课程名:"+data[i].lesson.lname;
+                        ii.onclick = function(){
+                            if(this.style.color == "orange"){
+                                this.style.color = 'gray';
+							}
+							else{
+                                this.style.color = 'red';
+							}
+
+						};
 
                     }
                 }
@@ -54,7 +89,7 @@
 </head>
 <body>
 	<div id="close">
-		<i class="fa fa-reply"></i>
+		<i class="fa fa-reply" onclick="javascript:window.location.href='main.html'"></i>
 		<i class="fa fa-share-alt" style="float:right; margin-right:10px;"></i>
 	</div>
 	
@@ -70,10 +105,10 @@
 	<div id="auto_place"></div>
 	
 	<div id="shopping_bottom">
-		<div id="cart">
-			<h5 style="margin-top:10px; margin-left:0px;">合计:0¥</h5>
+		<div id="cart" style="width:20%">
+			<h5 id="money" style="margin-top:10px;">合计:¥0</h5>
 		</div>
-		<div id="shopping_bottom_btn" style="width:65%">
+		<div id="shopping_bottom_btn" style="width:60%">
 			<h5 style="margin-left:70px;">结算课程</h5>
 		</div>
 	</div>

@@ -7,9 +7,9 @@ public class Message {
     private String mtitle;
     private String mtime;
     private int qid;
-    private ArrayList<Messageimg> messageimgs;
-    private ArrayList<Messagelike> messagelikes;
-    private ArrayList<Messagereply> messagereplies;
+    private ArrayList<Messageimg> messageimgs = new ArrayList<>();
+    private ArrayList<Messagelike> messagelikes = new ArrayList<>();
+    private ArrayList<Messagereply> messagereplies = new ArrayList<>();
 
     public void setMessageimgs(ArrayList<Messageimg> messageimgs) {
         this.messageimgs = messageimgs;

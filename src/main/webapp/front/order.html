@@ -20,7 +20,6 @@
                 success:function(data){
                     console.log(data);
                     for(var i=0;i<data.length;i++){
-                        var ii = document.createElement("i");
                         var br = document.createElement("br");
                         var hr = document.createElement("hr");
                         var div01 = document.createElement("div");
@@ -29,18 +28,17 @@
                         var hx01 = document.createElement("h5");
                         var hx02 = document.createElement("h5");
                         var hx03 = document.createElement("h5");
+                        var hx04 = document.createElement("h5");
                         $(".lesson_model_2").append(div01,hr);
                         div01.append(img01,div02);
-                        div02.append(hx01,br,hx02,hx03);
-                        hx03.append(ii);
+                        div02.append(hx01,br,hx04,hx02,hx03);
                         hx03.style.float = "right";
                         hx03.style.marginRight = "10px";
                         hx03.innerText="退款";
-                        ii.className="fa fa-heartbeat";
                         hx02.innerText="价格:"+data[i].total;
                         img01.src="img/"+data[i].tphoto;
-                        hx01.innerText="课程名:"+data[i].lid;
-
+                        hx01.innerText="课程名:"+data[i].lesson.lname;
+                        hx04.innerText="添加时间:"+data[i].ordertime;
                     }
                 }
 
@@ -50,13 +48,15 @@
             //注册点击事件
             $(".top_a").click(function () {
                 var status = this.innerText;
-                //alert(status);
                 var now_status;
                 if(status=="退款中"){
                     now_status = "退款中";
 				}
 				else if (status=="已使用"){
                     now_status = "已使用";
+				}
+				else if (status=="已付款"){
+                    now_status = "已付款";
 				}
                 //alert(now_status);
                 $.ajax({
@@ -68,7 +68,6 @@
                         console.log(data);
                         $(".lesson_model_2").html("");
                         for(var i=0;i<data.length;i++){
-                            var ii = document.createElement("i");
                             var br = document.createElement("br");
                             var hr = document.createElement("hr");
                             var div01 = document.createElement("div");
@@ -77,17 +76,17 @@
                             var hx01 = document.createElement("h5");
                             var hx02 = document.createElement("h5");
                             var hx03 = document.createElement("h5");
+                            var hx04 = document.createElement("h5");
                             $(".lesson_model_2").append(div01,hr);
                             div01.append(img01,div02);
-                            div02.append(hx01,br,hx02,hx03);
-                            hx03.append(ii);
+                            div02.append(hx01,br,hx04,hx02,hx03);
                             hx03.style.float = "right";
                             hx03.style.marginRight = "10px";
                             hx03.innerText=now_status;
-                            ii.className="fa fa-heartbeat";
                             hx02.innerText="价格:"+data[i].total;
                             img01.src="img/"+data[i].tphoto;
-                            hx01.innerText="课程名:"+data[i].lid;
+                            hx01.innerText="课程名:"+data[i].lesson.lname;
+                            hx04.innerText="添加时间:"+data[i].pubtime;
 
                         }
                     }
@@ -100,7 +99,7 @@
 </head>
 <body>
 	<div id="close">
-		<i class="fa fa-reply"></i>
+		<i class="fa fa-reply" ﻿onclick="javascript:window.location.href='user.html'"></i>
 		<i class="fa fa-share-alt" style="float:right; margin-right:10px;"></i>
 	</div>
 	

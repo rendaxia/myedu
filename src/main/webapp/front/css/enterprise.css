@@ -14,8 +14,6 @@
 }
 
 #enterprise_model ul li i{
-	margin-top:10px;
-	margin-bottom:10px;
 	margin-left: 30px;
 	font-size: 170%;
 }
@@ -31,6 +29,9 @@
 	border: 1px solid;*/
 }
 
+#introduction .images{
+	width:100%;
+}
 
 #introduction h5{
 	font-size:110%;
@@ -47,18 +48,28 @@
 
 #connector h5{
 	margin: 30px;
+	font-size: 103%;
+	color: black;
 }
 
 #address ul li{
 	/*border:1px solid;*/
 	display: block;
-	height:30px;
+	height:20px;
 	width:100%;
 }
 
 #address ul li h5{
 	margin-left:5%;
+	color:black;
+	font-size: 106%;
 	margin-top:30px;
+}
+
+#address ul li h5 i{
+	margin-left: 3%;
+	font-size: 140%;
+	color: #DD524D;
 }
 
 #address ul hr{

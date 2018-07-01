@@ -21,6 +21,14 @@ public interface DisplayService {
 
     public ArrayList<Freelistenbook> getAllFreelistenbookByCondition(String openid);
 
+    public ArrayList<Message> getAllMessagelikeByCondition(String nickname);
+
+    public ArrayList<Message> getAllMessagereplyByCondition(String nickname);
+
+    public ArrayList<Integer> getAllMessagelikeByMessage();
+
+    public ArrayList<Integer> getAllMessagereplyByMessage();
+
 
     ///////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////

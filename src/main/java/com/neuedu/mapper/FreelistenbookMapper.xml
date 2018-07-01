@@ -7,8 +7,8 @@
         select * from freelistenbook where openid = #{openid}
     </select>
 
-    <insert id="addFreelistenbook" parameterType="com.neuedu.po.Freelistenbook">
-        insert into freelistenbook values (NULL,#{fid},#{username},#{tel},NOW(),0,'已付款',NOW(),'待处理',#{comment},#{openid})
+    <insert id="freelistenbook">
+        insert into freelistenbook values (NULL,#{fid},#{username},#{tel},NOW(),'待处理',#{comment},#{openid})
     </insert>
 
     <delete id="cancelFreelistenbook" parameterType="java.lang.String">

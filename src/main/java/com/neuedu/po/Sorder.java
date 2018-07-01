@@ -13,6 +13,15 @@ public class Sorder {
     private String transactionid;
     private String nickname;
     private String tel;
+    private Lesson lesson;
+
+    public Lesson getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
+    }
 
     public int getOid() {
         return oid;
