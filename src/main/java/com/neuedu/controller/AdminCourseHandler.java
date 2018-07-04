@@ -347,6 +347,7 @@ public class AdminCourseHandler {
         request.setAttribute("freelisten", freelisten);
         ArrayList<Address> addresses = displayService.adminGetAllAddress(qid);
         request.setAttribute("addresses", addresses);
+        request.setAttribute("status",freelisten.getStatus());
         return "forward:/back/admin_freelisten_modify.jsp";
     }
 
@@ -429,6 +430,7 @@ public class AdminCourseHandler {
         String title = request.getParameter("title");
         String fdesc = request.getParameter("fdesc");
         int branchid = Integer.parseInt(request.getParameter("branchid"));
+        String status =request.getParameter("status");
         Double lprice = 0.0;
         String imgurl = "";
 
@@ -470,6 +472,7 @@ public class AdminCourseHandler {
         freelisten.setFdesc(fdesc);
         freelisten.setStatus("进行中");
         freelisten.setQid(qid);
+        freelisten.setStatus(status);
         actionService.adminSetOneFreelisten(freelisten);
 
         return "forward:/AdminToShowAllFreelisten";

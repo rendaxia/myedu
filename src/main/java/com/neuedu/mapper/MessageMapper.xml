@@ -90,4 +90,64 @@
     <select id="adminGetMessagereplyAmount" resultType="int">
         select count(*) from message join messagereply where message.qid = #{0} and message.mid = messagereply.mid
     </select>
+    
+    <select id="adminGetAllMessage" resultType="com.neuedu.po.Message" >
+        select * from message where qid = #{0}
+    </select>
+
+    <select id="adminGetAllMessageInPage" resultMap="message_messagelike_messageimg_messagereply_map">
+        select * from message where qid = #{0} order by mid desc limit #{1},#{2}
+    </select>
+
+    <select id="adminGetSomeMessagelikeOfOneMessage" resultType="com.neuedu.po.Messagelike" >
+        select * from messagelike where   mid=#{0}
+    </select>
+
+    <select id="adminGetSomeMessagereplyOfOneMessage" resultType="com.neuedu.po.Messagereply" >
+        select * from messagereply where  mid=#{0}
+    </select>
+
+    <select id="adminGetSomeMessageimgOfOneMessage" resultType="com.neuedu.po.Messageimg" >
+        select * from messageimg where  mid=#{0}
+    </select>
+
+    <insert id="adminAddOneMessage" parameterType="com.neuedu.po.Message">
+        insert into message (mid,mtitle,mtime,qid) value(null,#{mtitle},NOW(),#{qid})
+    </insert>
+
+    <insert id="adminAddOneMessageimg" parameterType="com.neuedu.po.Messageimg" >
+        insert into messageimg (id,mid,imgurl) value(null,#{mid},#{imgurl})
+    </insert>
+
+    <select id="adminGetOneMessageByMtimeAndMtitle" resultType="com.neuedu.po.Message">
+        select * from message where mtitle=#{0} limit 1
+    </select>
+
+    <delete id="adminDeleteOneMessage" parameterType="int">
+        delete from message where mid =#{0}
+    </delete>
+
+    <delete id="adminDeleteAllMessagelikeOfOneMessage" parameterType="int">
+        delete  from messagelike where mid =#{0}
+    </delete>
+
+    <delete id="adminDeleteOneMessagereplyOfOneMessage" parameterType="int">
+        delete  from messagereply where id =#{0}
+    </delete>
+
+    <delete id="adminDeleteAllMessageimgOfOneMessage" parameterType="int">
+        delete  from messageimg where mid =#{0}
+    </delete>
+
+    <delete id="adminDeleteAllMessagereplyOfOneMessage" parameterType="int">
+        delete from messagereply where mid=#{0}
+    </delete>
+
+    <select id="adminGetMessageImg" resultType="java.lang.String">
+        select imgurl from swiper where qid =#{0} and category = 'C'
+    </select>
+
+    <update id="adminSetMessageImg">
+        update swiper set imgurl =#{0} where qid= #{1} and category='C'
+    </update>
 </mapper>

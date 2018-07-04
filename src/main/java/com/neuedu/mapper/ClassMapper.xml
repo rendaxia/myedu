@@ -159,7 +159,7 @@
     </update>
 
     <update id="adminSetOneFreelisten">
-        update freelisten set title=#{title},imgurl=#{imgurl},fdesc=#{fdesc},qid=#{qid},branchid=#{branchid} where id=#{id}
+        update freelisten set title=#{title},imgurl=#{imgurl},fdesc=#{fdesc},status=#{status},qid=#{qid},branchid=#{branchid} where id=#{id}
     </update>
 
     <delete id="adminDeleteOneLesson" parameterType="int">

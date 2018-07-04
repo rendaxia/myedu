@@ -228,23 +228,19 @@
                     <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
+
                     <li class="sidebar-nav-link">
-                        <a href="message-see.html">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span>信息列表
-                        </a>
-                    </li>
-                    <li class="sidebar-nav-link">
-                        <a href="message-add.html">
+                        <a href="/back/admin_message_add.jsp">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>发布信息
                         </a>
                     </li>
                     <li class="sidebar-nav-link">
-                        <a href="message-comments.html">
+                        <a href="/AdminToShowAllMessage">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>评论管理
                         </a>
                     </li>
                     <li class="sidebar-nav-link">
-                        <a href="message-img.html">
+                        <a href="/AdminToSetMessageImg">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>首页图片
                         </a>
                     </li>

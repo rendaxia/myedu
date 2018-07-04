@@ -65,4 +65,21 @@ public interface ActionService {
     public int adminRefundSorder(int oid);
 
     public int adminCAVSorder(int oid);
+
+    public int adminAddOneMessage(Message message);
+
+    public int adminAddOneMessageimg(Messageimg messageimg );
+
+    public int adminDeleteOneMessage(int mid);
+
+    public int adminDeleteAllMessagelikeOfOneMessage(int mid);
+
+    public int adminDeleteOneMessagereplyOfOneMessage(int id);
+
+    public int adminDeleteAllMessageimgOfOneMessage(int mid);
+
+    public int adminDeleteAllMessagereplyOfOneMessage(int mid);
+
+    public int adminSetMessageImg(String imgurl,int qid);
+
 }

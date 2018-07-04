@@ -4,10 +4,7 @@ package com.neuedu.service;
 import com.neuedu.myBatis.SqlSessionUtil;
 import com.neuedu.po.*;
 import com.neuedu.mapper.*;
-import com.neuedu.tools.AddressPages;
-import com.neuedu.tools.FreelistenbookPages;
-import com.neuedu.tools.SorderPages;
-import com.neuedu.tools.TeacherPages;
+import com.neuedu.tools.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
@@ -722,6 +719,107 @@ public class DisplayServiceImpl implements DisplayService{
             sqlSession.close();
         }
         return  list;
+    }
+
+    public ArrayList<Message> adminGetAllMessage(int qid){
+        ArrayList<Message> list = null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        //int x=(page-1)*AddressPages.N;
+        try {
+            list = mapper.adminGetAllMessage(qid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return  list;
+    }
+
+    public ArrayList<Message> adminGetAllMessageInPage(int qid,int page){
+        ArrayList<Message> list = null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        int x=(page-1)*AddressPages.N;
+        try {
+            list = mapper.adminGetAllMessageInPage(qid,x,MessagePages.getN());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return  list;
+    }
+
+    public ArrayList<Messagelike> adminGetSomeMessagelikeOfOneMessage(int mid){
+        ArrayList<Messagelike> list = null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        try {
+            list = mapper.adminGetSomeMessagelikeOfOneMessage(mid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return  list;
+    }
+
+    public ArrayList<Messagereply> adminGetSomeMessagereplyOfOneMessage(int mid){
+        ArrayList<Messagereply> list = null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        try {
+            list = mapper.adminGetSomeMessagereplyOfOneMessage(mid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return  list;
+    }
+
+    public ArrayList<Messageimg> adminGetSomeMessageimgOfOneMessage(int mid){
+        ArrayList<Messageimg> list = null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        try {
+            list = mapper.adminGetSomeMessageimgOfOneMessage(mid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return  list;
+    }
+
+
+    public Message adminGetOneMessageByMtimeAndMtitle(String mtitle){
+        Message message = null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        try {
+            message = mapper.adminGetOneMessageByMtimeAndMtitle(mtitle);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return message;
+    }
+
+    public String adminGetMessageImg(int qid){
+        String imgurl  = null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        try {
+            imgurl = mapper.adminGetMessageImg(qid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return imgurl;
     }
 
 

@@ -544,5 +544,149 @@ public class ActionServiceImpl implements ActionService{
         return  isOK;
     }
 
+    public int adminAddOneMessage(Message message){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        try {
+            isOK = mapper.adminAddOneMessage(message);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
+    public int adminAddOneMessageimg(Messageimg messageimg ){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        try {
+            isOK = mapper.adminAddOneMessageimg(messageimg);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+    public int adminDeleteOneMessage(int mid){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        try {
+            isOK = mapper.adminDeleteOneMessage(mid);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
+    public int adminDeleteAllMessagelikeOfOneMessage(int mid){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        try {
+            isOK = mapper.adminDeleteAllMessagelikeOfOneMessage(mid);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+
+    }
+
+    public int adminDeleteOneMessagereplyOfOneMessage(int id){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        try {
+            isOK = mapper.adminDeleteOneMessagereplyOfOneMessage(id);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+
+    }
+
+    public int adminDeleteAllMessageimgOfOneMessage(int mid){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        try {
+            isOK = mapper.adminDeleteAllMessageimgOfOneMessage(mid);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
+    public int adminDeleteAllMessagereplyOfOneMessage(int mid){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        try {
+            isOK = mapper.adminDeleteAllMessagereplyOfOneMessage(mid);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
+
+    public int adminSetMessageImg(String imgurl,int qid){
+        int isOK = 0;
+
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
+        try {
+            isOK = mapper.adminSetMessageImg(imgurl,qid);
+            sqlSession.commit();
+        } catch (Exception e) {
+            isOK = 0;
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+        return  isOK;
+    }
 
 }

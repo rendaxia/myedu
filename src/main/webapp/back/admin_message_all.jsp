@@ -30,64 +30,6 @@
     <link rel="stylesheet" href="<%=basePath%>assets/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="<%=basePath%>assets/css/app.css">
     <script src="<%=basePath%>assets/js/jquery.min.js"></script>
-    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=NY4BZ-LPH3U-7ORV6-2J4YO-6DBLZ-Y2BIV"></script>
-    <script>
-        var citylocation, map, marker = null;
-        window.onload = function () {
-
-            //直接加载地图
-
-
-            //初始化地图函数  自定义函数名init
-            function init() {
-                //定义map变量 调用 qq.maps.Map() 构造函数   获取地图显示容器
-                var map = new qq.maps.Map(document.getElementById("mapcontainer"), {
-                    center: new qq.maps.LatLng("${address.latitude}", "${address.longitude}"), // 地图的中心地理坐标。
-                    zoom: 18 // 地图的中心地理坐标。
-                });
-                qq.maps.event.addListener(map, 'click', function (event) {
-                    alert('您点击的位置为: [' + event.latLng.getLat() + ', ' +
-                        event.latLng.getLng() + ']');
-                });
-
-                citylocation = new qq.maps.CityService({
-                    complete: function (results) {
-                        map.setCenter(results.detail.latLng);
-                        city.style.display = 'inline';
-                        city.innerHTML = '所在位置: ' + results.detail.name;
-
-                        if (marker != null) {
-                            marker.setMap(null);
-                        }
-                        //设置marker标记
-                        marker = new qq.maps.Marker({
-                            map: map,
-                            position: results.detail.latLng
-                        });
-                    }
-                });
-            }
-
-            //调用初始化函数地图
-            init();
-
-
-        }
-
-        function geolocation_latlng() {
-            //获取经纬度信息
-            var input = document.getElementById("latLng").value;
-            //用,分割字符串截取两位长度
-            var latlngStr = input.split(",", 2);
-            //解析成浮点数 取值第一位 第二位
-            var lat = parseFloat(latlngStr[0]);
-            var lng = parseFloat(latlngStr[1]);
-            //设置经纬度信息
-            var latLng = new qq.maps.LatLng(lat, lng);
-            //调用城市经纬度查询接口实现经纬查询
-            citylocation.searchCityByLatLng(latLng);
-        }
-    </script>
 
 </head>
 
@@ -98,7 +40,7 @@
         <header>
             <!-- logo -->
             <div class="am-fl tpl-header-logo">
-                <a href="/AdminGoToIndex">
+                <a href="myindex.html">
                     <img src="<%=basePath%>assets/img/logo.png" alt="">
                 </a>
             </div>
@@ -116,8 +58,6 @@
                     <ul>
 
 
-
-
                         <!-- 退出 -->
                         <li class="am-text-sm">
                             <a href="javascript:;">
@@ -130,7 +70,8 @@
 
         </header>
         <!-- 风格切换 -->
-        <!-- 风格切换 -->
+
+		<!-- 风格切换 -->
         <div class="tpl-skiner">
             <div class="tpl-skiner-toggle am-icon-cog">
             </div>
@@ -155,7 +96,7 @@
                     </div>
                     <span class="user-panel-logged-in-text">
                         <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
-                        管理员${username}
+                        管理员<%=session.getAttribute("username")%>>
                     </span>
 
                 </div>
@@ -197,7 +138,7 @@
                         </li>
 
                         <li class="sidebar-nav-link">
-                            <a href="/back/admin_teacher_add.jsp">
+                            <a href="/AdminAddOneTeacher">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加老师
                             </a>
                         </li>
@@ -302,113 +243,169 @@
 
                     </ul>
                 </li>
-                
+
 
             </ul>
         </div>
+
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper">
-
-
-
             <div class="row-content am-cf">
-
-
                 <div class="row">
-
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
-                                <div class="widget-title am-fl">分部具体信息</div>
-                                <div class="widget-function am-fr">
-                                    <a href="javascript:;" class="am-icon-cog"></a>
+                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+                                    <div class="widget-title  am-cf">朋友圈信息浏览和管理</div>
                                 </div>
+
+
+
+
                             </div>
-                            <div class="widget-body am-fr">
+                            <div class="widget-body  am-fr">
 
-                                <form class="am-form tpl-form-line-form">
+                                <c:forEach items="${list}" var="m">
+                                <div class="am-u-sm-12">
+                                    <table width="100%">
 
-                                    <input type="hidden" name="id" value="${address.id}" name="id"/>
-                                    <div class="am-form-group">
-                                        <label for="user-name" class="am-u-sm-3 am-form-label">分部名字
-                                            <span class="tpl-form-line-small-title"></span>
-                                        </label>
-                                        <div class="am-u-sm-9">
-                                            ${address.branch}
-                                        </div>
+                                        <tbody>
+
+                                            <tr>
+                                                <td>
+                                                    <img src="<%=imgPath%>${enterpriseImg}" style="width: 100px;height:100px" class="tpl-table-line-img" alt=""> ${enterpriseName}
+                                                </td>
+
+                                                <td style="width: 600px;">${m.mtitle}</td>
+                                                <td>
+                                                    <div class="tpl-table-black-operation">
+
+
+                                                        <a href="/AdminDeleteOneMessage?mid=${m.mid}" class="tpl-table-black-operation-del">
+                                                            <i class="am-icon-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
+
+                                    <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2  am-avg-md-3 am-avg-lg-4 am-gallery-default" data-am-gallery="{ pureview: true }">
+
+                                        <c:forEach items="${m.messageimgs}" var="img">
+                                        <li>
+                                            <div class="am-gallery-item">
+                                                <img src="<%=imgPath%>${img.imgurl}" style="width:230px;height: 160px"  />
+                                            </div>
+                                        </li>
+                                        </c:forEach>
+
+                                    </ul>
+
+                                    <table width="100%">
+                                        <tbody>
+
+                                        <tr>
+                                            <td>
+                                                <div class="tpl-table-black-operation">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;发布时间
+                                                </div>
+                                            </td>
+                                            <td style="width: 600px;">
+                                                <div class="tpl-table-black-operation">
+                                                    ${m.mtime}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                <table width="100%">
+                                    <tbody>
+
+                                        <tr>
+                                            <td>
+                                                <div class="tpl-table-black-operation">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;点赞者共${m.messagelikesamount}人：
+                                                </div>
+                                            </td>
+                                            <td style="width: 600px;">
+                                                <div class="tpl-table-black-operation">
+                                                    <c:forEach items="${m.messagelikes}" var="like">
+                                                       ${like.nickname}&nbsp;&nbsp;
+                                                    </c:forEach>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <table width="100%">
+                                    <tbody>
+
+                                        <tr>
+                                            <td>
+                                                <div class="tpl-table-black-operation">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;评论：
+                                                </div>
+                                            </td>
+                                            <td style="width: 600px;">
+                                                <c:forEach items="${m.messagereplies}" var="reply">
+                                                <div class="tpl-table-black-operation">
+                                                    ${reply.nickname}：${reply.content}&nbsp;&nbsp;于${reply.stime}
+                                                    <a href="/AdminDeleteOneMessagereply?id=${reply.id}&page=${p.page}" class="tpl-table-black-operation-del">
+                                                        <i class="am-icon-trash"></i>
+                                                    </a>
+                                                    <br>
+
+                                                </div>
+                                                </c:forEach>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+
+
+                                <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+
+
+                                </c:forEach>
+
+                                <div class="am-u-lg-12 am-cf">
+
+                                    <div class="am-fr">
+                                        <ul class="am-pagination tpl-pagination">
+                                            <li><a href="/AdminToShowAllMessage?page=1">首页</a></li>
+                                            <li><a href="/AdminToShowAllMessage?page=${p.page-1}">上一页</a></li>
+
+                                            <c:forEach begin="${p.startPage }" end="${p.endPage }" var="i">
+                                                <%--<li><a href="/test/MyHandler_findSome?page=${i }">${i }</a></li>--%>
+                                                <c:choose>
+                                                    <c:when test="${i == p.page}">
+                                                        <a style="opacity: 0.1" onclick="return false;" >${i }</a>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <a href="/AdminToShowAllMessage?page=${i }">${i }</a>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+
+                                            <li><a href="/AdminToShowAllMessage?page=${p.page+1}">下一页</a></li>
+                                            <li><a href="/AdminToShowAllMessage?page=${p.maxPage }">尾页</a></li>
+                                        </ul>
                                     </div>
-
-
-
-
-
-                                    <div class="am-form-group">
-                                        <label for="user-name" class="am-u-sm-3 am-form-label">分部电话
-                                            <span class="tpl-form-line-small-title"></span>
-                                        </label>
-                                        <div class="am-u-sm-9">
-                                            ${address.tel}
-                                        </div>
-                                    </div>
-
-                                    <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">分部地址</label>
-
-                                        <!--<div class="am-u-sm-9" id="allmap"></div>-->
-                                        <div>
-                                            ${address.address}+${address.id}
-                                        </div>
-
-
-
-
-                                    </div>
-
-                                    <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">分部纬度经度</label>
-
-                                        <!--<div class="am-u-sm-9" id="allmap"></div>-->
-                                        <div>
-                                            ${address.latitude},${address.longitude}
-                                        </div>
-
-
-
-
-                                    </div>
-
-                                    <div class="am-form-group">
-
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">地图</label>
-                                        <div id="mapcontainer" style="width:500px; height:400px"></div>
-
-                                    </div>
-
-
-
-
-
-                                    <div class="am-form-group">
-                                        <div class="am-u-sm-9 am-u-sm-push-3">
-                                            <a href="/AdminToSetOneAddress?id=${address.id}" class="am-btn am-btn-primary tpl-btn-bg-color-success ">修改</a>
-                                        </div>
-
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     </div>
     </div>
-
-
-
     <script src="<%=basePath%>assets/js/amazeui.min.js"></script>
     <script src="<%=basePath%>assets/js/amazeui.datatables.min.js"></script>
     <script src="<%=basePath%>assets/js/dataTables.responsive.min.js"></script>

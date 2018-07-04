@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -12,6 +10,8 @@
     request.setCharacterEncoding("utf-8");
     response.setCharacterEncoding("utf-8");
 %>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -40,7 +40,7 @@
     <header>
         <!-- logo -->
         <div class="am-fl tpl-header-logo">
-            <a href="/AdminGoToIndex">
+            <a href="myindex.html">
                 <img src="<%=basePath%>assets/img/logo.png" alt="">
             </a>
         </div>
@@ -96,7 +96,7 @@
                 </div>
                 <span class="user-panel-logged-in-text">
                         <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
-                        管理员${username}
+                        管理员<%=session.getAttribute("username")%>>
                     </span>
 
             </div>
@@ -138,7 +138,7 @@
                     </li>
 
                     <li class="sidebar-nav-link">
-                        <a href="/back/admin_teacher_add.jsp">
+                        <a href="/AdminAddOneTeacher">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加老师
                         </a>
                     </li>
@@ -244,139 +244,76 @@
                 </ul>
             </li>
 
+
         </ul>
     </div>
-    <!-- 内容区域 -->
-    <div class="tpl-content-wrapper">
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
 
 
 
-        <div class="row-content am-cf">
+            <div class="row-content am-cf">
 
 
-            <div class="row">
+                <div class="row">
 
-                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-                    <div class="widget am-cf">
-                        <div class="widget-head am-cf">
-                            <div class="widget-title am-fl">添加体验体课程</div>
-                            <div class="widget-function am-fr">
-                                <a href="javascript:;" class="am-icon-cog"></a>
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-title am-fl">发布消息</div>
+                                <div class="widget-function am-fr">
+                                    <a href="javascript:;" class="am-icon-cog"></a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="widget-body am-fr">
+                            <div class="widget-body am-fr">
 
-                            <form class="am-form tpl-form-line-form" id="qform" method="post" enctype="multipart/form-data" action="/AdminAddOneFreelisten" >
-
-
-                                <div class="am-form-group">
-                                    <label for="user-name" class="am-u-sm-3 am-form-label">课程名称
-                                        <span class="tpl-form-line-small-title"></span>
-                                    </label>
-                                    <div class="am-u-sm-9">
-                                        <input type="text" name="title" class="tpl-form-input" id="user-name" placeholder="请添加课程名称">
-                                    </div>
-                                </div>
-
-                                <div class="am-form-group">
-                                    <label for="user-name" class="am-u-sm-3 am-form-label">分部名字
-                                        <span class="tpl-form-line-small-title"></span>
-                                    </label>
-
-
-                                    <select name="branchid" data-am-selected="{btnSize: 's'}">
-
-                                        <c:forEach items="${addresses}" var="m">
-                                            <c:choose>
-                                                <c:when test="${m.id == branchid}">
-                                                    <option value="${m.id}" selected >${m.branch}</option>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <option value="${m.id}">${m.branch}</option>
-
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </c:forEach>
-
-                                    </select>
-
-                                </div>
-
-                                <div class="am-form-group">
-                                    <label for="user-weibo" class="am-u-sm-3 am-form-label">课程图片
-                                        <span class="tpl-form-line-small-title"></span>
-                                    </label>
-                                    <div class="am-u-sm-9">
-                                        <div class="am-form-group am-form-file">
-
-                                            <button type="button" class="am-btn am-btn-danger am-btn-sm">
-                                                <i class="am-icon-cloud-upload"></i> 添加图片</button>
-                                            <input id="doc-form-file" name="imgurl" type="file" >
+                                <form class="am-form tpl-form-line-form" action="/AdminAddOneMessage" method="post" enctype="multipart/form-data">
+                                    <div class="am-form-group">
+                                        <label for="user-name" class="am-u-sm-3 am-form-label">内容
+                                            <span class="tpl-form-line-small-title"></span>
+                                        </label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" name="mtitle" class="tpl-form-input" id="user-name" placeholder="请输入消息内容">
                                         </div>
-
                                     </div>
-                                </div>
 
+                                    <div class="am-form-group">
+                                        <label for="user-weibo" class="am-u-sm-3 am-form-label">图片
+                                            <span class="tpl-form-line-small-title"></span>
+                                        </label>
+                                        <div class="am-u-sm-9">
+                                            <div class="am-form-group am-form-file">
 
+                                                <button type="button" class="am-btn am-btn-danger am-btn-sm">
+                                                    <i class="am-icon-cloud-upload"></i> 添加图片</button>
+                                                <input id="doc-form-file" name="files" type="file" multiple="multiple">
+                                            </div>
 
-
-                                <div class="am-form-group">
-                                    <label for="user-intro" class="am-u-sm-3 am-form-label">课程详情</label>
-
-                                    <div class="am-u-sm-10 am-u-sm-push-0">
-                                        <div id="editor">
-                                            <p>欢迎使用
-                                                <b>Neuedu</b> 富文本编辑器</p>
                                         </div>
-                                        <button id="btn1" class="am-btn am-btn-primary tpl-btn-bg-color-success">提交</button>
-                                        <input type="hidden" id ="fdesc" name="fdesc" value ="" />
-
-                                        <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
-                                        <script type="text/javascript" src="<%=basePath%>editor/wangEditor.min.js"></script>
-                                        <script type="text/javascript">
-                                            var E = window.wangEditor
-                                            var editor = new E('#editor')
-                                            editor.customConfig.uploadImgServer = '/AdminFreelistenRichTextImgUpload'
-
-
-                                            editor.customConfig.uploadFileName = 'myFileName'
-                                            // 或者 var editor = new E( document.getElementById('editor') )
-                                            editor.create()
-                                        </script>
-
-
                                     </div>
-                                </div>
 
-
-                            </form>
+                                    <div class="am-form-group">
+                                        <div class="am-u-sm-9 am-u-sm-push-3">
+                                            <input  type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success " value="发布"/>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+
             </div>
-
-
-
         </div>
     </div>
-</div>
-</div>
-<script src="<%=basePath%>assets/js/amazeui.min.js"></script>
-<script src="<%=basePath%>assets/js/amazeui.datatables.min.js"></script>
-<script src="<%=basePath%>assets/js/dataTables.responsive.min.js"></script>
-<script src="<%=basePath%>assets/js/app.js"></script>
-<script type="text/javascript">
-
-    document.getElementById('btn1').addEventListener('click', function () {
-        // 读取 html
-        document.getElementById("fdesc").value = editor.txt.html();
-        var form = document.getElementById('qform');
-        form.submit;
-        //alert(editor.txt.html())
-
-    }, false)
-
-</script>
+    </div>
+    <script src="<%=basePath%>assets/js/amazeui.min.js"></script>
+    <script src="<%=basePath%>assets/js/amazeui.datatables.min.js"></script>
+    <script src="<%=basePath%>assets/js/dataTables.responsive.min.js"></script>
+    <script src="<%=basePath%>assets/js/app.js"></script>
 
 </body>
 

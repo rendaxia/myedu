@@ -224,23 +224,19 @@
                     <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
+
                     <li class="sidebar-nav-link">
-                        <a href="message-see.html">
-                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span>信息列表
-                        </a>
-                    </li>
-                    <li class="sidebar-nav-link">
-                        <a href="message-add.html">
+                        <a href="/back/admin_message_add.jsp">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>发布信息
                         </a>
                     </li>
                     <li class="sidebar-nav-link">
-                        <a href="message-comments.html">
+                        <a href="/AdminToShowAllMessage">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>评论管理
                         </a>
                     </li>
                     <li class="sidebar-nav-link">
-                        <a href="message-img.html">
+                        <a href="/AdminToSetMessageImg">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>首页图片
                         </a>
                     </li>
@@ -302,6 +298,39 @@
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:forEach>
+
+                                    </select>
+
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label for="user-name" class="am-u-sm-3 am-form-label">课程状态
+                                        <span class="tpl-form-line-small-title"></span>
+                                    </label>
+
+
+                                    <select name="status" data-am-selected="{btnSize: 's'}">
+
+
+                                            <c:choose>
+                                                <c:when test="${m.status == '进行中'}">
+                                                    <option value="进行中" selected >进行中</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="进行中">进行中</option>
+
+                                                </c:otherwise>
+                                            </c:choose>
+                                        <c:choose>
+                                            <c:when test="${m.id == '已结束'}">
+                                                <option value="已结束" selected >已结束</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="已结束">已结束</option>
+
+                                            </c:otherwise>
+                                        </c:choose>
+
 
                                     </select>
 

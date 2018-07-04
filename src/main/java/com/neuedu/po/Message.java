@@ -11,6 +11,16 @@ public class Message {
     private ArrayList<Messagelike> messagelikes = new ArrayList<>();
     private ArrayList<Messagereply> messagereplies = new ArrayList<>();
 
+    private int messagelikesamount;
+
+    public int getMessagelikesamount() {
+        return messagelikesamount;
+    }
+
+    public void setMessagelikesamount(int messagelikesamount) {
+        this.messagelikesamount = messagelikesamount;
+    }
+
     public void setMessageimgs(ArrayList<Messageimg> messageimgs) {
         this.messageimgs = messageimgs;
     }

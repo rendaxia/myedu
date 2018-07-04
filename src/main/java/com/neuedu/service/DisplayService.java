@@ -104,4 +104,18 @@ public interface DisplayService {
 
     public ArrayList<Sorder> adminGetAllSorderByConditionInPage(int qid,int lid,String status,String nickname,String startTime,String endTime,int page);
 
+    public ArrayList<Message> adminGetAllMessage(int qid);
+
+    public ArrayList<Message> adminGetAllMessageInPage(int qid,int page);
+
+    public ArrayList<Messagelike> adminGetSomeMessagelikeOfOneMessage(int mid);
+
+    public ArrayList<Messagereply> adminGetSomeMessagereplyOfOneMessage(int mid);
+
+    public ArrayList<Messageimg> adminGetSomeMessageimgOfOneMessage(int mid);
+
+    public Message adminGetOneMessageByMtimeAndMtitle(String mtitle);
+
+    public String adminGetMessageImg(int qid);
+
 }
