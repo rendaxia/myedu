@@ -24,6 +24,7 @@ public class ActionServiceImpl implements ActionService{
             fb.setTel(tel);
             fb.setUsername(username);
             isOK = mapper.freelistenbook(fb);
+            sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
@@ -33,12 +34,13 @@ public class ActionServiceImpl implements ActionService{
     }
 
     @Override
-    public Boolean freelistenCancel(int fid, String openid) {
+    public Boolean freelistenCancel(int id) {
         Boolean isOK = false;
         SqlSession sqlSession = SqlSessionUtil.getSession();
-        ClassMapper mapper = sqlSession.getMapper(ClassMapper.class);
+        FreelistenbookMapper mapper = sqlSession.getMapper(FreelistenbookMapper.class);
         try {
-            isOK = mapper.freelistenCancel(fid,openid);
+            isOK = mapper.freelistenCancel(id);
+            sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
@@ -60,34 +62,59 @@ public class ActionServiceImpl implements ActionService{
             s.setLid(lid);
             s.setTotal(total);
             isOK = mapper.addToCart(s);
+            sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return isOK;
     }
 
     @Override
-    public Boolean paySorder(int lid, String openid,double actual) {
+    public Boolean paySorder(int oid, String openid) {
         Boolean isOK = false;
         SqlSession sqlSession = SqlSessionUtil.getSession();
         SorderMapper mapper = sqlSession.getMapper(SorderMapper.class);
         try {
-            isOK = mapper.paySorder(lid,openid,actual);
+            isOK = mapper.paySorder(oid,openid);
+            sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return isOK;
     }
 
     @Override
-    public Boolean refundSorder(int lid, String openid) {
+    public Boolean refundSorder(int oid) {
         Boolean isOK = false;
         SqlSession sqlSession = SqlSessionUtil.getSession();
         SorderMapper mapper = sqlSession.getMapper(SorderMapper.class);
         try {
-            isOK = mapper.refundSorder(lid,openid);
+            isOK = mapper.refundSorder(oid);
+            sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return isOK;
+    }
+
+    @Override
+    public Boolean refundCart(int oid) {
+        Boolean isOK = false;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        SorderMapper mapper = sqlSession.getMapper(SorderMapper.class);
+        try {
+            isOK = mapper.refundCart(oid);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return isOK;
     }
@@ -102,8 +129,11 @@ public class ActionServiceImpl implements ActionService{
             ml.setMid(mid);
             ml.setNickname(username);
             isOK = mapper.addMessagelike(ml);
+            sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return isOK;
     }
@@ -119,8 +149,11 @@ public class ActionServiceImpl implements ActionService{
             mr.setContent(content);
             mr.setNickname(username);
             isOK = mapper.addMessagereply(mr);
+            sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return isOK;
     }
@@ -135,27 +168,30 @@ public class ActionServiceImpl implements ActionService{
             ml.setMid(mid);
             ml.setNickname(username);
             isOK = mapper.removeMessagelike(ml);
+            sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            sqlSession.close();
         }
         return isOK;
     }
     @Override
-    public Boolean removeMessagereply(int mid, String username) {
+    public Boolean removeMessagereply(int comment_id, String username) {
         Boolean isOK = false;
         Messagereply mr = new Messagereply();
         SqlSession sqlSession = SqlSessionUtil.getSession();
         MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
         try {
             mr.setNickname(username);
-            mr.setMid(mid);
+            mr.setId(comment_id);
             isOK = mapper.removeMessagereply(mr);
+            sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return isOK;
     }
-
 
 
     ////////////////////////////////////////////////////////////

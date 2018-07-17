@@ -4,7 +4,7 @@ import com.neuedu.po.Freelistenbook;
 
 public class FreelistenbookPages {
     //N为每页显示5条记录
-    public static int N=1;
+    public static int N=5;
     //分页页码中的个数
     public static int p_N=5;
     //当前页数

@@ -34,7 +34,8 @@ public class AdminMainHandler {
                 HttpSession session = request.getSession();
                 session.setAttribute("qid", displayService.adminGetQidOfUser(username,userpassword)); // 登录成功，向session存入一个登录标记
                 session.setAttribute("username",username);
-                return "forward:/AdminGoToIndex";
+                session.setAttribute("isLogin","Yes");
+                return "forward:/Admin/AdminGoToIndex";
             }else {
                 // 如果错误
                 request.setAttribute("loginmsg","请输入正确的用户名或密码");
@@ -59,7 +60,7 @@ public class AdminMainHandler {
 
 
 
-    @RequestMapping(value="AdminGoToIndex")
+    @RequestMapping(value="Admin/AdminGoToIndex")
     public String getAdminIndex(HttpServletRequest request){
         //通过session得到相关信息
         HttpSession session = request.getSession();

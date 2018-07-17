@@ -23,14 +23,14 @@
 
     <mvc:annotation-driven/>
 
-    <!-- 拦截器的配置：只能拦截处理器路径-->
-    <!--<mvc:interceptors>-->
-    <!--<mvc:interceptor>-->
-    <!--<mvc:mapping path="/**"/>-->
-    <!--<mvc:exclude-mapping path="/login/*"/>-->
-    <!--<bean class="com.neusoft.interceptor.LoginInterceptor"></bean>-->
-    <!--</mvc:interceptor>-->
-    <!--</mvc:interceptors>-->
+     <!--拦截器的配置：只能拦截处理器路径-->
+    <mvc:interceptors>
+    <mvc:interceptor>
+    <mvc:mapping path="/Admin/*"/>
+    <!--<mvc:exclude-mapping path="/admin/*"/>-->
+    <bean class="com.neuedu.tools.AdminInterceptor"></bean>
+    </mvc:interceptor>
+    </mvc:interceptors>
 
 
     <!--配置静态资源（除了控制器和jsp以外的）为了能够在spring下找到html和css文件-->
@@ -39,7 +39,7 @@
     <!--配置文件上传(二进制文件)-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize">
-            <value>5242880</value>
+            <value>9248476</value>
         </property>
     </bean>
 
@@ -48,20 +48,3 @@
 
 
 </beans>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

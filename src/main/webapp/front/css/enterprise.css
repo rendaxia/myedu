@@ -62,12 +62,14 @@
 #address ul li h5{
 	margin-left:5%;
 	color:black;
-	font-size: 106%;
+	font-size: 90%;
 	margin-top:30px;
 }
 
-#address ul li h5 i{
-	margin-left: 3%;
+#address ul li i{
+	position: relative;
+	top:-25px;
+	left:85%;
 	font-size: 140%;
 	color: #DD524D;
 }
@@ -79,3 +81,4 @@
 	border:none;
 	border-top:1px solid #555555;
 }
+

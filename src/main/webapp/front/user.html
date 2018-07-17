@@ -14,6 +14,16 @@
 	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <script type="text/javascript" charset="utf-8">
       	mui.init();
+
+      	$(function () {
+            $.ajax({
+                url: "/test/ActionHandler_getUsername",
+                dataType: "json",
+                success: function (data) {
+                    document.getElementById("profile_h5").innerHTML="用户名:"+data.result;
+                }
+            });
+        })
     </script>
 </head>
 <body>
@@ -22,11 +32,11 @@
 		<div class="mui-input-row mui-search" id="searchForm">
 			<input type="search" id="searchInput" class="mui-input-clear" placeholder="大数据 &nbsp &nbsp  java &nbsp &nbsp css">
 		</div>
-		<i class="fa fa-cart-arrow-down" style="left:-15px; top:5px;"></i>
+		<i class="fa fa-user-circle" style="left:-10px; top:-20px;" onclick="javascript:window.location.href='login.html'"></i>
 	</div>
 
 	<div id="profile">
-		<h5>openID:786132457</h5>
+		<h5 id="profile_h5">用户名:786132457</h5>
 		<br>
 		<div id="photo">
 			<img src="img/user02.jpg" alt="">

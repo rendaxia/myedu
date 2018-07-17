@@ -14,9 +14,11 @@ public interface CompanyMapper {
 
     public ArrayList<Address> getAllAddress() throws Exception;
 
-    public ArrayList<Enterprise> getAllEnterprise() throws Exception;
+    public Enterprise getEnterprise() throws Exception;
 
     public int getAddressid(String address) throws Exception;
+
+    public Address getAddressByCondition(String address);
     ///////////////////////////////////////////
     ///////////////////////////////////////////
 

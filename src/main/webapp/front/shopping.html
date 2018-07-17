@@ -12,6 +12,30 @@
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/swiper.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+	﻿<style type="text/css">
+	#desc{
+		width:100%;
+		margin-top: 20px;;
+	}
+
+	#desc p{
+		font-size: 87%;
+		font-weight:400;
+		color:#555555;
+		margin-left: 3%;
+	}
+
+	#desc p img{
+		width:94%;
+	}
+	#desc >:first-child{
+		font-size: 120%;
+	}
+	#desc >:nth-child(2){
+		color:#DD524D;
+		font-size: 95%;
+	}
+</style>
     <script type="text/javascript" charset="utf-8">
       	mui.init();
       	$(function () {
@@ -20,19 +44,24 @@
             if(url.indexOf("?")!=-1){
                 result = decodeURI(url.substr(url.indexOf("=")+1));
             }
-            document.getElementById("concrete_course").innerHTML = result;
+            document.getElementById("desc").innerHTML = result;
         });
 
     </script>
 </head>
 <body>
-	<div id="close">
+	<div id="close" onclick="javascript:window.location.href='main.html'">
 		<i class="fa fa-reply" onclick="javascript:window.location.href='main.html'"></i>
 		<i class="fa fa-share-alt" style="float:right; margin-right:10px;"></i>
 	</div>
-	
-	<div id="concrete_course">
 
+	﻿<div id="concrete_course">
+		<div class="icon">
+			<h5>实体课</h5>
+		</div>
+		<div id="desc">
+
+		</div>
 
 	</div>
 	
@@ -47,6 +76,35 @@
 			<h5>加入购物车</h5>
 		</div>
 	</div>
+
+	<script>
+
+        document.getElementById("shopping_bottom_btn").onclick = function () {
+            var money = document.getElementsByTagName("p")[1].innerText;
+            var mo = money.substr(1);
+            var lessonID = document.getElementsByTagName("p")[4].innerText;
+            var ID = lessonID.substr(6);
+            $.ajax({
+                url:"/test/ActionHandler_addToCart",
+                dataType:"json",
+                type:"post",
+                data:{ID:ID,money:mo},
+                success:function(data){
+                    console.log(data);
+                    if(data.result=="success"){
+                        mui.toast('添加课程到购物车成功',{ duration:'long', type:'div' })
+                    }
+                    else{
+                        mui.toast('添加课程到购物车失败',{ duration:'long', type:'div' })
+                    }
+                }
+            })
+        };
+
+	</script>
+
+
+
 				
 
 </body>

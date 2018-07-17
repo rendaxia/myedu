@@ -31,6 +31,8 @@ public class DisplayServiceImpl implements DisplayService{
             list = mapper.getAllLessonByCondition(type,branchid);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return list;
     }
@@ -54,6 +56,8 @@ public class DisplayServiceImpl implements DisplayService{
             list = mapper.getAllFreelistenByCondition(type,branchid);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return list;
     }
@@ -67,6 +71,8 @@ public class DisplayServiceImpl implements DisplayService{
             list = mapper.getAllTeacher();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return list;
     }
@@ -80,8 +86,25 @@ public class DisplayServiceImpl implements DisplayService{
             list = mapper.getAllAddress();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return list;
+    }
+
+    @Override
+    public Address getAddressByCondition(String address) {
+        Address adr=null;
+        SqlSession sqlSession = SqlSessionUtil.getSession();
+        CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+        try {
+            adr = mapper.getAddressByCondition(address);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return adr;
     }
 
     @Override
@@ -119,21 +142,25 @@ public class DisplayServiceImpl implements DisplayService{
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return list;
     }
 
     @Override
-    public ArrayList<Enterprise> getEnterprise() {
-        ArrayList<Enterprise> list=null;
+    public Enterprise getEnterprise() {
+        Enterprise en=null;
         SqlSession sqlSession = SqlSessionUtil.getSession();
         CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
         try {
-            list = mapper.getAllEnterprise();
+            en = mapper.getEnterprise();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
-        return list;
+        return en;
     }
 
     @Override
@@ -145,6 +172,8 @@ public class DisplayServiceImpl implements DisplayService{
             list = mapper.getAllSorderByCondition(openid,status);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return list;
     }
@@ -153,11 +182,13 @@ public class DisplayServiceImpl implements DisplayService{
     public ArrayList<Freelistenbook> getAllFreelistenbookByCondition(String openid) {
         ArrayList<Freelistenbook> list=null;
         SqlSession sqlSession = SqlSessionUtil.getSession();
-        SorderMapper mapper = sqlSession.getMapper(SorderMapper.class);
+        FreelistenbookMapper mapper = sqlSession.getMapper(FreelistenbookMapper.class);
         try {
             list = mapper.getAllFreelistenbookByCondition(openid);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return list;
     }
@@ -168,9 +199,14 @@ public class DisplayServiceImpl implements DisplayService{
         SqlSession sqlSession = SqlSessionUtil.getSession();
         MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
         try {
-            list = mapper.getAllMessagelikeByCondition(nickname);
+            list = mapper.getMessageByLike(nickname);
+            for(int i=0;i<list.size();i++){
+                list.get(i).setMessagelikes(mapper.getMessagelikeByCondition(nickname,list.get(i).getMid()));
+            }
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return list;
     }
@@ -180,9 +216,14 @@ public class DisplayServiceImpl implements DisplayService{
         SqlSession sqlSession = SqlSessionUtil.getSession();
         MessageMapper mapper = sqlSession.getMapper(MessageMapper.class);
         try {
-            list = mapper.getAllMessagereplyByCondition(nickname);
+            list = mapper.getMessageByCondition(nickname);
+            for(int i=0;i<list.size();i++){
+                list.get(i).setMessagereplies(mapper.getMessagereplyByCondition(nickname,list.get(i).getMid()));
+            }
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return list;
     }
@@ -197,6 +238,8 @@ public class DisplayServiceImpl implements DisplayService{
             System.out.println(list.get(0));
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return list;
     }
@@ -211,6 +254,8 @@ public class DisplayServiceImpl implements DisplayService{
             System.out.println("reply:"+list.get(0));
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            sqlSession.close();
         }
         return list;
     }

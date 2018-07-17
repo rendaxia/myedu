@@ -7,8 +7,20 @@
         select * from teacher
     </select>
 
+    <select id="getAllAddress" resultType="com.neuedu.po.Address">
+        select * from address
+    </select>
+
     <select id="getAddressid" parameterType="java.lang.String" resultType="java.lang.Integer">
         select id from address where address=#{address}
+    </select>
+
+    <select id="getAddressByCondition" parameterType="java.lang.String" resultType="com.neuedu.po.Address">
+        select * from address where address=#{address}
+    </select>
+
+    <select id="getEnterprise" resultType="com.neuedu.po.Enterprise">
+        select * from enterprise where qid=1
     </select>
     <!--//////////////////////////////////////////////////////////// -->
     <!--//////////////////////////////////////////////////////////// -->

@@ -16,9 +16,10 @@
 		var category =null;
 		var branch =null;
 		var type =null;
+
         $(function () {
             $.ajax({
-                url:"/DisplayHandler_getAllLessonByCondition",
+                url:"/test/DisplayHandler_getAllLessonByCondition",
                 dataType:"json",
                 success:function(data){
                     console.log(data);
@@ -31,15 +32,26 @@
                         var hx01 = document.createElement("h5");
                         var hx02 = document.createElement("h5");
                         var hx03 = document.createElement("h5");
+                        var hx04 = document.createElement("h5");
                         $(".lesson_model_2").append(div01,hr);
-                        div01.append(img01,div02);
-                        div02.append(hx01,br,hx02,hx03);
+                        div01.appendChild(img01);
+                        div01.appendChild(div02);
+                        div01.appendChild(hx04);
+                        div02.appendChild(hx01);
+                        div02.appendChild(br);
+                        div02.appendChild(hx02);
+                        div02.appendChild(hx03);
                         hx03.style.float = "right";
                         hx03.style.marginRight = "10px";
                         hx03.innerText=data[i].pubtime;
+                        hx04.innerText=data[i].ldesc;
+                        hx04.style.display="none";
                         hx02.innerText="价格:"+data[i].lprice;
                         img01.src="img/"+data[i].imgurl;
                         hx01.innerText="课程名:"+data[i].lname;
+                        div01.onclick = function () {
+                            location.href=encodeURI("shopping.html?rich="+this.childNodes[2].innerText);
+                        }
                     }
                 }
 
@@ -48,10 +60,31 @@
 
         $(function () {
 			$(".category").click(function(){
-			    category = this.innerText;
-			    //alert(category);
+                var text = this.innerHTML;
+                document.getElementsByClassName("type")[0].style.color = "gray";
+                document.getElementsByClassName("type")[1].style.color = "red";
+                for(var i=0;i<document.getElementsByClassName("category").length;i++) {
+                    if(document.getElementsByClassName("category")[i].innerHTML==text){
+                        if(document.getElementsByClassName("category")[i].style.color == "red"){
+                            document.getElementsByClassName("category")[i].style.color = "gray";
+                            category = null;
+                        }
+                        else{
+                            document.getElementsByClassName("category")[i].style.color = "red";
+                            category = this.innerText;
+						}
+
+                    }
+                    else{
+                        document.getElementsByClassName("category")[i].style.color = "gray";
+                    }
+
+
+
+                }
+
                 $.ajax({
-                    url:"/DisplayHandler_getAllLessonByCondition",
+                    url:"/test/DisplayHandler_getAllLessonByCondition",
                     dataType:"json",
                     type:"post",
                     data:{category:category,branch:branch},
@@ -67,15 +100,26 @@
                             var hx01 = document.createElement("h5");
                             var hx02 = document.createElement("h5");
                             var hx03 = document.createElement("h5");
+                            var hx04 = document.createElement("h5");
                             $(".lesson_model_2").append(div01,hr);
-                            div01.append(img01,div02);
-                            div02.append(hx01,br,hx02,hx03);
+                            div01.appendChild(img01);
+                            div01.appendChild(div02);
+                            div01.appendChild(hx04);
+                            div02.appendChild(hx01);
+                            div02.appendChild(br);
+                            div02.appendChild(hx02);
+                            div02.appendChild(hx03);
                             hx03.style.float = "right";
                             hx03.style.marginRight = "10px";
                             hx03.innerText=data[i].pubtime;
+                            hx04.innerText=data[i].ldesc;
+                            hx04.style.display="none";
                             hx02.innerText="价格:"+data[i].lprice;
                             img01.src="img/"+data[i].imgurl;
                             hx01.innerText="课程名:"+data[i].lname;
+                            div01.onclick = function () {
+                                location.href=encodeURI("shopping.html?rich="+this.childNodes[2].innerText);
+                            }
                         }
                     }
 
@@ -85,10 +129,30 @@
 
         $(function () {
             $(".branch").click(function(){
-                branch = this.innerText;
-                alert(branch);
+                var text = this.innerHTML;
+                document.getElementsByClassName("type")[0].style.color = "gray";
+                document.getElementsByClassName("type")[1].style.color = "red";
+                for(var i=0;i<document.getElementsByClassName("branch").length;i++) {
+                    if(document.getElementsByClassName("branch")[i].innerHTML==text){
+
+                        if(document.getElementsByClassName("branch")[i].style.color == "red"){
+                            document.getElementsByClassName("branch")[i].style.color = "gray";
+                            branch = null;
+						}
+						else{
+                            document.getElementsByClassName("branch")[i].style.color = "red";
+                            branch = this.innerText;
+                        }
+
+                    }
+                    else{
+                        document.getElementsByClassName("branch")[i].style.color = "gray";
+                    }
+
+                }
+
                 $.ajax({
-                    url:"/DisplayHandler_getAllLessonByCondition",
+                    url:"/test/DisplayHandler_getAllLessonByCondition",
                     dataType:"json",
                     type:"post",
                     data:{category:category,branch:branch},
@@ -104,15 +168,26 @@
                             var hx01 = document.createElement("h5");
                             var hx02 = document.createElement("h5");
                             var hx03 = document.createElement("h5");
+                            var hx04 = document.createElement("h5");
                             $(".lesson_model_2").append(div01,hr);
-                            div01.append(img01,div02);
-                            div02.append(hx01,br,hx02,hx03);
+                            div01.appendChild(img01);
+                            div01.appendChild(div02);
+                            div01.appendChild(hx04);
+                            div02.appendChild(hx01);
+                            div02.appendChild(br);
+                            div02.appendChild(hx02);
+                            div02.appendChild(hx03);
                             hx03.style.float = "right";
                             hx03.style.marginRight = "10px";
                             hx03.innerText=data[i].pubtime;
+                            hx04.innerText=data[i].ldesc;
+                            hx04.style.display="none";
                             hx02.innerText="价格:"+data[i].lprice;
                             img01.src="img/"+data[i].imgurl;
                             hx01.innerText="课程名:"+data[i].lname;
+                            div01.onclick = function () {
+                                location.href=encodeURI("shopping.html?rich="+this.childNodes[2].innerText);
+                            }
                         }
                     }
 
@@ -122,7 +197,7 @@
 
         $(function () {
             $.ajax({
-                url:"/DisplayHandler_getAllFreelistenByCondition",
+                url:"/test/DisplayHandler_getAllFreelistenByCondition",
                 dataType:"json",
                 success:function(data){
                     console.log(data);
@@ -135,15 +210,26 @@
                         var hx01 = document.createElement("h5");
                         var hx02 = document.createElement("h5");
                         var hx03 = document.createElement("h5");
+                        var hx04 = document.createElement("h5");
                         $(".lesson_model_2").append(div01,hr);
-                        div01.append(img01,div02);
-                        div02.append(hx01,br,hx02,hx03);
+                        div01.appendChild(img01);
+                        div01.appendChild(div02);
+                        div01.appendChild(hx04);
+                        div02.appendChild(hx01);
+                        div02.appendChild(br);
+                        div02.appendChild(hx02);
+                        div02.appendChild(hx03);
                         hx03.style.float = "right";
                         hx03.style.marginRight = "10px";
                         hx03.innerText=data[i].pubtime;
+                        hx04.innerText=data[i].fdesc;
+                        hx04.style.display="none";
                         hx02.innerText="体验课";
                         img01.src="img/"+data[i].imgurl;
                         hx01.innerText="课程名:"+data[i].title;
+                        div01.onclick = function () {
+                            location.href=encodeURI("booking.html?rich="+this.childNodes[2].innerText);
+                        }
                     }
                 }
 
@@ -152,13 +238,32 @@
 
         $(function () {
             $(".type").click(function(){
+                var text = this.innerHTML;
+                for(var i=0;i<document.getElementsByClassName("type").length;i++) {
+                    if(document.getElementsByClassName("type")[i].innerHTML==text){
+                        document.getElementsByClassName("type")[i].style.color = "red";
+					}
+					else{
+                        document.getElementsByClassName("type")[i].style.color = "gray";
+					}
+
+                }
                 type = this.innerText;
-                alert(type);
                 var url ;
                 if(type==="体验课"){
-                    url = "/DisplayHandler_getAllFreelistenByCondition"
+                    document.getElementsByClassName("type")[0].style.color = "red";
+                    document.getElementsByClassName("type")[1].style.color = "gray";
+                    for(var j=0;j<document.getElementsByClassName("branch").length;j++) {
+                        document.getElementsByClassName("branch")[j].style.color = "gray";
+					}
+                    for(var k=0;k<document.getElementsByClassName("category").length;k++) {
+                        document.getElementsByClassName("category")[k].style.color = "gray";
+                    }
+                    url = "/test/DisplayHandler_getAllFreelistenByCondition"
 				}else{
-                    url = "/DisplayHandler_getAllLessonByCondition"
+                    document.getElementsByClassName("type")[0].style.color = "gray";
+                    document.getElementsByClassName("type")[1].style.color = "red";
+                    url = "/test/DisplayHandler_getAllLessonByCondition"
 				}
                 $.ajax({
                     url:url,
@@ -177,19 +282,35 @@
                             var hx01 = document.createElement("h5");
                             var hx02 = document.createElement("h5");
                             var hx03 = document.createElement("h5");
+                            var hx04 = document.createElement("h5");
                             $(".lesson_model_2").append(div01,hr);
-                            div01.append(img01,div02);
-                            div02.append(hx01,br,hx02,hx03);
+                            div01.appendChild(img01);
+                            div01.appendChild(div02);
+                            div01.appendChild(hx04);
+                            div02.appendChild(hx01);
+                            div02.appendChild(br);
+                            div02.appendChild(hx02);
+                            div02.appendChild(hx03);
                             hx03.style.float = "right";
                             hx03.style.marginRight = "10px";
                             hx03.innerText=data[i].pubtime;
                             hx02.innerText="体验课";
                             img01.src="img/"+data[i].imgurl;
                             if(type==="体验课"){
+                                hx04.innerText=data[i].fdesc;
+                                hx04.style.display="none";
                                 hx01.innerText="课程名:"+data[i].title;
+                                div01.onclick = function () {
+                                    location.href=encodeURI("booking.html?rich="+this.childNodes[2].innerText);
+                                }
 							}
 							else{
+                                hx04.innerText=data[i].ldesc;
+                                hx04.style.display="none";
                                 hx01.innerText="课程名:"+data[i].lname;
+                                div01.onclick = function () {
+                                    location.href=encodeURI("shopping.html?rich="+this.childNodes[2].innerText);
+                                }
 							}
 
                         }
@@ -198,19 +319,28 @@
                 })
             })
         });
-
-
       	mui.init();
     </script>
 </head>
 <body>
-	<div id="search">
-		<i class="fa fa-comment"></i>
-		<div class="mui-input-row mui-search" id="searchForm">
-			<input type="search" id="searchInput" class="mui-input-clear" placeholder="大数据 &nbsp &nbsp  java &nbsp &nbsp css">
-		</div>
-		<i class="fa fa-cart-arrow-down" style="left:-15px; top:5px;"></i>
+<div id="search">
+	<i class="fa fa-comment"></i>
+	<div class="mui-input-row mui-search" id="searchForm">
+		<input type="search" id="searchInput" class="mui-input-clear" placeholder="大数据 &nbsp &nbsp  java &nbsp &nbsp css">
+		<script>
+            document.getElementById("searchInput").onclick = function(){
+                this.focus();
+                this.onkeypress=function(event){
+                    var value = document.getElementById("searchInput").value;
+                    if(event.which === 13) {
+                        location.href = encodeURI("searching.html?value="+value);
+                    }
+                };
+            }
+		</script>
 	</div>
+	<i class="fa fa-user-circle" style="left:-10px; top:-20px;" onclick="javascript:window.location.href='login.html'"></i>
+</div>
 	<div id="top">
 			
 		<div class="top_icon">
@@ -229,6 +359,13 @@
 	
 	<div id="select">
 		<div>
+			<h5>&nbsp;课程类型：</h5>
+			<ul>
+				<li><h5 class="type" style="color:red">体验课</h5></li>
+				<li><h5 class="type" style="color:red">实体课</h5></li>
+			</ul>
+		</div>
+		<div>
 			<h5>&nbsp;方向：</h5>
 			<ul>
 				<li><h5><a class="category">HTML5</a></h5></li>
@@ -243,13 +380,6 @@
 				<li style="width:25%;"><h5 class="branch">东软实训中心</h5></li>
 				<li style="width:25%;"><h5 class="branch">多才艺术中心</h5></li>
 				<li><h5 class="branch">恒大名都</h5></li>
-			</ul>
-		</div>
-		<div>
-			<h5>&nbsp;课程类型：</h5>
-			<ul>
-				<li><h5 class="type">体验课</h5></li>
-				<li><h5 class="type">实体课</h5></li>
 			</ul>
 		</div>
 	</div>

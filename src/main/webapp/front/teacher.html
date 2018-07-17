@@ -16,7 +16,7 @@
     <script type="text/javascript" charset="utf-8">
         $(function () {
             $.ajax({
-                url:"/DisplayHandler_getAllTeacher",
+                url:"/test/DisplayHandler_getAllTeacher",
                 dataType:"json",
                 success:function(data){
                     console.log(data);
@@ -29,8 +29,11 @@
                         var hx02 = document.createElement("h4");
                         var hx03 = document.createElement("h4");
                         $(".teacher").append(div01,hr);
-                        div01.append(img01,div02,hx02,hx03);
-                        div02.append(hx01);
+                        div01.appendChild(img01);
+                        div01.appendChild(div02);
+                        div01.appendChild(hx02);
+                        div01.appendChild(hx03);
+                        div02.appendChild(hx01);
                         hx02.innerText="姓名"+data[i].tname;
                         hx03.innerText="所属公司:东软睿道";
                         img01.src="img/"+data[i].tphoto;
@@ -51,7 +54,7 @@
 		<div class="mui-input-row mui-search" id="searchForm">
 			<input type="search" id="searchInput" class="mui-input-clear" placeholder="大数据 &nbsp &nbsp  java &nbsp &nbsp css">
 		</div>
-		<i class="fa fa-cart-arrow-down" style="left:-15px; top:5px;"></i>
+		<i class="fa fa-user-circle" style="left:-10px; top:-20px;" onclick="javascript:window.location.href='login.html'"></i>
 	</div>
 	<div id="top">
 			
@@ -66,33 +69,6 @@
 		</div>
 		<div class="top_icon">
 			<h5><a href="course.html">课程</a></h5>
-		</div>
-	</div>
-	
-	<div id="select">
-		<div>
-			<h5>&nbsp;方向：</h5>
-			<ul>
-				<li><h5>HTML5</h5></li>
-				<li><h5>java</h5></li>
-				<li><h5>C#</h5></li>
-				<li><h5>C++</h5></li>
-			</ul>
-		</div>
-		<div>
-			<h5>&nbsp;地点：</h5>
-			<ul>
-				<li><h5>白塔堡</h5></li>
-				<li><h5>尚盈丽景</h5></li>
-				<li><h5>东北大学</h5></li>
-			</ul>
-		</div>
-		<div>
-			<h5>&nbsp;教授课程：</h5>
-			<ul>
-				<li><h5>体验课</h5></li>
-				<li><h5>实体课</h5></li>
-			</ul>
 		</div>
 	</div>
 	

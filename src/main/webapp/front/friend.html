@@ -13,97 +13,223 @@
 	<script type="text/javascript" src="js/swiper.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 	<script type="text/javascript" charset="utf-8">
-        mui.init();
         var a=0;
-        var sum_reply = new Array();
-        $(function () {
-
-            $.ajax({
-                url:"/DisplayHandler_getAllMessage",
+        var data_length=0;
+        var username;
+        var all = function () {
+            $("#friends_content").empty();
+			$.ajax({
+                url:"/test/DisplayHandler_getAllMessage",
                 dataType:"json",
                 success:function(data){
-                    console.log(data);
+                    //构造元素
+
                     for(var i=0;i<data.length;i++){
+                        //alert(data[i].messageimgs[0].imgurl);
                         var br = document.createElement("br");
                         var content = '<div class="says">' +
                             '\t\t\t<ul>\n' +
                             '\t\t\t\t<li>\n' +
                             '\t\t\t\t\t<img class="img" src="img/user02.jpg" alt="">\n' +
-                            '\t\t\t\t\t<h5 class="li01_h5">东软睿道</h5><h5 style="position:relative;top:-5px;left:-45px;">'+data[i].mtime+'</h5>\n' +
+                            '\t\t\t\t\t<h5 class="li01_h5">东软睿道</h5><h5 style="position:relative;top:-5px;left:-55px;">'+data[i].mtime.substr(0,4)+"年"+data[i].mtime.substr(6,1)+"月"+data[i].mtime.substr(9,1)+"日"+'</h5>\n' +
                             '\t\t\t\t</li>\n' +
                             '\t\t\t\t<li><h5>'+data[i].mtitle+'</h5></li>\n' +
                             '\t\t\t\t<li>\n' +
-                            '\t\t\t\t\t<img src="img/teacher01.jpg" alt="">\n' +
-                            '\t\t\t\t\t<img src="img/teacher01.jpg" alt="">\n' +
+                            //'\t\t\t\t\t<img src="../img/'+data[i].messageimgs[0].imgurl+'" alt="">\n' +
+                            '\t\t\t\t\t<img src="../img/teacher01.jpg" alt="">\n' +
                             '\t\t\t\t</li>\n' +
                             '\t\t\t\t<li>\n' +
-                            '\t\t\t\t\t<i class="fa fa-heart"></i>\n' +
-                            '\t\t\t\t\t<i class="fa fa-comments"></i>\n' +
+                            '\t\t\t\t\t<i  class="fa fa-heart like"></i>\n' +
+                            '\t\t\t\t\t<div style="display: none;">'+(i+1)+'</div>\n' +
                             '\t\t\t\t</li>\n' +
                             '\t\t\t\t<li>\n' +
                             '\t\t\t\t\t<i class="fa fa-heart li05_i"></i>\n' +
                             '\t\t\t\t\t<h5 class="count_like">0人觉得很赞</h5>\n' +
                             '\t\t\t\t</li>\n' +
-                            '\t\t\t\t<li id="getComment">\n' +
-                            '\t\t\t\t\t<hr>\n' +
+                            '\t\t\t\t<li class="getComments">\n' +
+                            '\t\t\t\t\t<input style="border:none;height:25px; font-size:90%; border-radius:10px;background-color: lightgray" placeholder="评论:" class="input_comment" type="text">\n' +
+                            '\t\t\t\t\t<div id="hidden_mid" style="display: none;">'+(i+1)+'</div>\n' +
                             '\t\t\t\t</li>\n' +
                             '\t\t\t</ul>\n' +
                             '\t\t</div>';
 
                         $("#friends_content").append(content,br);
                     }
-                }
-
-            });
-
-            $.ajax({
-                url:"/DisplayHandler_getAllMessagereplyByMessage",
-                dataType:"json",
-                success:function(data){
-                    for(var i=0;i<data.length;i++){
-                        sum_reply[i] = data[i];
-                    }
-                }
-
-            });
-
-            document.getElementById("body").onmouseover = function(){
-
-                if(document.getElementById("getComment")!=null && document.getElementsByClassName("count_like")!=null  &&a==0){
-                    a=1;
                     $.ajax({
-                        url:"/DisplayHandler_getAllMessagelikeByMessage",
+                        url:"/test/ActionHandler_getUsername",
                         dataType:"json",
                         success:function(data){
-                            for(var i=0;i<data.length;i++){
-                                document.getElementsByClassName("count_like")[i].innerText=data[i]+"人觉得很赞";
-                            }
+                            username = data.result;
+                            //每个说说获赞情况
+                            $.ajax({
+                                url:"/test/DisplayHandler_getAllMessagelikeByMessage",
+                                dataType:"json",
+                                success:function(data){
+                                    for(var i=0;i<data.length;i++){
+                                        document.getElementsByClassName("count_like")[i].innerHTML=data[i]+"人觉得很赞";
+                                    }
+                                }
+
+                            });
+                            //每个说说评论情况
+                            $.ajax({
+                                url:"/test/DisplayHandler_getAllMessage",
+                                dataType:"json",
+                                success:function(data){
+                                    for(var i=0;i<data.length;i++){
+                                        for(var j=0;j<data[i].messagereplies.length;j++){
+                                            var h501 = document.createElement("h5");
+                                            var h502 = document.createElement("h5");
+                                            var br = document.createElement("br");
+                                            var comment = data[i].messagereplies[j].nickname+':'+data[i].messagereplies[j].content;
+                                            var comment_id = data[i].messagereplies[j].id;
+                                            h501.innerText = comment;
+                                            h502.innerText = comment_id;
+                                            h502.style.display = "none";
+                                            document.getElementsByClassName("getComments")[i].appendChild(h501);
+                                            document.getElementsByClassName("getComments")[i].appendChild(h502);
+                                            document.getElementsByClassName("getComments")[i].appendChild(br);
+                                            //删除评论
+                                            if(data[i].messagereplies[j].nickname==username){
+                                                h501.onclick = function(){
+                                                    var num = this.parentNode.children[1].innerHTML;
+                                                    var mid = parseInt(num);
+                                                    var comment_id02 = this.nextElementSibling.innerText;
+                                                    alert(comment_id02);
+                                                    mui.confirm('是否删除留言','我的留言',['删除','取消'],function (e) {
+                                                        if(e.index!=1){
+                                                            $.ajax({
+                                                                url:"/test/ActionHandler_removeMessagereply",
+                                                                dataType:"json",
+                                                                type:"post",
+                                                                data:{comment_id:comment_id02},
+                                                                success:function(data){
+                                                                    if(data.result=="success"){
+                                                                        all();
+                                                                    }
+                                                                    else{
+                                                                        alert("error");
+                                                                    }
+                                                                }
+
+                                                            });
+                                                        }
+                                                    },'div');
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    for(var i=0;i<data.length;i++){
+
+                                        for(var j=0;j<data[i].messagelikes.length;j++){
+
+                                            if(data[i].messagelikes[j].nickname==username){
+                                                document.getElementsByClassName("fa fa-heart like")[i].style.color="red";
+                                            }
+                                        }
+
+                                        //点赞和消除点赞
+                                        document.getElementsByClassName("fa fa-heart like")[i].onclick = function(){
+                                            var mid = parseInt(this.nextElementSibling.innerHTML);
+                                            if(this.style.color != "red"){
+                                                this.style.color="red";
+                                                $.ajax({
+                                                    url:"/test/ActionHandler_addMessagelike",
+                                                    dataType:"json",
+                                                    type:"post",
+                                                    data:{mid:mid},
+                                                    success:function(data){
+                                                        if(data.result==="success"){
+                                                            $.ajax({
+                                                                url:"/test/DisplayHandler_getAllMessagelikeByMessage",
+                                                                dataType:"json",
+                                                                success:function(data){
+                                                                    for(var i=0;i<data.length;i++){
+                                                                        document.getElementsByClassName("count_like")[i].innerText=data[i]+"人觉得很赞";
+                                                                    }
+                                                                }
+
+                                                            });
+                                                        }
+                                                        else{
+                                                            alert("error");
+                                                        }
+                                                    }
+
+                                                });
+                                            }
+                                            else{
+                                                this.style.color="gray";
+                                                $.ajax({
+                                                    url:"/test/ActionHandler_removeMessagelike",
+                                                    dataType:"json",
+                                                    type:"post",
+                                                    data:{mid:mid},
+                                                    success:function(data){
+                                                        if(data.result==="success"){
+                                                            $.ajax({
+                                                                url:"/test/DisplayHandler_getAllMessagelikeByMessage",
+                                                                dataType:"json",
+                                                                success:function(data){
+                                                                    for(var i=0;i<data.length;i++){
+
+                                                                        document.getElementsByClassName("count_like")[i].innerText=data[i]+"人觉得很赞";
+                                                                    }
+                                                                }
+
+                                                            });
+                                                        }
+                                                        else{
+                                                            alert("error");
+                                                        }
+                                                    }
+
+                                                });
+                                            }
+
+                                        };
+
+                                        //添加评论
+                                        document.getElementsByClassName("input_comment")[i].onclick = function(){
+                                            this.focus();
+                                            this.onkeypress=function(event){
+                                                var mid = parseInt(this.nextElementSibling.innerHTML);
+                                                if(event.which === 13) {
+                                                    var content = this.value;
+                                                    $.ajax({
+                                                        url:"/test/ActionHandler_addMessagereply",
+                                                        dataType:"json",
+                                                        type:"post",
+                                                        data:{mid:mid,content:content},
+                                                        success:function(data){
+                                                            if(data.result=="success"){
+                                                                all();
+                                                            }
+                                                            else{
+                                                                alert("error");
+                                                            }
+                                                        }
+
+                                                    });
+                                                }
+                                            };
+                                        };
+
+                                    }
+
+                                }
+
+                            });
                         }
 
                     });
-
-                    setTimeout(
-                        $.ajax({
-                            url:"/DisplayHandler_getAllMessage",
-                            dataType:"json",
-                            success:function(data){
-                                for(var i=0;i<data.length;i++){
-                                    for(var j=0;j<data[i].messagereplies.length;j++){
-                                        var h5 = document.createElement("h5");
-                                        var br = document.createElement("br");
-                                        var comment = data[i].messagereplies[j].nickname+':'+data[i].messagereplies[j].content;
-                                        h5.innerText = comment;
-										document.getElementById("getComment").append(h5,br);
-                                    }
-                                }
-                            }
-
-                        }),1000);
-
                 }
 
-            }
-        });
+            });
+        };
+        all();
+        mui.init();
 
 	</script>
 </head>
@@ -112,8 +238,19 @@
 	<i class="fa fa-comment"></i>
 	<div class="mui-input-row mui-search" id="searchForm">
 		<input type="search" id="searchInput" class="mui-input-clear" placeholder="大数据 &nbsp &nbsp  java &nbsp &nbsp css">
+		<script>
+            document.getElementById("searchInput").onclick = function(){
+                this.focus();
+                this.onkeypress=function(event){
+                    var value = document.getElementById("searchInput").value;
+                    if(event.which === 13) {
+                        location.href = encodeURI("searching.html?value="+value);
+                    }
+                };
+            }
+		</script>
 	</div>
-	<i class="fa fa-cart-arrow-down" style="left:-15px; top:5px;"></i>
+	<i class="fa fa-user-circle" style="left:-10px; top:-20px;" onclick="javascript:window.location.href='login.html'"></i>
 </div>
 
 <div id="friends">
@@ -123,9 +260,7 @@
 </div>
 <br>
 
-<div id="auto_place">
-
-</div>
+<div id="auto_place"></div>
 
 <div id="bottom">
 	<div class="bottom_icon">
@@ -151,6 +286,7 @@
 </div>
 
 <script>
+
 
 </script>
 </body>

@@ -3,9 +3,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
     String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/back/";
-    String imgPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/img/";
-    String videoPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/video/";
+    String basePath = request.getScheme()+"://"+"123.207.154.240:8080"+path+"/back/";
+    String imgPath = request.getScheme()+"://"+"123.207.154.240:8080"+path+"/img/";
+    String videoPath = request.getScheme()+"://"+"123.207.154.240:8080"+path+"/video/";
     request.setCharacterEncoding("utf-8");
     response.setCharacterEncoding("utf-8");
 %>
@@ -15,7 +15,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Amaze UI Admin index Examples</title>
+    <title>Neuedu Admin</title>
     <meta name="description" content="这是一个 index 页面">
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,7 +43,7 @@
     <header>
         <!-- logo -->
         <div class="am-fl tpl-header-logo">
-            <a href="/AdminGoToIndex">
+            <a href="/test/Admin/AdminGoToIndex">
                 <img src="<%=basePath%>assets/img/logo.png" alt="">
             </a>
         </div>
@@ -64,7 +64,7 @@
 
                     <!-- 退出 -->
                     <li class="am-text-sm">
-                        <a href="javascript:;">
+                        <a href="/test/AdminExit">
                             <span class="am-icon-sign-out"></span> 退出
                         </a>
                     </li>
@@ -115,13 +115,13 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="/AdminGoToEnterpriseBasic">
+                        <a href="/test/Admin/AdminGoToEnterpriseBasic">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 企业基本信息浏览及修改
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
-                        <a href="/AdminToShowAllAddress">
+                        <a href="/test/Admin/AdminToShowAllAddress">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 企业分部信息浏览及修改
                         </a>
                     </li>
@@ -136,19 +136,19 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="/AdminToShowAllTeacher">
+                        <a href="/test/Admin/AdminToShowAllTeacher">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>师资信息浏览及修改
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
-                        <a href="/AdminAddOneTeacher">
+                        <a href="/test/Admin/AdminAddOneTeacher">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 添加老师
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
-                        <a href="/AdminToSetTeacherImg">
+                        <a href="/test/Admin/AdminToSetTeacherImg">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 师资首页图片修改
                         </a>
                     </li>
@@ -162,23 +162,23 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="/AdminToShowAllLesson">
+                        <a href="/test/Admin/AdminToShowAllLesson">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>实体课程浏览及修改
                         </a>
                     </li>
 
                     <li class="sidebar-nav-link">
-                        <a href="/AdminToShowAllFreelisten">
+                        <a href="/test/Admin/AdminToShowAllFreelisten">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>体验课程浏览及修改
                         </a>
                     </li>
                     <li class="sidebar-nav-link">
-                        <a href="/AdminToAddOneLesson">
+                        <a href="/test/Admin/AdminToAddOneLesson">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加实体课程
                         </a>
                     </li>
                     <li class="sidebar-nav-link">
-                        <a href="/AdminToAddOneFreelisten">
+                        <a href="/test/Admin/AdminToAddOneFreelisten">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>添加体验课程
                         </a>
                     </li>
@@ -192,7 +192,7 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="/AdminToShowAllFreelistenbook">
+                        <a href="/test/Admin/AdminToShowAllFreelistenbook">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>预约查询及处理
                         </a>
                     </li>
@@ -205,17 +205,17 @@
                 </a>
                 <ul class="sidebar-nav sidebar-nav-sub">
                     <li class="sidebar-nav-link">
-                        <a href="/AdminToShowAllSorder">
+                        <a href="/test/Admin/AdminToShowAllSorder">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>订单查询
                         </a>
                     </li>
                     <li class="sidebar-nav-link">
-                        <a href="/AdminToShowAllSorderForRefund">
+                        <a href="/test/Admin/AdminToShowAllSorderForRefund">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>退款处理
                         </a>
                     </li>
                     <li class="sidebar-nav-link">
-                        <a href="/AdminToShowAllSorderForCAV">
+                        <a href="/test/Admin/AdminToShowAllSorderForCAV">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>订单核销
                         </a>
                     </li>
@@ -230,17 +230,17 @@
                 <ul class="sidebar-nav sidebar-nav-sub">
 
                     <li class="sidebar-nav-link">
-                        <a href="/back/admin_message_add.jsp">
+                        <a href="/test/back/admin_message_add.jsp">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>发布信息
                         </a>
                     </li>
                     <li class="sidebar-nav-link">
-                        <a href="/AdminToShowAllMessage">
+                        <a href="/test/Admin/AdminToShowAllMessage">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>评论管理
                         </a>
                     </li>
                     <li class="sidebar-nav-link">
-                        <a href="/AdminToSetMessageImg">
+                        <a href="/test/Admin/AdminToSetMessageImg">
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span>首页图片
                         </a>
                     </li>
@@ -265,7 +265,7 @@
                         </div>
                         <div class="widget-body  am-fr">
 
-                            <form class="am-form tpl-form-line-form"  action="/AdminToShowAllSorderForRefund" method="post">
+                            <form class="am-form tpl-form-line-form"  action="/test/Admin/AdminToShowAllSorderForRefund" method="post">
                                 <div class="am-u-sm-12 am-u-md-6 am-u-lg-1">
                                     <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
 
@@ -390,7 +390,7 @@
 
                                                 <c:choose>
                                                     <c:when test="${m.status == '退款中'}">
-                                                        <a href="/AdminToRefundOneSorder?oid=${m.oid}">
+                                                        <a href="/test/Admin/AdminToRefundOneSorder?oid=${m.oid}">
                                                             <i class="am-icon-hand-pointer-o"></i>退款处理
                                                         </a>
                                                     </c:when>
@@ -417,8 +417,8 @@
 
                                 <div class="am-fr">
                                     <ul class="am-pagination tpl-pagination">
-                                        <li><a href="/AdminToShowAllSorderForRefund?page=1&lid=${lid}&status=${status}&nickname=${nickname}&startTime=${startTime}&endTime=${endTime}">首页</a></li>
-                                        <li><a href="/AdminToShowAllSorderForRefund?page=${p.page-1}&lid=${lid}&status=${status}&nickname=${nickname}&startTime=${startTime}&endTime=${endTime}">上一页</a></li>
+                                        <li><a href="/test/Admin/AdminToShowAllSorderForRefund?page=1&lid=${lid}&status=${status}&nickname=${nickname}&startTime=${startTime}&endTime=${endTime}">首页</a></li>
+                                        <li><a href="/test/Admin/AdminToShowAllSorderForRefund?page=${p.page-1}&lid=${lid}&status=${status}&nickname=${nickname}&startTime=${startTime}&endTime=${endTime}">上一页</a></li>
 
                                         <c:forEach begin="${p.startPage }" end="${p.endPage }" var="i">
                                             <%--<li><a href="/test/MyHandler_findSome?page=${i }">${i }</a></li>--%>
@@ -427,13 +427,13 @@
                                                     <a style="opacity: 0.1" onclick="return false;" >${i }</a>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <a href="/AdminToShowAllSorderForRefund?page=${i }&lid=${lid}&status=${status}&nickname=${nickname}&startTime=${startTime}&endTime=${endTime}">${i }</a>
+                                                    <a href="/test/Admin/AdminToShowAllSorderForRefund?page=${i }&lid=${lid}&status=${status}&nickname=${nickname}&startTime=${startTime}&endTime=${endTime}">${i }</a>
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:forEach>
 
-                                        <li><a href="/AdminToShowAllSorderForRefund?page=${p.page+1}&lid=${lid}&status=${status}&nickname=${nickname}&startTime=${startTime}&endTime=${endTime}">下一页</a></li>
-                                        <li><a href="/AdminToShowAllSorderForRefund?page=${p.maxPage }&lid=${lid}&status=${status}&nickname=${nickname}&startTime=${startTime}&endTime=${endTime}">尾页</a></li>
+                                        <li><a href="/test/Admin/AdminToShowAllSorderForRefund?page=${p.page+1}&lid=${lid}&status=${status}&nickname=${nickname}&startTime=${startTime}&endTime=${endTime}">下一页</a></li>
+                                        <li><a href="/test/Admin/AdminToShowAllSorderForRefund?page=${p.maxPage }&lid=${lid}&status=${status}&nickname=${nickname}&startTime=${startTime}&endTime=${endTime}">尾页</a></li>
                                     </ul>
                                 </div>
                             </div>

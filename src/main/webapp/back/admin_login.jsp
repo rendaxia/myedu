@@ -3,7 +3,7 @@ pageEncoding="utf-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
     String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/back/";
+    String basePath = request.getScheme()+"://"+"123.207.154.240:8080"+path+"/back/";
     request.setCharacterEncoding("utf-8");
     response.setCharacterEncoding("utf-8");
 %>
@@ -26,6 +26,10 @@ pageEncoding="utf-8"%>
     <link rel="stylesheet" href="<%=basePath%>assets/css/amazeui.datatables.min.css" />
     <link rel="stylesheet" href="<%=basePath%>assets/css/app.css">
     <script src="<%=basePath%>assets/js/jquery.min.js"></script>
+    <script>
+        var ba = <%=basePath%>;
+
+    </script>
 
 </head>
 
@@ -39,7 +43,7 @@ pageEncoding="utf-8"%>
             </div>
             <div class="tpl-skiner-content">
                 <div class="tpl-skiner-content-title">
-                    选择主题
+                    选择主题<%=basePath%>
                 </div>
                 <div class="tpl-skiner-content-bar">
                     <span class="skiner-color skiner-white" data-color="theme-white"></span>
@@ -55,7 +59,7 @@ pageEncoding="utf-8"%>
 
 
 
-                <form class="am-form tpl-form-line-form" action="/AdminLogin" method="POST">
+                <form class="am-form tpl-form-line-form" action="/test/AdminLogin" method="POST">
                     <div class="am-form-group">
                         <input type="text" class="tpl-form-input" name="username" id="user-name" placeholder="请输入账号">
 

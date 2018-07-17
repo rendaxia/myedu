@@ -13,14 +13,19 @@
 	<script type="text/javascript" src="js/swiper.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 	<script type="text/javascript" charset="utf-8">
-        $(function () {
+        function init_judge() {
+            $(".lesson_model_2").innerHTML=" ";
             $.ajax({
-                url:"/DisplayHandler_getAllSorderByCondition",
+                url:"/test/DisplayHandler_getAllSorderByCondition",
+                type:"post",
+                data:{status:"已付款"},
                 dataType:"json",
                 success:function(data){
                     console.log(data);
                     for(var i=0;i<data.length;i++){
                         var br = document.createElement("br");
+                        var br01 = document.createElement("br");
+                        var br02 = document.createElement("br");
                         var hr = document.createElement("hr");
                         var div01 = document.createElement("div");
                         var div02 = document.createElement("div");
@@ -29,95 +34,177 @@
                         var hx02 = document.createElement("h5");
                         var hx03 = document.createElement("h5");
                         var hx04 = document.createElement("h5");
+                        var hx05 = document.createElement("h5");
+
+                        div01.appendChild(img01);
+                        div01.appendChild(div02);
+                        div02.appendChild(hx01);
+                        div02.appendChild(br);
+                        div02.appendChild(hx04);
+                        div02.appendChild(br01);
+                        div02.appendChild(hx02);
+                        div02.appendChild(br02);
+                        div02.appendChild(hx03);
+                        div02.appendChild(hx05);
                         $(".lesson_model_2").append(div01,hr);
-                        div01.append(img01,div02);
-                        div02.append(hx01,br,hx04,hx02,hx03);
+                        hx05.innerText = data[i].oid;
+                        hx05.style.display = "none";
                         hx03.style.float = "right";
                         hx03.style.marginRight = "10px";
                         hx03.innerText="退款";
                         hx02.innerText="价格:"+data[i].total;
-                        img01.src="img/"+data[i].tphoto;
+                        img01.src="img/"+data[i].lesson.imgurl;
                         hx01.innerText="课程名:"+data[i].lesson.lname;
-                        hx04.innerText="添加时间:"+data[i].ordertime;
+                        hx04.innerText="添加时间:"+data[i].ordertime.substr(0,4)+"年"+data[i].ordertime.substr(6,1)+"月"+data[i].ordertime.substr(9,1)+"日";
+                        hx03.onclick = function(){
+                            var oid = this.nextElementSibling.innerText;
+                            mui.confirm('是否申请退款','refund or not',['申请','取消'],function (e) {
+                                if(e.index!=1){
+                                    $.ajax({
+                                        url:"/test/ActionHandler_refundSorder",
+                                        dataType:"json",
+                                        type:"post",
+                                        data:{oid:oid},
+                                        success:function(data){
+                                            if(data.result=="success"){
+                                                init_judge();
+                                            }
+                                            else{
+                                                alert("error");
+                                            }
+                                        }
+
+                                    });
+                                }
+                            },'div');
+                        }
                     }
                 }
 
             })
-        });
-        $(function () {
-            //注册点击事件
-            $(".top_a").click(function () {
-                var status = this.innerText;
-                var now_status;
-                if(status=="退款中"){
-                    now_status = "退款中";
-				}
-				else if (status=="已使用"){
-                    now_status = "已使用";
-				}
-				else if (status=="已付款"){
-                    now_status = "已付款";
-				}
-                //alert(now_status);
-                $.ajax({
-                    url:"/DisplayHandler_getAllSorderByCondition",
-                    type:"post",
-                    data:{status:status},
-                    dataType:"json",
-                    success:function(data){
-                        console.log(data);
-                        $(".lesson_model_2").html("");
-                        for(var i=0;i<data.length;i++){
-                            var br = document.createElement("br");
-                            var hr = document.createElement("hr");
-                            var div01 = document.createElement("div");
-                            var div02 = document.createElement("div");
-                            var img01 = document.createElement("img");
-                            var hx01 = document.createElement("h5");
-                            var hx02 = document.createElement("h5");
-                            var hx03 = document.createElement("h5");
-                            var hx04 = document.createElement("h5");
-                            $(".lesson_model_2").append(div01,hr);
-                            div01.append(img01,div02);
-                            div02.append(hx01,br,hx04,hx02,hx03);
-                            hx03.style.float = "right";
-                            hx03.style.marginRight = "10px";
-                            hx03.innerText=now_status;
-                            hx02.innerText="价格:"+data[i].total;
-                            img01.src="img/"+data[i].tphoto;
-                            hx01.innerText="课程名:"+data[i].lesson.lname;
-                            hx04.innerText="添加时间:"+data[i].pubtime;
+        };
 
+        init_judge();
+
+        function judgement(th) {
+            var status = th;
+            //alert(status);
+            var now_status;
+            if(status=="退款中"){
+                now_status = "退款中";
+            }
+            else if (status=="已使用"){
+                now_status = "已使用";
+            }
+            else if (status=="已付款"){
+                now_status = "已付款";
+            }
+            $.ajax({
+                url:"/test/DisplayHandler_getAllSorderByCondition",
+                type:"post",
+                data:{status:status},
+                dataType:"json",
+                success:function(data){
+                    console.log(data);
+                    $(".lesson_model_2").html("");
+                    for(var i=0;i<data.length;i++){
+                        var br = document.createElement("br");
+                        var br01 = document.createElement("br");
+                        var br02 = document.createElement("br");
+                        var hr = document.createElement("hr");
+                        var div01 = document.createElement("div");
+                        var div02 = document.createElement("div");
+                        var img01 = document.createElement("img");
+                        var hx01 = document.createElement("h5");
+                        var hx02 = document.createElement("h5");
+                        var hx03 = document.createElement("h5");
+                        var hx04 = document.createElement("h5");
+                        var hx05 = document.createElement("h5");
+                        $(".lesson_model_2").append(div01,hr);
+                        div01.appendChild(img01);
+                        div01.appendChild(div02);
+                        div02.appendChild(hx01);
+                        div02.appendChild(br);
+                        div02.appendChild(hx04);
+                        div02.appendChild(br01);
+                        div02.appendChild(hx02);
+                        div02.appendChild(br02);
+                        div02.appendChild(hx03);
+                        div02.appendChild(hx05);
+                        hx05.innerText = data[i].oid;
+                        hx05.style.display = "none";
+                        hx03.style.float = "right";
+                        hx03.style.marginRight = "10px";
+                        hx03.innerText=now_status;
+                        if(now_status=="已付款"){
+                            hx03.innerText = "退款";
+                            hx03.onclick = function(){
+                                var oid = this.nextElementSibling.innerText;
+                                mui.confirm('是否申请退款','refund or not',['申请','取消'],function (e) {
+                                    if(e.index!=1){
+                                        $.ajax({
+                                            url:"/test/ActionHandler_refundSorder",
+                                            dataType:"json",
+                                            type:"post",
+                                            data:{oid:oid},
+                                            success:function(data){
+                                                if(data.result=="success"){
+                                                    judgement(now_status);
+                                                }
+                                                else{
+                                                    alert("error");
+                                                }
+                                            }
+
+                                        });
+                                    }
+                                },'div');
+                            }
+                        }else if(now_status == "已使用"){
+                            hx03.style.color = "gray";
                         }
+                        else{
+                            hx03.style.color = "gray";
+                        }
+                        hx02.innerText="价格:"+data[i].total;
+                        img01.src="img/"+data[i].lesson.imgurl;
+                        hx01.innerText="课程名:"+data[i].lesson.lname;
+                        hx04.innerText="添加时间:"+data[i].ordertime.substr(0,4)+"年"+data[i].ordertime.substr(6,1)+"月"+data[i].ordertime.substr(9,1)+"日";
+
                     }
-                })
-            })
-        })
+                }
+            });
+        }
+		//注册点击事件
+		//$(".top_a").click(alert("1"));
+
         mui.init();
 	</script>
 		
 </head>
 <body>
-	<div id="close">
+	<div id="close" onclick="javascript:window.location.href='user.html'">
 		<i class="fa fa-reply" ﻿onclick="javascript:window.location.href='user.html'"></i>
-		<i class="fa fa-share-alt" style="float:right; margin-right:10px;"></i>
+		<i class="fa fa-share-alt" style="float:right; margin-right:10px;" onclick="javascript:window.location.href='login.html'"></i>
 	</div>
 	
 	<div id="top">
 		<div class="top_icon" style="width:31%;">
-			<h5><a class="top_a">已付款</a></h5>
+			<h5><a class="top_a" onclick="judgement(this.innerText)">已付款</a></h5>
 		</div>
 		<div class="top_icon" style="width:31%;">
-			<h5><a class="top_a">退款中</a></h5>
+			<h5><a class="top_a" onclick="judgement(this.innerText)">退款中</a></h5>
 		</div>
 		<div class="top_icon" style="width:31%;">
-			<h5><a class="top_a">已使用</a></h5>
+			<h5><a class="top_a" onclick="judgement(this.innerText)">已使用</a></h5>
 		</div>
     </div>
 	
   
 	<div id="freeLession">
-		<div class="lesson_model_2"></div>
+		<div class="lesson_model_2">
+
+		</div>
 	</div>
 
 	<div id="auto_place">

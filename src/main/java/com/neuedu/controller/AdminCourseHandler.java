@@ -35,7 +35,7 @@ public class AdminCourseHandler {
     private ActionService actionService;
 
 
-    @RequestMapping(value = "AdminToShowAllLesson")
+    @RequestMapping(value = "Admin/AdminToShowAllLesson")
     public String showAllLessonInPage(HttpServletRequest request) {
         //String isIndex = request.getParameter("isIndex");
         //int index = (request.getParameter("index") != null) ? Integer.parseInt(request.getParameter("index")) : 0;
@@ -66,7 +66,7 @@ public class AdminCourseHandler {
         return "forward:/back/admin_lesson_all.jsp";
     }
 
-    @RequestMapping(value = "AdminToShowAllFreelisten")
+    @RequestMapping(value = "Admin/AdminToShowAllFreelisten")
     public String showAllFreelistenInPage(HttpServletRequest request) {
         //String isIndex = request.getParameter("isIndex");
         //int index = (request.getParameter("index") != null) ? Integer.parseInt(request.getParameter("index")) : 0;
@@ -97,7 +97,7 @@ public class AdminCourseHandler {
         return "forward:/back/admin_freelisten_all.jsp";
     }
 
-    @RequestMapping(value = "AdminToAddOneLesson")
+    @RequestMapping(value = "Admin/AdminToAddOneLesson")
     public String toAddOneLesson(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -108,7 +108,7 @@ public class AdminCourseHandler {
         return "forward:/back/admin_lesson_add.jsp";
     }
 
-    @RequestMapping(value = "AdminToAddOneFreelisten")
+    @RequestMapping(value = "Admin/AdminToAddOneFreelisten")
     public String toAddOneFreelisten(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -119,7 +119,7 @@ public class AdminCourseHandler {
         return "forward:/back/admin_freelisten_add.jsp";
     }
 
-    @RequestMapping(value = "AdminLessonRichTextImgUpload")
+    @RequestMapping(value = "Admin/AdminLessonRichTextImgUpload")
     @ResponseBody
     public Result editorFileUpload(MultipartFile myFileName, HttpSession session, HttpServletRequest request) {
         String realName = "";
@@ -146,7 +146,7 @@ public class AdminCourseHandler {
         return ResultUtil.success(str);
     }
 
-    @RequestMapping(value = "AdminAddOneLesson")
+    @RequestMapping(value = "Admin/AdminAddOneLesson")
     public String addOneLesson(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
@@ -174,7 +174,7 @@ public class AdminCourseHandler {
             while (ite.hasNext()) {
                 token++;
                 MultipartFile file = multiRequest.getFile(ite.next());
-                if (file != null) {
+                if (file != null&&file.getSize()>0) {
                     File localFile;
                     String fileName = file.getOriginalFilename();
                     String fileNameExtension = "-lesson";
@@ -196,7 +196,9 @@ public class AdminCourseHandler {
         }
 
         lesson.setLname(lname);
-        lesson.setImgurl(imgurl);
+        if(imgurl != ""){
+            lesson.setImgurl(imgurl);
+        }
         lesson.setLprice(lprice);
         lesson.setLdesc(ldesc);
         lesson.setCategory(category);
@@ -205,16 +207,17 @@ public class AdminCourseHandler {
         actionService.adminAddOneLesson(lesson);
 
         lessonbranch.setBranchid(branchid);
-        lessonbranch.setLid(displayService.adminGetOneLessonByLnameAndQidAndCategory(lname, qid, category).getLid());
+        //lessonbranch.setLid(displayService.adminGetOneLessonByLnameAndQidAndCategory(lname, qid, category).getLid());
+        lessonbranch.setLid(lesson.getLid());
         actionService.adminAddOneLessonbranch(lessonbranch);
 //
 //        request.setAttribute("enterprise",enterprise);
 //        request.setAttribute("enterprise_img",enterprise_img);
 //        return "forward:/back/admin_enterprise_basic.jsp";
-        return "forward:/AdminToShowAllLesson";
+        return "forward:/Admin/AdminToShowAllLesson";
     }
 
-    @RequestMapping(value = "AdminFreelistenRichTextImgUpload")
+    @RequestMapping(value = "Admin/AdminFreelistenRichTextImgUpload")
     @ResponseBody
     public Result editorFileUploadForF(MultipartFile myFileName, HttpSession session, HttpServletRequest request) {
         String realName = "";
@@ -241,7 +244,7 @@ public class AdminCourseHandler {
         return ResultUtil.success(str);
     }
 
-    @RequestMapping(value = "AdminAddOneFreelisten")
+    @RequestMapping(value = "Admin/AdminAddOneFreelisten")
     public String addOneFreelisten(HttpServletRequest request) {
         HttpSession session = request.getSession();
         int qid = (Integer) session.getAttribute("qid");
@@ -262,7 +265,7 @@ public class AdminCourseHandler {
             while (ite.hasNext()) {
                 token++;
                 MultipartFile file = multiRequest.getFile(ite.next());
-                if (file != null) {
+                if (file != null&&file.getSize()>0) {
                     File localFile;
                     String fileName = file.getOriginalFilename();
                     String fileNameExtension = "-freelisten";
@@ -284,14 +287,17 @@ public class AdminCourseHandler {
         }
 
         freelisten.setTitle(title);
-        freelisten.setImgurl(imgurl);
+        if (imgurl != ""){
+            freelisten.setImgurl(imgurl);
+
+        }
         freelisten.setBranchid(branchid);
         freelisten.setFdesc(fdesc);
         freelisten.setStatus("进行中");
         freelisten.setQid(qid);
         actionService.adminAddOneFreelisten(freelisten);
 
-        return "forward:/AdminToShowAllFreelisten";
+        return "forward:/Admin/AdminToShowAllFreelisten";
     }
 
     @RequestMapping(value = "AdminToShowOneLesson")
@@ -306,7 +312,7 @@ public class AdminCourseHandler {
         return "forward:/back/admin_lesson_basic.jsp";
     }
 
-    @RequestMapping(value = "AdminToShowOneFreelisten")
+    @RequestMapping(value = "Admin/AdminToShowOneFreelisten")
     public String showOneFreelisten(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -318,7 +324,7 @@ public class AdminCourseHandler {
         return "forward:/back/admin_freelisten_basic.jsp";
     }
 
-    @RequestMapping(value = "AdminToSetOneLesson")
+    @RequestMapping(value = "Admin/AdminToSetOneLesson")
     public String ToSetOneLesson(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -334,7 +340,7 @@ public class AdminCourseHandler {
 
     }
 
-    @RequestMapping(value = "AdminToSetOneFreelisten")
+    @RequestMapping(value = "Admin/AdminToSetOneFreelisten")
     public String toSetOneFreelisten(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -351,7 +357,7 @@ public class AdminCourseHandler {
         return "forward:/back/admin_freelisten_modify.jsp";
     }
 
-    @RequestMapping(value = "AdminSetOneLesson")
+    @RequestMapping(value = "Admin/AdminSetOneLesson")
     public String setOneLesson(HttpServletRequest request) {
         HttpSession session = request.getSession();
         int qid = (Integer) session.getAttribute("qid");
@@ -379,7 +385,7 @@ public class AdminCourseHandler {
             while (ite.hasNext()) {
                 token++;
                 MultipartFile file = multiRequest.getFile(ite.next());
-                if (file != null) {
+                if (file != null&&file.getSize()>0) {
                     File localFile;
                     String fileName = file.getOriginalFilename();
                     String fileNameExtension = "-lesson.jpg";
@@ -403,7 +409,7 @@ public class AdminCourseHandler {
         lesson = displayService.adminGetOneLesson(lid);
         lesson.setLname(lname);
 
-        if (imgurl != lesson.getImgurl()) {
+        if (imgurl != "" ) {
             lesson.setImgurl(imgurl);
         }
         lesson.setLprice(lprice);
@@ -417,10 +423,10 @@ public class AdminCourseHandler {
         lessonbranch.setLid(lesson.getLid());
         actionService.adminSetOneLessonbranch(lessonbranch);
 
-        return "forward:/AdminToShowAllLesson";
+        return "forward:/Admin/AdminToShowAllLesson";
     }
 
-    @RequestMapping(value = "AdminSetOneFreelisten")
+    @RequestMapping(value = "Admin/AdminSetOneFreelisten")
     public String setOneFreelisten(HttpServletRequest request) {
         HttpSession session = request.getSession();
         int qid = (Integer) session.getAttribute("qid");
@@ -443,7 +449,7 @@ public class AdminCourseHandler {
             while (ite.hasNext()) {
                 token++;
                 MultipartFile file = multiRequest.getFile(ite.next());
-                if (file != null) {
+                if (file != null&&file.getSize()>0) {
                     File localFile;
                     String fileName = file.getOriginalFilename();
                     String fileNameExtension = "-freelisten";
@@ -465,7 +471,7 @@ public class AdminCourseHandler {
         }
         freelisten = displayService.adminGetOneFreelisten(id);
         freelisten.setTitle(title);
-        if (imgurl != freelisten.getImgurl()) {
+        if (imgurl != "") {
             freelisten.setImgurl(imgurl);
         }
         freelisten.setBranchid(branchid);
@@ -475,7 +481,7 @@ public class AdminCourseHandler {
         freelisten.setStatus(status);
         actionService.adminSetOneFreelisten(freelisten);
 
-        return "forward:/AdminToShowAllFreelisten";
+        return "forward:/Admin/AdminToShowAllFreelisten";
     }
 
     @RequestMapping(value = "AdminDeleteOneLesson")
@@ -484,18 +490,18 @@ public class AdminCourseHandler {
         int branchid = displayService.adminGetOneAddressByLid(lid).getId();
         actionService.adminDeleteOneLesson(lid);
         actionService.adminDeleteOneLessonbranch(displayService.adminGetOneLessonbranch(lid, branchid).getId());
-        return "forward:/AdminToShowAllLesson";
+        return "forward:/Admin/AdminToShowAllLesson";
     }
 
-    @RequestMapping(value = "AdminDeleteOneFreelisten")
+    @RequestMapping(value = "Admin/AdminDeleteOneFreelisten")
     public String deleteOneFreelisten(HttpServletRequest request) {
 
         int id = Integer.parseInt(request.getParameter("id"));
         actionService.adminDeleteOneFreelisten(id);
-        return "forward:/AdminToShowAllLesson";
+        return "forward:/Admin/AdminToShowAllLesson";
     }
 
-    @RequestMapping(value = "AdminToShowAllFreelistenbook")
+    @RequestMapping(value = "Admin/AdminToShowAllFreelistenbook")
     public String showAllFreelistenbookInPage(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -529,6 +535,7 @@ public class AdminCourseHandler {
         LessonPages p = new LessonPages(page, count);
         for (Freelistenbook one : list) {
             one.setFreelisten(displayService.adminGetOneFreelisten(one.getFid()));
+            one.setBooktime(one.getBooktime().substring(0,10));
         }
         request.setAttribute("list", list);
         request.setAttribute("p", p);
@@ -543,14 +550,14 @@ public class AdminCourseHandler {
         return "forward:/back/admin_freelistenbook_all.jsp";
     }
 
-    @RequestMapping(value = "AdminToConfirmOneFreelistenbook")
+    @RequestMapping(value = "Admin/AdminToConfirmOneFreelistenbook")
     public String confirmFreelistenbook(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
         actionService.adminConfirmFreelistenbook(id);
-        return "forward:/AdminToShowAllFreelistenbook";
+        return "forward:/Admin/AdminToShowAllFreelistenbook";
     }
 
-    @RequestMapping(value = "AdminToShowAllSorder")
+    @RequestMapping(value = "Admin/AdminToShowAllSorder")
     public String showAllSorderInPage(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -582,6 +589,9 @@ public class AdminCourseHandler {
         ArrayList<Sorder> list = displayService.adminGetAllSorderByConditionInPage(qid, lid, status, nickname, startTime, endTime, page);
         int count = displayService.adminGetAllSorderByCondition(qid, lid, status, nickname, startTime, endTime).size();
         LessonPages p = new LessonPages(page, count);
+        for (Sorder one: list) {
+            one.setOrdertime(one.getOrdertime().substring(0,10));
+        }
         request.setAttribute("list", list);
         request.setAttribute("p", p);
         if (lid == -1) {
@@ -595,7 +605,7 @@ public class AdminCourseHandler {
         return "forward:/back/admin_sorder_all.jsp";
     }
 
-    @RequestMapping(value = "AdminToShowAllSorderForRefund")
+    @RequestMapping(value = "Admin/AdminToShowAllSorderForRefund")
     public String showAllSorderForRefundInPage(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -627,6 +637,9 @@ public class AdminCourseHandler {
         ArrayList<Sorder> list = displayService.adminGetAllSorderByConditionInPage(qid, lid, status, nickname, startTime, endTime, page);
         int count = displayService.adminGetAllSorderByCondition(qid, lid, status, nickname, startTime, endTime).size();
         LessonPages p = new LessonPages(page, count);
+        for (Sorder one: list) {
+            one.setOrdertime(one.getOrdertime().substring(0,10));
+        }
         request.setAttribute("list", list);
         request.setAttribute("p", p);
         if (lid == -1) {
@@ -640,13 +653,13 @@ public class AdminCourseHandler {
         return "forward:/back/admin_sorder_all_for_refund.jsp";
     }
 
-    @RequestMapping(value = "AdminToRefundOneSorder")
+    @RequestMapping(value = "Admin/AdminToRefundOneSorder")
     public String refundOneSorder(HttpServletRequest request) {
         int oid = Integer.parseInt(request.getParameter("oid"));
         actionService.adminRefundSorder(oid);
-        return "forward:/AdminToShowAllSorderForRefund";
+        return "forward:/Admin/AdminToShowAllSorderForRefund";
     }
-    @RequestMapping(value = "AdminToShowAllSorderForCAV")
+    @RequestMapping(value = "Admin/AdminToShowAllSorderForCAV")
     public String showAllSorderForCAVInPage(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -678,6 +691,9 @@ public class AdminCourseHandler {
         ArrayList<Sorder> list = displayService.adminGetAllSorderByConditionInPage(qid, lid, status, nickname, startTime, endTime, page);
         int count = displayService.adminGetAllSorderByCondition(qid, lid, status, nickname, startTime, endTime).size();
         LessonPages p = new LessonPages(page, count);
+        for (Sorder one: list) {
+            one.setOrdertime(one.getOrdertime().substring(0,10));
+        }
         request.setAttribute("list", list);
         request.setAttribute("p", p);
         if (lid == -1) {
@@ -691,11 +707,11 @@ public class AdminCourseHandler {
         return "forward:/back/admin_sorder_all_for_CAV.jsp";
     }
 
-    @RequestMapping(value = "AdminToCAVOneSorder")
+    @RequestMapping(value = "Admin/AdminToCAVOneSorder")
     public String cAVOneSorder(HttpServletRequest request) {
         int oid = Integer.parseInt(request.getParameter("oid"));
         actionService.adminCAVSorder(oid);
-        return "forward:/AdminToShowAllSorderForCAV";
+        return "forward:/Admin/AdminToShowAllSorderForCAV";
     }
 
 }

@@ -9,22 +9,57 @@
 	<link href="css/enterprise.css" rel="stylesheet"/>
 	<link href="css/main.css" rel="stylesheet"/>
 	<link href="css/swiper.min.css" rel="stylesheet"/>
+	<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/swiper.min.js"></script>
-	<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
 	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+	<style>
+		#images p img{
+			width:90%;
+			margin-left:5%;
+			border-radius:10px;
+		}
+	</style>
     <script type="text/javascript" charset="utf-8">
       	mui.init();
+        $(function () {
+            $.ajax({
+                url:"/test/DisplayHandler_getEnterprise",
+                dataType:"json",
+                success:function(data){
+                    console.log(data);
+                    //alert(data.introduction);
+                    document.getElementById("neu_description").innerText = data.introduction;
+                    document.getElementById("images").innerHTML=data.jczs;
+                    var ve = '<video style="border-radius:10px;margin-left:5%;"width="90%" height="250;" src="video/intro.mp4" controls="controls"">\n' +
+                        '\t\t\t</video>';
+                    document.getElementById("videos").innerHTML = ve;
+                }
+
+            })
+        });
     </script>
 </head>
 <body onload="init()">
-	<div id="search">
-		<i class="fa fa-comment"></i>
-		<div class="mui-input-row mui-search" id="searchForm">
-			<input type="search" id="searchInput" class="mui-input-clear" placeholder="大数据 &nbsp &nbsp  java &nbsp &nbsp css">
-		</div>
-		<i class="fa fa-cart-arrow-down" style="left:-15px; top:-20px;"></i>
+<div id="search">
+	<i class="fa fa-comment"></i>
+	<div class="mui-input-row mui-search" id="searchForm">
+		<input type="search" id="searchInput" class="mui-input-clear" placeholder="大数据 &nbsp &nbsp  java &nbsp &nbsp css">
+		<script>
+            document.getElementById("searchInput").onclick = function(){
+                this.focus();
+                this.onkeypress=function(event){
+                    var value = document.getElementById("searchInput").value;
+                    if(event.which === 13) {
+                        location.href = encodeURI("searching.html?value="+value);
+                    }
+                };
+            }
+		</script>
 	</div>
+	<i class="fa fa-user-circle" style="left:-10px; top:-20px;" onclick="javascript:window.location.href='login.html'"></i>
+</div>
+
 	<div id="top">
 			
 		<div class="top_icon">
@@ -52,7 +87,6 @@
 	<script>
 		
 		$("#li01").click(function(){
-			//alert("1");
 			document.getElementById("introduction").style.display = 'block';
 			document.getElementById("address").style.display = 'none';
 			document.getElementById("connector").style.display = 'none';
@@ -70,77 +104,71 @@
 			document.getElementById("connector").style.display = 'block';
 		});
 	</script>
+
+
 	
 	<div style="display:none" id="introduction">
 		
 		<div  class="description">
 			<h5>NEU东软睿道:</h5>
-			<h5 style="font-size:90%;">
-				沈阳东软睿道教育服务有限公司（简称东软睿道）由东软创办，基于东软的产业发展与人才培养实践，提供更加符合IT行业发展需求的人才培养体系和方法学，精准提升大学生和大学后的就业、创业技能，为新经济时代的转型发展提供高质量规模化的人才供给。
-　　     东软睿道倡导“产业融入教育”的经营理念，将科学的学习方法与先进的信息技术相结合，打造产学研融合式人才培养模式，创新引领工程教育模式，推动中国经济转型发展。
+
+			<h5 id="neu_description" style="font-size:90%;">
+
 			</h5>
 		</div>
-		<div class="images">
-			<h5>园区环境</h5>
-			<h5 style="font-size:90%;">东软沈阳园区</h5>
-			<div class="swiper-container"> 
-				<div class="swiper-wrapper">  
-					<div class="swiper-slide"><img src="img/enterprise02.jpg"></div>  
-					<div class="swiper-slide"><img src="img/enterprise06.jpg"></div>  
-					<div class="swiper-slide"><img src="img/enterprise07.jpg"></div> 
-					<div class="swiper-slide"><img src="img/enterprise08.jpg"></div> 
-				</div>    
-				<div class="swiper-button-prev"></div>
-				<div class="swiper-button-next"></div>
-				<div class="swiper-pagination"></div>
-			</div>
-			
-			<h5 style="font-size:90%;">沈阳实训中心</h5>
-			<div class="swiper-container"> 
-				<div class="swiper-wrapper">  
-					<div class="swiper-slide"><img src="img/enterprise01.jpg"></div>  
-					<div class="swiper-slide"><img src="img/enterprise03.jpg"></div>  
-					<div class="swiper-slide"><img src="img/enterprise04.jpg"></div>
-					<div class="swiper-slide"><img src="img/enterprise05.jpg"></div> 
-				</div>    
-				<div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-				<div class="swiper-pagination"></div>
-			</div> 
+		<h5>睿道视频</h5>
+		<div id="videos">
+
+		</div>
+		<h5>睿道风景</h5>
+		<div id="images" class="images">
 		</div>
 		
 	</div>
 	
 	<script>        
 		      
-		</script>		
+	</script>
 	
 	
 	<div id="address">
-		<!--<div style="height:20px"></div>-->
-		<!--<div>
-        <input id="keyword" type="textbox" value="酒店">
-        <input type="button" value="搜索" onclick="searchKeyword()">
-    </div>-->
-    <div style="width:100%;height:300px;" id="container"></div>
-    <!--<div style='width: 500px; height: 180px' id="infoDiv"></div>-->
-		<ul>
-			<li><h5>&nbsp;分校1:东软实训中心<i class="fa fa-compass"></i></h5></li>
+		<!--地图-->
+        <div style="width:100%;height:300px;" id="container"></div>
 
-			<li><h5>&nbsp;分校2:多才艺术中心<i class="fa fa-compass"></i></h5></li>
 
-			<li><h5>&nbsp;分校3:恒大名都<i class="fa fa-compass"></i></h5></li>
+		<ul id="address_ul"></ul>
 
-			<li><h5>&nbsp;分校4:东北大学233寝室<i class="fa fa-compass"></i></h5></li>
-			<br>
-			<br>
-		</ul>
+
+
+
+		<br>
+		<br>
+
 	</div>
+
+
 	
-	
-	<div id="connector">
+	<div id="connector" style="font-size: 90%">
+
+		<script>
+            $(function () {
+                $.ajax({
+                    url:"/test/DisplayHandler_getAllAddress",
+                    dataType:"json",
+                    success:function(data){
+                        for(var i=0;i<data.length;i++){
+                            var h5 = document.createElement("h5");
+                            h5.innerHTML  = "分部联系方式:"+data[i].tel;
+                            $("#connector").append(h5);
+                        }
+
+                    }
+                })
+            })
+		</script>
+
 		<h5>沈阳实训中心</h5>
-		<h5>联系电话：024-8366 2222</h5>
+		<h5>总部联系电话：024-8366 2222</h5>
     <h5>基地地址：辽宁省沈阳市浑南新区新秀街2号东软软件园A9座
     公交路线：乘坐154路至“唯美品格”站或150路至“东海电子”站</h5>
 		<h5>邮箱:ren.ty@foxmail.com</h5>
@@ -171,94 +199,93 @@
 		
 	</div>
 
+	<div style="display: none">
+		<input id="latLn" type="textbox" value="39.89477,116.35432">
+		<input type="button" value="search" onclick="geolocation_latlng()">
+		<span style="height:30px;display:none" id="city"></span>
+	</div>
+
 <script>
-	var mySwiper = new Swiper ('.swiper-container', {
-		observer:true, // 修改swiper自己或子元素时，自动初始化swiper
-    observeParents:true, // 修改swiper的父元素时，自动初始化swiper
-		direction: 'horizontal',
-		loop: true,
-		autoplay:{
-			stopOnLastSlide:false,
-		},
-		slidesPerView: "auto",
-		centeredSlides:true,
-		spaceBetween: 10,
-		navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-		pagination: {
-			el: '.swiper-pagination',
-			clickable:true,
-		}
-	}); 
-        var searchService, markers = [];
-        var init = function() {
-            var center = new qq.maps.LatLng(39.916527, 116.397128);
-            var map = new qq.maps.Map(document.getElementById('container'), {
-                center: center,
-                zoom: 13
-            });
+        var longitude =116.397128;
+        var latitiude =39.916527;
+		var citylocation,map,marker = null;
+		var init = function() {
+			var center = new qq.maps.LatLng(latitiude,longitude);
+			var city = document.getElementById("city");
+			map = new qq.maps.Map(document.getElementById('container'),{
+				center: center,
+				zoom: 13
+			});
+			//调用城市服务信息
+			citylocation = new qq.maps.CityService({
+				complete : function(results){
+					map.setCenter(results.detail.latLng);
+					city.style.display = 'inline';
+					city.innerHTML = '所在位置: ' + results.detail.name;
 
-            var latlngBounds = new qq.maps.LatLngBounds();
-            //设置Poi检索服务，用于本地检索、周边检索
-            searchService = new qq.maps.SearchService({
-                //设置搜索范围为北京
-                location: "北京",
-                //设置搜索页码为1
-                pageIndex: 1,
-                //设置每页的结果数为5
-                pageCapacity: 5,
-                //设置展现查询结构到infoDIV上
-                panel: document.getElementById('infoDiv'),
-                //设置动扩大检索区域。默认值true，会自动检索指定城市以外区域。
-                autoExtend: true,
-                //检索成功的回调函数
-                complete: function(results) {
-                    //设置回调函数参数
-                    var pois = results.detail.pois;
-                    for (var i = 0, l = pois.length; i < l; i++) {
-                        var poi = pois[i];
-                        //扩展边界范围，用来包含搜索到的Poi点
-                        latlngBounds.extend(poi.latLng);
-                        var marker = new qq.maps.Marker({
-                            map: map,
-                            position: poi.latLng
-                        });
+					if (marker != null) {
+						marker.setMap(null);
+					}
+					//设置marker标记
+					marker = new qq.maps.Marker({
+						map: map,
+						position: results.detail.latLng
+					});
+				}
+			});
+		};
 
-                        marker.setTitle(i + 1);
-
-                        markers.push(marker);
-
-                    }
-                    //调整地图视野
-                    map.fitBounds(latlngBounds);
-                },
-                //若服务请求失败，则运行以下函数
-                error: function() {
-                    alert("出错了。");
-                }
-            });
-
-        };
-
-         //清除地图上的marker
-            function clearOverlays(overlays) {
-                var overlay;
-                while (overlay = overlays.pop()) {
-                    overlay.setMap(null);
-                }
-            }
-            //设置搜索的范围和关键字等属性
-            function searchKeyword() {
-                var keyword = document.getElementById("keyword").value;
-                clearOverlays(markers);
-                //根据输入的城市设置搜索范围
-                // searchService.setLocation("北京");
-                //根据输入的关键字在搜索范围内检索
-                searchService.search(keyword);
-            }
+        function geolocation_latlng() {
+            //获取经纬度信息
+            var input = document.getElementById("latLn").value;
+            //用,分割字符串截取两位长度
+            var latlngStr = input.split(",",2);
+            //解析成浮点数 取值第一位 第二位
+            var lat = parseFloat(latlngStr[0]);
+            var lng = parseFloat(latlngStr[1]);
+            //设置经纬度信息
+            var latLng = new qq.maps.LatLng(lat, lng);
+            //调用城市经纬度查询接口实现经纬查询
+            citylocation.searchCityByLatLng(latLng);
+        }
     </script>
+
+	<script>
+        $(function () {
+            $.ajax({
+                url:"/test/DisplayHandler_getAllAddress",
+                dataType:"json",
+                success:function(data){
+                    for(var i=0;i<data.length;i++){
+                        var li = document.createElement("li");
+                        var hx01 = document.createElement("h5");
+                        var i01 = document.createElement("i");
+                        hx01.innerText = "分校"+(i+1)+":"+data[i].address;
+                        li.appendChild(hx01);
+                        i01.className = "fa fa-compass";
+                        li.appendChild(i01);
+                        $("#address_ul").append(li);
+                        i01.onclick = function () {
+                            var address = this.previousElementSibling.innerHTML.substr(4);
+                            $.ajax({
+                                url:"/test/DisplayHandler_getAddressByCondition",
+                                type:"post",
+                                data:{address:address},
+                                dataType:"json",
+                                success:function(data){
+                                    longitude = data.longitude;
+                                    latitiude = data.latitude;
+                                    document.getElementById("latLn").value = latitiude+","+longitude;
+                                    geolocation_latlng();
+                                }
+                            })
+                        }
+                    }
+
+                }
+            })
+        });
+	</script>
 		
 </body>
 </html>

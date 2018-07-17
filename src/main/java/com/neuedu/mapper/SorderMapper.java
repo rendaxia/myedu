@@ -21,14 +21,13 @@ public interface SorderMapper {
     //将课程添加至购物车（待付款）
     public boolean addToCart(Sorder s)throws Exception;
 
-    public boolean paySorder(int lid, String openid,double actual)throws Exception;//付款
+    public boolean paySorder(@Param("oid")int oid, @Param("openid")String openid)throws Exception;//付款
 
-    public boolean refundSorder(int lid, String openid) throws Exception;//申请退款
+    public boolean refundSorder(int oid) throws Exception;//申请退款
+
+    public boolean refundCart(int oid) throws Exception;//移出购物车
 
     public ArrayList<Sorder> getAllSorderByCondition(@Param("openid")String openid, @Param("status") String status);
-
-    public ArrayList<Freelistenbook> getAllFreelistenbookByCondition(String openid);
-
     //////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////
 

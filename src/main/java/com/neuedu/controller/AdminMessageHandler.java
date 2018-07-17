@@ -39,7 +39,7 @@ public class AdminMessageHandler {
     @Autowired
     private ActionService actionService;
 
-    @RequestMapping(value = "AdminToShowAllMessage")
+    @RequestMapping(value = "Admin/AdminToShowAllMessage")
     public String showAllLessonInPageOn(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -60,6 +60,10 @@ public class AdminMessageHandler {
             one.setMessagelikesamount(one.getMessagelikes().size());
             one.setMessagereplies(displayService.adminGetSomeMessagereplyOfOneMessage(one.getMid()));
             one.setMessageimgs(displayService.adminGetSomeMessageimgOfOneMessage(one.getMid()));
+            one.setMtime(one.getMtime().substring(0,10));
+            for (Messagereply  m:one.getMessagereplies()) {
+                m.setStime(m.getStime().substring(0,10));
+            }
         }
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         System.out.println("!!!!!!!!!!!!!!size" + list.size());
@@ -73,7 +77,7 @@ public class AdminMessageHandler {
         return "forward:/back/admin_message_all.jsp";
     }
 
-    @RequestMapping(value = "AdminAddOneMessage")
+    @RequestMapping(value = "Admin/AdminAddOneMessage")
     public String addOneMessage(@RequestParam("files") MultipartFile[] files, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -118,10 +122,10 @@ public class AdminMessageHandler {
 
         }
 
-        return "forward:/AdminToShowAllMessage";
+        return "forward:/Admin/AdminToShowAllMessage";
     }
 
-    @RequestMapping(value = "AdminDeleteOneMessage")
+    @RequestMapping(value = "Admin/AdminDeleteOneMessage")
     public String deleteOneMessage(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -131,10 +135,10 @@ public class AdminMessageHandler {
         actionService.adminDeleteAllMessageimgOfOneMessage(mid);
         actionService.adminDeleteAllMessagelikeOfOneMessage(mid);
 
-        return "forward:/AdminToShowAllMessage";
+        return "forward:/Admin/AdminToShowAllMessage";
     }
 
-    @RequestMapping(value = "AdminDeleteOneMessagereply")
+    @RequestMapping(value = "Admin/AdminDeleteOneMessagereply")
     public String deleteOneMessagereply(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -142,10 +146,10 @@ public class AdminMessageHandler {
         int page= Integer.parseInt(request.getParameter("page"));
         actionService.adminDeleteOneMessagereplyOfOneMessage(id);
 
-        return "forward:/AdminToShowAllMessage?page="+page;
+        return "forward:/Admin/AdminToShowAllMessage?page="+page;
     }
 
-    @RequestMapping(value = "AdminToSetMessageImg")
+    @RequestMapping(value = "Admin/AdminToSetMessageImg")
     public String toSetMessageImg(HttpServletRequest request){
         HttpSession session = request.getSession();
         int qid = (Integer) session.getAttribute("qid");
@@ -155,7 +159,7 @@ public class AdminMessageHandler {
         return "forward:/back/admin_message_img.jsp";
     }
 
-    @RequestMapping(value = "AdminSetMessageImg")
+    @RequestMapping(value = "Admin/AdminSetMessageImg")
     public String setMessageImg(HttpServletRequest request){
         HttpSession session = request.getSession();
         int qid = (Integer) session.getAttribute("qid");
@@ -168,7 +172,7 @@ public class AdminMessageHandler {
 
             while (ite.hasNext()){
                 MultipartFile file = multiRequest.getFile(ite.next());
-                if(file!=null){
+                if(file!=null&&file.getSize()>0){
                     File localFile;
                     String fileName = file.getOriginalFilename();
                     String fileNameExtension = "-MessageIndexImg.jpg";
@@ -190,10 +194,10 @@ public class AdminMessageHandler {
         }
 
         System.out.println(newMessageImg);
-        if (newMessageImg == null || newMessageImg ==""){
+        if (newMessageImg == ""){
             newMessageImg = displayService.adminGetTeacherImg(qid);
         }
         actionService.adminSetMessageImg(newMessageImg,qid);
-        return "forward:/AdminToSetMessageImg";
+        return "forward:/Admin/AdminToSetMessageImg";
     }
 }

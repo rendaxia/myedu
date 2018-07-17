@@ -1,11 +1,16 @@
 package com.neuedu.mapper;
 
 import com.neuedu.po.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
 
 public interface MessageMapper {
     public ArrayList<Message> getAllMessage();
+
+    public ArrayList<Message> getMessageByCondition(String nickname);
+
+    public ArrayList<Messagereply> getMessagereplyByCondition(@Param("nickname") String nickname, @Param("mid") int mid);
 
     public ArrayList<Messageimg> getAllMessageimg();
 
@@ -28,6 +33,11 @@ public interface MessageMapper {
     public ArrayList<Integer> getAllMessagelikeByMessage();
 
     public ArrayList<Integer> getAllMessagereplyByMessage();
+
+    public ArrayList<Message> getMessageByLike(String nickname) throws Exception;
+
+    public ArrayList<Messagelike> getMessagelikeByCondition(@Param("nickname") String nickname, @Param("mid") int mid) throws Exception;
+
 
     ////////////////////////////////////////////////
     ////////////////////////////////////////////////

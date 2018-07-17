@@ -3,6 +3,27 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.mapper.FreelistenbookMapper">
+    <resultMap type="com.neuedu.po.Freelistenbook" id="freelistenbook_freelisten_map">
+        <id property="id" column="id"/>
+        <result property="fid" column="fid"/>
+        <result property="username" column="username"/>
+        <result property="tel" column="tel"/>
+        <result property="booktime" column="booktime"/>
+        <result property="status" column="status"/>
+        <result property="comment" column="comment"/>
+        <result property="openid" column="openid"/>
+        <association property="freelisten" javaType="com.neuedu.po.Freelisten">
+            <id property="id" column="id"/>
+            <result property="title" column="title"/>
+            <result property="imgurl" column="imgurl"/>
+            <result property="fdesc" column="fdesc"/>
+            <result property="status" column="status"/>
+            <result property="qid" column="qid"/>
+            <result property="branchid" column="branchid"/>
+            <result property="pubtime" column="pubtime"/>
+        </association>
+    </resultMap>
+
     <select id="getFreelistenbook" parameterType="java.lang.String" resultType="com.neuedu.po.Freelistenbook">
         select * from freelistenbook where openid = #{openid}
     </select>
@@ -11,9 +32,15 @@
         insert into freelistenbook values (NULL,#{fid},#{username},#{tel},NOW(),'待处理',#{comment},#{openid})
     </insert>
 
-    <delete id="cancelFreelistenbook" parameterType="java.lang.String">
-        delete from freelistenbook where openid = #{openid}
+    <delete id="freelistenCancel" parameterType="java.lang.Integer">
+        delete from freelistenbook where id = #{id}
     </delete>
+
+
+    <select id="getAllFreelistenbookByCondition" parameterType="java.lang.String" resultMap="freelistenbook_freelisten_map">
+        select freelistenbook.*,freelisten.* from freelistenbook,freelisten where freelistenbook.openid = #{openid}
+        and freelistenbook.fid = freelisten.id
+    </select>
     <!--///////////////////////////////////////////////////////////// -->
     <!--//////////////////////////////////////////////////////////// -->
 

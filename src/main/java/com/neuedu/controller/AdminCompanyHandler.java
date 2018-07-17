@@ -10,6 +10,7 @@ import com.neuedu.tools.TeacherPages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -33,7 +34,7 @@ public class AdminCompanyHandler {
 
     //////////////////////////////////////////////////
     ///////////////////////////////////////////////////
-    @RequestMapping(value="AdminGoToEnterpriseBasic")
+    @RequestMapping(value="Admin/AdminGoToEnterpriseBasic")
     public String getEnterpriseBasic(HttpServletRequest request){
         HttpSession session = request.getSession();
         String username = (String)session.getAttribute("username");
@@ -55,7 +56,7 @@ public class AdminCompanyHandler {
         return "forward:/back/admin_enterprise_basic.jsp";
     }
 
-    @RequestMapping(value="AdminToSetEnterpriseBasic")
+    @RequestMapping(value="Admin/AdminToSetEnterpriseBasic")
     public String toSetEnterpriseBasic(HttpServletRequest request){
         HttpSession session = request.getSession();
         String username = (String)session.getAttribute("username");
@@ -77,8 +78,8 @@ public class AdminCompanyHandler {
         return "forward:/back/admin_enterprise_modify.jsp";
     }
 
-    @RequestMapping(value="AdminSetEnterpriseBasic")
-    public String setEnterpriseBasic(HttpServletRequest request){
+    @RequestMapping(value="Admin/AdminSetEnterpriseBasic")
+    public String setEnterpriseBasic(HttpServletRequest request,@RequestParam("img") MultipartFile img,@RequestParam("video") MultipartFile video){
         HttpSession session = request.getSession();
         String username = (String)session.getAttribute("username");
         int qid = (Integer) session.getAttribute("qid");
@@ -103,22 +104,24 @@ public class AdminCompanyHandler {
             while(ite.hasNext()){
                 token ++;
                 MultipartFile file = multiRequest.getFile(ite.next());
-                if(file!=null){
+                if(file!=null&&file.getSize()>0){
                     File localFile;
                     String fileName = file.getOriginalFilename();
-                    String fileNameExtension = "enterprise.jpg";
+                    String fileNameExtension = "enterprise";
                     // 生成实际存储的真实文件名
 
                     String realName = UUID.randomUUID().toString() + fileNameExtension;
 
-                    if (token == 1){
+                    if (file.getContentType().equals("image/jpeg")){
                         localFile = new File(session.getServletContext().getRealPath("/img/")+realName);
                         imgurl = realName;
+                        System.out.println("$$$$$$$$$$$$$$$$$$ "+file.getContentType());
                     }
                     else {
                        // realName = realName+".mp4";
                         localFile = new File(session.getServletContext().getRealPath("/video/")+realName);
                         videopath = realName;
+                        System.out.println("$$$$$$$$$$$$$$$$$$ "+file.getContentType());
                     }
                     try {
                         file.transferTo(localFile); //将上传文件写到服务器上指定的文件
@@ -131,10 +134,11 @@ public class AdminCompanyHandler {
             }
         }
 
+
         if (videopath == "" || videopath == null ){
             videopath = old_enterprise.getVideopath();
         }
-        if (imgurl != null && imgurl != "" && imgurl != displayService.adminGetEnterpriseImgurl(qid,"A")) {
+        if (imgurl != null && imgurl != "" ) {
             actionService.adminSetEnterpriseImgurl(imgurl,qid);
             System.out.println("!!!!!!!!!imgurl"+imgurl);
         }
@@ -152,10 +156,10 @@ public class AdminCompanyHandler {
 //        request.setAttribute("enterprise",enterprise);
 //        request.setAttribute("enterprise_img",enterprise_img);
 //        return "forward:/back/admin_enterprise_basic.jsp";
-        return "forward:/AdminGoToEnterpriseBasic";
+        return "forward:/Admin/AdminGoToEnterpriseBasic";
     }
 
-    @RequestMapping(value="AdminEnterpriseRichTextImgUpload")
+    @RequestMapping(value="Admin/AdminEnterpriseRichTextImgUpload")
     @ResponseBody
     public Result editorFileUpload(MultipartFile myFileName, HttpSession session, HttpServletRequest request){
 
@@ -195,7 +199,7 @@ public class AdminCompanyHandler {
         return ResultUtil.success(str);
     }
 
-    @RequestMapping(value="AdminToShowAllAddress")
+    @RequestMapping(value="Admin/AdminToShowAllAddress")
     public String showAllAddressInPage(HttpServletRequest request) {
         //String isIndex = request.getParameter("isIndex");
         //int index = (request.getParameter("index") != null) ? Integer.parseInt(request.getParameter("index")) : 0;
@@ -219,7 +223,7 @@ public class AdminCompanyHandler {
         return "forward:/back/admin_address_all.jsp";
     }
 
-    @RequestMapping(value="AdminToShowOneAddress")
+    @RequestMapping(value="Admin/AdminToShowOneAddress")
     public String showOneAddress(HttpServletRequest request) {
         //String isIndex = request.getParameter("isIndex");
         //int index = (request.getParameter("index") != null) ? Integer.parseInt(request.getParameter("index")) : 0;
@@ -235,7 +239,7 @@ public class AdminCompanyHandler {
         return "forward:/back/admin_address_basic.jsp";
     }
 
-    @RequestMapping(value="AdminAddOneAddress")
+    @RequestMapping(value="Admin/AdminAddOneAddress")
     public String addOneAddress(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -264,10 +268,10 @@ public class AdminCompanyHandler {
         address.setLongitude(longitude);
 
         actionService.adminAddOneAddress(address);
-        return "forward:/AdminToShowAllAddress";
+        return "forward:/Admin/AdminToShowAllAddress";
     }
 
-    @RequestMapping(value="AdminToSetOneAddress")
+    @RequestMapping(value="Admin/AdminToSetOneAddress")
     public String toSetOneAddress(HttpServletRequest request) {
 
 
@@ -283,10 +287,11 @@ public class AdminCompanyHandler {
         request.setAttribute("address",address);
         request.setAttribute("pot",pot);
 
+
         return "forward:/back/admin_address_modify.jsp";
     }
 
-    @RequestMapping(value="AdminSetOneAddress")
+    @RequestMapping(value="Admin/AdminSetOneAddress")
     public String setOneAddress(HttpServletRequest request) {
 
        // System.out.println("dadadadadadadadadadadsdadadadadda");
@@ -319,18 +324,18 @@ public class AdminCompanyHandler {
         a.setLatitude(latitude);
         actionService.adminSetOneAddress(a);
         //actionService.addOneAddress(address);
-        return "forward:/AdminToShowAllAddress";
+        return "forward:/Admin/AdminToShowAllAddress";
     }
 
-    @RequestMapping(value="AdminDeleteOneAddress")
+    @RequestMapping(value="Admin/AdminDeleteOneAddress")
     public String deleteOneAddress(HttpServletRequest request) {
 
         int id = Integer.parseInt(request.getParameter("id"));
         actionService.adminDeleteOneAddress(id);
-        return "forward:/AdminToShowAllAddress";
+        return "forward:/Admin/AdminToShowAllAddress";
     }
 
-    @RequestMapping(value="AdminToShowAllTeacher")
+    @RequestMapping(value="Admin/AdminToShowAllTeacher")
     public String showAllTeacherInPage(HttpServletRequest request) {
         //String isIndex = request.getParameter("isIndex");
         //int index = (request.getParameter("index") != null) ? Integer.parseInt(request.getParameter("index")) : 0;
@@ -354,7 +359,7 @@ public class AdminCompanyHandler {
         return "forward:/back/admin_teacher_all.jsp";
     }
 
-    @RequestMapping(value="AdminToSetOneTeacher")
+    @RequestMapping(value="Admin/AdminToSetOneTeacher")
     public String toSetOneTeacher(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String username = (String)session.getAttribute("username");
@@ -365,7 +370,7 @@ public class AdminCompanyHandler {
         return "forward:/back/admin_teacher_modify.jsp";
     }
 
-    @RequestMapping(value="AdminSetOneTeacher")
+    @RequestMapping(value="Admin/AdminSetOneTeacher")
     public String setOneTeacher(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -375,6 +380,7 @@ public class AdminCompanyHandler {
         String introduction =request.getParameter("introduction");
         int tid = Integer.parseInt(request.getParameter("tid"));
         String tphoto="";
+        int token =0 ;
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
         if(multipartResolver.isMultipart(request)){ //判断request是否有文件上传
             MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
@@ -384,18 +390,20 @@ public class AdminCompanyHandler {
             while (ite.hasNext()){
                 //token ++;
                 MultipartFile file = multiRequest.getFile(ite.next());
-                if(file!=null){
+                if(file!=null&&file.getSize()>0){
                     File localFile;
                     String fileName = file.getOriginalFilename();
-                    String fileNameExtension = "-teacher";
+                    String fileNameExtension = "-teacher.jpg";
                     // 生成实际存储的真实文件名
 
                     String realName = UUID.randomUUID().toString() + fileNameExtension;
                     localFile = new File(session.getServletContext().getRealPath("/img/")+realName);
                     tphoto = realName;
 
+
                     try {
                         file.transferTo(localFile); //将上传文件写到服务器上指定的文件
+                        token ++;
                     } catch (IllegalStateException e) {
                         //e.printStackTrace();
                     } catch (IOException e) {
@@ -405,19 +413,22 @@ public class AdminCompanyHandler {
             }
         }
 
-        Teacher teacher = new Teacher();
+        Teacher teacher = displayService.adminSelectOneTeacher(tid);
         teacher.setQid(qid);
         teacher.setTid(tid);
         teacher.setIntroduction(introduction);
         teacher.setTname(tname);
-        teacher.setTphoto(tphoto);
+        if(tphoto != ""){
+            teacher.setTphoto(tphoto);
+        }
+        System.out.println("###############  "+ teacher.getTphoto());
         actionService.adminSetOneTeacher(teacher);
 
-        return "forward:/AdminToShowAllTeacher";
+        return "forward:/Admin/AdminToShowAllTeacher";
     }
 
 
-    @RequestMapping(value="AdminAddOneTeacher")
+    @RequestMapping(value="Admin/AdminAddOneTeacher")
     public String addOneTeacher(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -438,7 +449,7 @@ public class AdminCompanyHandler {
             while (ite.hasNext()){
                 //token ++;
                 MultipartFile file = multiRequest.getFile(ite.next());
-                if(file!=null){
+                if(file!=null&&file.getSize()>0){
                     File localFile;
                     String fileName = file.getOriginalFilename();
                     String fileNameExtension = "-teacher";
@@ -463,14 +474,17 @@ public class AdminCompanyHandler {
         teacher.setQid(qid);
         //teacher.setTid(tid);
         teacher.setIntroduction(introduction);
+        if(tphoto != ""){
+            teacher.setTphoto(tphoto);
+        }
         teacher.setTname(tname);
         teacher.setTphoto(tphoto);
         actionService.adminAddOneTeacher(teacher);
 
 
-        return "forward:/AdminToShowAllTeacher";
+        return "forward:/Admin/AdminToShowAllTeacher";
     }
-    @RequestMapping(value = "AdminToSetTeacherImg")
+    @RequestMapping(value = "Admin/AdminToSetTeacherImg")
     public String toSetTeacherImg(HttpServletRequest request){
         HttpSession session = request.getSession();
         String username = (String)session.getAttribute("username");
@@ -483,7 +497,7 @@ public class AdminCompanyHandler {
         return "forward:/back/admin_teacher_img.jsp";
     }
 
-    @RequestMapping(value = "AdminSetTeacherImg")
+    @RequestMapping(value = "Admin/AdminSetTeacherImg")
     public String setTeacherImg(HttpServletRequest request){
         HttpSession session = request.getSession();
         String username = (String)session.getAttribute("username");
@@ -500,7 +514,7 @@ public class AdminCompanyHandler {
             while (ite.hasNext()){
                 //token ++;
                 MultipartFile file = multiRequest.getFile(ite.next());
-                if(file!=null){
+                if(file!=null&&file.getSize()>0){
                     File localFile;
                     String fileName = file.getOriginalFilename();
                     String fileNameExtension = "-teacherImg";
@@ -518,23 +532,27 @@ public class AdminCompanyHandler {
                         //e.printStackTrace();
                     }
                 }
+                else {
+                    System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+                }
             }
         }
 
         System.out.println(newTeacherImg);
-        if (newTeacherImg == null || newTeacherImg ==""){
+        if (newTeacherImg == ""){
             newTeacherImg = displayService.adminGetTeacherImg(qid);
         }
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& "+newTeacherImg);
         actionService.adminSetTeacherImg(newTeacherImg,qid);
-        return "forward:/AdminToSetTeacherImg";
+        return "forward:/Admin/AdminToSetTeacherImg";
     }
 
-    @RequestMapping(value="AdminDeleteOneTeacher")
+    @RequestMapping(value="Admin/AdminDeleteOneTeacher")
     public String deleteOneTeacher(HttpServletRequest request) {
 
         int tid = Integer.parseInt(request.getParameter("tid"));
         actionService.adminDeleteOneTeacher(tid);
-        return "forward:/AdminToShowAllTeacher";
+        return "forward:/Admin/AdminToShowAllTeacher";
     }
 
 }

@@ -13,14 +13,18 @@
 	<script type="text/javascript" src="js/swiper.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <script type="text/javascript" charset="utf-8">
-        $(function () {
+
+        var getBook = function () {
+            $("#lesson_model_2").empty();
             $.ajax({
-                url:"/DisplayHandler_getAllFreelistenBookByCondition",
+                url:"/test/DisplayHandler_getAllFreelistenBookByCondition",
                 dataType:"json",
                 success:function(data){
                     console.log(data);
                     for(var i=0;i<data.length;i++){
+                        var i01 = document.createElement("i");
                         var br = document.createElement("br");
+                        var br02 = document.createElement("br");
                         var hr = document.createElement("hr");
                         var div01 = document.createElement("div");
                         var div02 = document.createElement("div");
@@ -29,45 +33,74 @@
                         var hx02 = document.createElement("h5");
                         var hx03 = document.createElement("h5");
                         var hx04 = document.createElement("h5");
-                        $(".lesson_model_2").append(div01,hr);
-                        div01.append(img01,div02);
-                        div02.append(hx01,br,hx04,hx02);
-                        hx02.innerText=data[i].status;
-                        img01.src="img/"+data[i].tphoto;
+                        $("#lesson_model_2").append(div01,hr);
+                        div01.appendChild(img01);
+                        div01.appendChild(div02);
+                        div02.appendChild(hx01);
+                        div02.appendChild(br);
+                        div02.appendChild(hx04);
+                        div02.appendChild(br02);
+                        div02.appendChild(hx02);
+                        div02.appendChild(i01);
+                        hx02.innerText="预约编号:"+data[i].id;
+                        img01.src="img/"+data[i].freelisten.imgurl;
                         hx01.innerText="课程名:"+data[i].freelisten.title;
-                        hx04.innerText="添加时间:"+data[i].booktime;
-                        div01.onclick = function(){
-                            location.href='booking.html';
-                        };
+                        hx04.innerText="添加时间:"+data[i].booktime.substr(0,4)+"年"+data[i].booktime.substr(6,1)+"月"+data[i].booktime.substr(9,1)+"日";
+                        i01.className = "fa fa-heart";
+                        i01.style.marginLeft ="65%";
+                        i01.style.color = "red";
+                        i01.onclick = function(){
+                            var id = this.previousElementSibling.innerHTML.substr(5);
+                            if(this.style.color == "red"){
+                                $.ajax({
+									url:"/test/ActionHandler_freelistenCancel",
+                                    type:"post",
+                                    data:{id:id},
+									dataType:"json",
+									success:function() {
+                                        if (data.result == "success") {
+                                            mui.toast('删除失败',{ duration:'long', type:'div' });
+                                        }
+                                        else {
+                                            mui.toast('删除成功',{ duration:'long', type:'div' });
+                                            getBook();
+                                        }
+                                    }
+								})
+							}
+						}
                     }
                 }
 
             })
-        });
+        };
+
+        getBook();
+
       	mui.init();
     </script>
-		
+
 </head>
 <body>
-	<div id="close">
+	<div id="close" onclick="javascript:window.location.href='user.html'">
 		<i class="fa fa-reply"></i>
 		<div class="top_icon" style="width:50%;">
 			<h4><a href="#" style="font-weight:400; margin-left:55%;position:relative;top:-8px;">我的预约</a></h4>
 		</div>
-		<i class="fa fa-share-alt" style="float:right; margin-right:10px;"></i>
+		<i class="fa fa-share-alt" style="float:right; margin-right:10px;" onclick="javascript:window.location.href='login.html'"></i>
 	</div>
-	
-  
+
+
 	<div id="freeLession">
-		<div class="lesson_model_2">
+		<div class="lesson_model_2" id="lesson_model_2">
 
 		</div>
 	</div>
 
 	<div id="auto_place">
-		
+
 	</div>
-	
+
 	<div id="bottom">
 		<div class="bottom_icon">
 			<i class="fa fa-home"></i>
@@ -88,26 +121,8 @@
 			<i class="fa fa-child"></i>
 			<h6><a href="user.html">我的</a></h6>
 		</div>
-		
+
 	</div>
-	
-	
-	<script>        
-		var mySwiper = new Swiper ('.swiper-container', {
-			direction: 'horizontal',
-			loop: true,
-			autoplay:{
-				stopOnLastSlide:false,
-			},
-            slidesPerView: "auto",
-            centeredSlides:true,
-            spaceBetween: 10,
-			pagination: {
-              el: '.swiper-pagination',
-			  clickable:true,
-            }
-		})        
-    </script>			
 
 </body>
 </html>

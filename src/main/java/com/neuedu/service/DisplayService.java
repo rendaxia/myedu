@@ -13,9 +13,11 @@ public interface DisplayService {
 
     public ArrayList<Address> getAllAddress();
 
+    public Address getAddressByCondition(String address);
+
     public ArrayList<Message> getAllMessage();
 
-    public ArrayList<Enterprise> getEnterprise();
+    public Enterprise getEnterprise();
 
     public ArrayList<Sorder> getAllSorderByCondition(String openid, String status);
 
@@ -28,6 +30,7 @@ public interface DisplayService {
     public ArrayList<Integer> getAllMessagelikeByMessage();
 
     public ArrayList<Integer> getAllMessagereplyByMessage();
+
 
 
     ///////////////////////////////////////////////////////////////

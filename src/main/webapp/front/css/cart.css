@@ -1,3 +1,11 @@
+*{
+	-webkit-touch-callout:none;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+}
+
 #products{
 	background-color: rgba(244,245,247,0.8);
 }

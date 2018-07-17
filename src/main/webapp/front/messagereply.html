@@ -18,13 +18,12 @@
         $(function () {
 
             $.ajax({
-                url:"/DisplayHandler_getAllMessagelikeByCondition",
+                url:"/test/DisplayHandler_getAllMessagereplyByCondition",
                 dataType:"json",
                 success:function(data){
                     console.log(data);
 
                     for(var i=0;i<data.length;i++){
-
                         var hr02 = document.createElement("hr");
                         var hr01 = document.createElement("hr");
                         var div01 = document.createElement("div");
@@ -33,19 +32,34 @@
                         var hx01 = document.createElement("h4");
                         var hx02 = document.createElement("h4");
                         var hx03 = document.createElement("h6");
-                        var img01= document.createElement("img");
-                        $("#friends_like").append(div01,hr01,div02,hr02);
-                        div01.append(hx01);
+
+                        div01.appendChild(hx01);
                         hx01.style.marginLeft = "5%;";
                         hx01.style.marginTop = "10px";
                         div01.className="date";
-                        div02.append(div03,hx02,hx03);
+                        div02.appendChild(div03);
+                        div02.appendChild(hx02);
+                        div02.appendChild(hx03);
                         div02.className="mylike";
-                        div03.append(img01);
-                        img01.src = "img/"+data[i].messageimgs[0].imgurl;
-                        hx03.innerText="你评论了说说"+data[i].mtitle;
-                        hx02.innerText=data[i].mtitle;
-                        hx01.innerText=data[i].mtime;
+                        hx02.innerText="你评论了说说:"+data[i].mtitle;
+                        hx01.innerText=data[i].mtime.substr(0,4)+"年"+data[i].mtime.substr(6,1)+"月"+data[i].mtime.substr(9,1)+"日"+" "+data[i].mtime.substr(11,8);
+                        hx03.innerText="我的评论:";
+                        for(var j=0;j<data[i].messagereplies.length;j++){
+                            var hx04 = document.createElement("h6");
+                            var hx05 = document.createElement("h6");
+                            hx04.innerText = (j+1)+"."+ data[i].messagereplies[j].content;
+                            hx05.innerText = "--"+data[i].messagereplies[j].stime.substr(0,4)+"年"+data[i].messagereplies[j].stime.substr(6,1)+"月"+data[i].messagereplies[j].stime.substr(9,1)+"日"+" "+data[i].messagereplies[j].stime.substr(11,8);
+                            hx04.style.marginLeft = "23%";
+                            hx04.style.position = "relative";
+                            hx04.style.top = "-14px";
+                            hx05.style.marginLeft = "28%";
+                            hx05.style.fontSize = "85%";
+                            hx05.style.position = "relative";
+                            hx05.style.top = "-14px";
+                            div02.appendChild(hx04);
+                            div02.appendChild(hx05);
+						}
+                        $("#friends_like").append(div01,hr01,div02,hr02);
                         div01.onclick = function(){
                             location.href='booking.html';
                         };
@@ -58,20 +72,31 @@
 	</script>
 </head>
 <body>
-	<div id="search">
-		<i class="fa fa-comment"></i>
-		<div class="mui-input-row mui-search" id="searchForm">
-			<input type="search" id="searchInput" class="mui-input-clear" placeholder="大数据 &nbsp &nbsp  java &nbsp &nbsp css">
-		</div>
-		<i class="fa fa-cart-arrow-down" style="left:-15px; top:-20px;"></i>
+<div id="search">
+	<i class="fa fa-comment"></i>
+	<div class="mui-input-row mui-search" id="searchForm">
+		<input type="search" id="searchInput" class="mui-input-clear" placeholder="大数据 &nbsp &nbsp  java &nbsp &nbsp css">
+		<script>
+            document.getElementById("searchInput").onclick = function(){
+                this.focus();
+                this.onkeypress=function(event){
+                    var value = document.getElementById("searchInput").value;
+                    if(event.which === 13) {
+                        location.href = encodeURI("searching.html?value="+value);
+                    }
+                };
+            }
+		</script>
 	</div>
+	<i class="fa fa-user-circle" style="left:-10px; top:-20px;" onclick="javascript:window.location.href='login.html'"></i>
+</div>
 
 	<div id="friends">
 		<img src="img/friend.jpg" alt="">
 		<div id="my_img"></div>
 		<br>
 		<br>
-		<!--<div style="width:100%;height:50px;background-color: rgba(244,245,247,0.8);"></div>-->
+		<br>
 		<div id="friends_like"></div>
     </div>
 

@@ -14,37 +14,18 @@
 	<script type="text/javascript" src="js/swiper.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <script type="text/javascript" charset="utf-8">
+		mui.init();
 		var length=0;
 		var sum = 0.00;
-		$(function () {
-			$("body").mouseover(function(){
-
-			    for(var i=0;i<length;i++){
-                    if(document.getElementById("i0"+i).style.color == "red"){
-                        var money =  document.getElementById("i0"+i).parentNode.childNodes[2].innerText.substr(3);
-                        sum+=parseFloat(money);
-                        document.getElementById("i0"+i).style.color = "orange";
-                    }
-                    if(document.getElementById("i0"+i).style.color == "gray"){
-                        var money =  document.getElementById("i0"+i).parentNode.childNodes[2].innerText.substr(3);
-                        sum-=parseFloat(money);
-                        document.getElementById("i0"+i).style.color = "lightgray";
-                    }
-				}
-                document.getElementById("money").innerText="合计:"+sum;
-
-			});
-        });
-        $(function () {
+        var getCart = function () {
+            $("#lesson_model_2").empty();
             $.ajax({
-                url:"/DisplayHandler_getAllSorderByCondition",
+                url:"/test/DisplayHandler_getAllSorderByCondition",
                 type:"post",
                 data:{status:"待付款"},
                 dataType:"json",
                 success:function(data){
-
                     length = data.length;
-                    console.log(length);
                     for(var i=0;i<data.length;i++){
                         var ii = document.createElement("i");
                         var br01 = document.createElement("br");
@@ -56,19 +37,57 @@
                         var hx01 = document.createElement("h5");
                         var hx02 = document.createElement("h5");
                         var hx03 = document.createElement("h5");
-                        $(".lesson_model_2").append(div01,hr);
-                        div01.append(img01,div02);
-                        div02.append(hx01,br01,hx02,br02,hx03,ii);
+                        var hx04 = document.createElement("h5");
+                        var hx05 = document.createElement("h5");
+                        div01.appendChild(img01);
+                        div01.appendChild(div02);
+                        div02.appendChild(hx01);
+                        div02.appendChild(br01);
+                        div02.appendChild(hx02);
+                        div02.appendChild(br02);
+                        div02.appendChild(hx03);
+                        div02.appendChild(ii);
+                        div02.appendChild(hx04);
+                        $("#lesson_model_2").append(div01,hx05,hr);
+                        div01.ondblclick = function() {
+                            var oid = this.nextElementSibling.innerText;
+                            setTimeout(function() {
+                                mui.confirm('是否移出购物车','移出预定',['移出','取消'],function (e) {
+                                    if(e.index!=1){
+                                        $.ajax({
+                                            url:"/test/ActionHandler_refundCart",
+                                            dataType:"json",
+                                            type:"post",
+                                            data:{oid:oid},
+                                            success:function(data){
+                                                if(data.result=="success"){
+                                                    getCart();
+                                                }
+                                                else{
+                                                    alert("error");
+                                                }
+                                            }
+
+                                        });
+                                    }
+                                },'div');
+                            }, 100);
+                        };
+                        hx05.innerHTML = data[i].oid;
+                        hx05.style.display = "none";
                         hx03.innerText="待付款";
+                        hx04.innerHTML = data[i].oid;
+                        //hx04.style.display = "none";
                         ii.className="fa fa-check-circle";
                         ii.id="i0"+i;
                         ii.style.fontSize = "128%";
                         ii.style.color = "lightgray";
                         ii.style.float = "right";
-                        ii.style.marginRight = "10px;"
+                        ii.style.marginRight = "10px;";
                         hx02.innerText="价格:"+data[i].total;
-                        img01.src="img/"+data[i].tphoto;
+                        img01.src="img/"+data[i].lesson.imgurl;
                         hx01.innerText="课程名:"+data[i].lesson.lname;
+
                         ii.onclick = function(){
                             if(this.style.color == "orange"){
                                 this.style.color = 'gray';
@@ -83,7 +102,36 @@
                 }
 
             })
+        };
+
+        getCart();
+
+
+
+        $(function () {
+            $("html").mouseover(function(){
+
+                for(var i=0;i<length;i++){
+                    if(document.getElementById("i0"+i).style.color == "red"){
+                        var money =  document.getElementById("i0"+i).parentNode.childNodes[2].innerText.substr(3);
+                        sum+=parseFloat(money);
+                        document.getElementById("i0"+i).style.color = "orange";
+                    }
+                    if(document.getElementById("i0"+i).style.color == "gray"){
+                        var money =  document.getElementById("i0"+i).parentNode.childNodes[2].innerText.substr(3);
+                        sum-=parseFloat(money);
+                        document.getElementById("i0"+i).style.color = "lightgray";
+                    }
+                }
+                document.getElementById("money").innerText="合计:"+sum;
+
+            });
         });
+
+
+
+
+
       	mui.init();
     </script>
 </head>
@@ -92,11 +140,14 @@
 		<i class="fa fa-reply" onclick="javascript:window.location.href='main.html'"></i>
 		<i class="fa fa-share-alt" style="float:right; margin-right:10px;"></i>
 	</div>
-	
+
 
 		<div style="height:10px;width:100%;visibility: hidden;"></div>
+
 		<div id="freeLession">
-			<div class="lesson_model_2">
+			<div id="lesson_model_2" class="lesson_model_2">
+
+
 
 			</div>
 		</div>
@@ -112,7 +163,34 @@
 			<h5 style="margin-left:70px;">结算课程</h5>
 		</div>
 	</div>
-				
+
+	<script>
+        document.getElementById("shopping_bottom_btn").onclick = function () {
+            for(var i=0;i<length;i++){
+                if(document.getElementById("i0"+i).style.color == "orange"){
+                    var oid = document.getElementById("i0"+i).nextElementSibling.innerHTML;
+                    $.ajax({
+                        url:"/test/ActionHandler_paySorder",
+                        type:"post",
+                        data:{oid:oid},
+                        dataType:"json",
+                        success:function (data){
+                            if(data.result =="success"){
+                                mui.toast('付款成功',{ duration:'long', type:'div' });
+                                getCart();
+                            }
+                            else{
+                                mui.toast('付款失败',{ duration:'long', type:'div' });
+
+                            }
+                        }
+
+                    })
+                }
+            }
+        };
+	</script>
 
 </body>
 </html>
+

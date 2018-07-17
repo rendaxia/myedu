@@ -72,6 +72,6 @@ public interface ClassMapper {
 
     public int adminRefundSorder(int oid)throws  Exception;
 
-    public int adminCAVSorder(int oid)throws  Exception;
+    public int adminCAVSorder(int  oid)throws  Exception;
 
 }

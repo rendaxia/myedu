@@ -3,7 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.mapper.MessageMapper">
-
     <resultMap type="com.neuedu.po.Message" id="message_messagelike_messageimg_messagereply_map">
         <id property="mid" column="mid"/>
         <result property="mtitle" column="mtitle"/>
@@ -33,6 +32,22 @@
         select * from message
     </select>
 
+    <select id="getMessageByCondition" parameterType="java.lang.String" resultType="com.neuedu.po.Message">
+        select distinct message.* from message,messagereply where message.mid = messagereply.mid and nickname=#{nickname}
+    </select>
+
+    <select id="getMessageByLike" parameterType="java.lang.String" resultType="com.neuedu.po.Message">
+        select distinct message.* from message,messagelike where message.mid = messagelike.mid and nickname=#{nickname}
+    </select>
+
+    <select id="getMessagereplyByCondition" resultType="com.neuedu.po.Messagereply">
+        select messagereply.* from messagereply,message where message.mid = messagereply.mid and nickname=#{nickname} and message.mid = ${mid}
+    </select>
+
+    <select id="getMessagelikeByCondition" resultType="com.neuedu.po.Messagelike">
+        select messagelike.* from messagelike,message where message.mid = messagelike.mid and nickname=#{nickname} and message.mid = ${mid}
+    </select>
+
     <select id="getAllMessagelike" resultType="com.neuedu.po.Messagelike">
         select * from messagelike
     </select>
@@ -50,15 +65,15 @@
     </insert>
 
     <insert id="addMessagereply" parameterType="com.neuedu.po.Messagereply">
-        insert into messagelike values (NULL,#{mid},#{content},#{nickname},NOW())
+        insert into messagereply values (NULL,#{mid},#{content},#{nickname},NOW())
     </insert>
 
     <delete id="removeMessagelike" parameterType="com.neuedu.po.Messagelike">
-        delete from messagelike where openid = #{openid} and mid = #{mid}
+        delete from messagelike where nickname = #{nickname} and mid = #{mid}
     </delete>
 
     <delete id="removeMessagereply" parameterType="com.neuedu.po.Messagereply">
-        delete from messagereply where openid = #{openid} and mid = #{mid}
+        delete from messagereply where nickname = #{nickname} and id = #{id}
     </delete>
 
     <select id="getAllMessagelikeByCondition" parameterType="java.lang.String" resultMap="message_messagelike_messageimg_messagereply_map">
@@ -78,6 +93,7 @@
         select message.*,messagelike.*,messagereply.*,messageimg.* from message,messageimg,messagelike,messagereply where message.mid = messageimg.mid and
         messageimg.mid = messagelike.mid and messagelike.mid = messagereply.mid and messagereply.nickname = #{nickname}
     </select>
+
 
     <!--///////////////////////////////////////////////////////////// -->
     <!--///////////////////////////////////////////////////////////// -->
